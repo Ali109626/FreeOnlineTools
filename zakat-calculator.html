@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zakat Calculator Online Free — Calculate 2.5% Islamic Zakat on Gold, Cash & Wealth</title>
+  <meta name="description" content="Free online Zakat calculator. Accurately calculate 2.5% Zakat on Gold, Silver, cash, investments, and business assets with Nisab threshold verification.">
+  <meta name="keywords" content="zakat calculator online free, calculate zakat, gold zakat, silver nisab, zakat on cash, islamic finance calculator">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/zakat-calculator.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-calculators.html" class="nav-link">Calculators</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc active"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-calculators.html">Calculators</a>
+      <span>/</span>
+      <span>Zakat Calculator</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — your financial data never leaves your device</div>
+      <h1 class="tool-page-title">Zakat Calculator Online Free</h1>
+      <p class="tool-page-subtitle">Accurately compute your annual 2.5% (1/40th) Zakat obligation according to Islamic guidelines.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Currency selector & Nisab threshold info -->
+      <div style="background: var(--cat-calc-light); border: 1px solid var(--cat-calc-border); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+          <h3 style="font-size: 1.0625rem; font-weight: 700; color: #92400e;">🪙 Nisab Threshold Reference</h3>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <label for="currency-select" style="font-size: 0.875rem; font-weight: 600; color: #92400e;">Currency:</label>
+            <select id="currency-select" class="form-control" style="width: auto; min-height: 36px; padding: 4px 8px; font-weight: 600;">
+              <option value="PKR">PKR (₨)</option>
+              <option value="USD">USD ($)</option>
+              <option value="SAR">SAR (﷼)</option>
+              <option value="AED">AED (د.إ)</option>
+              <option value="GBP">GBP (£)</option>
+              <option value="EUR">EUR (€)</option>
+            </select>
+          </div>
+        </div>
+        <p style="font-size: 0.875rem; color: #78350f; line-height: 1.5; margin: 0;">
+          Nisab is the minimum qualifying wealth held for one full lunar year. The traditional threshold is <strong>87.48 grams (7.5 tola) of Gold</strong> or <strong>612.36 grams (52.5 tola) of Silver</strong>. Most contemporary scholars recommend calculating against the Silver Nisab threshold for maximum charity benefit.
+        </p>
+      </div>
+
+      <!-- Asset Input Categories -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <!-- Column 1: Assets -->
+        <div>
+          <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem; border-bottom: 2px solid var(--cat-calc-border); padding-bottom: 4px;">
+            1. Zakatable Assets
+          </h3>
+
+          <div class="form-group">
+            <label class="form-label" for="val-gold">Gold Value (<span class="curr-symbol">PKR</span>)</label>
+            <input type="number" id="val-gold" class="form-control zakat-input" min="0" placeholder="0" value="0">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Total value of gold jewellery, coins, or bullion</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="val-silver">Silver Value (<span class="curr-symbol">PKR</span>)</label>
+            <input type="number" id="val-silver" class="form-control zakat-input" min="0" placeholder="0" value="0">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Total value of silver items or ornaments</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="val-cash">Cash & Bank Balances (<span class="curr-symbol">PKR</span>)</label>
+            <input type="number" id="val-cash" class="form-control zakat-input" min="0" placeholder="0" value="0">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Cash at home, checking, savings, prize bonds</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="val-business">Business Inventory for Sale (<span class="curr-symbol">PKR</span>)</label>
+            <input type="number" id="val-business" class="form-control zakat-input" min="0" placeholder="0" value="0">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Current wholesale value of merchandise/stock</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="val-investments">Shares & Investments (<span class="curr-symbol">PKR</span>)</label>
+            <input type="number" id="val-investments" class="form-control zakat-input" min="0" placeholder="0" value="0">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Stock shares, mutual funds, crypto holdings</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="val-receivable">Money Owed to You (<span class="curr-symbol">PKR</span>)</label>
+            <input type="number" id="val-receivable" class="form-control zakat-input" min="0" placeholder="0" value="0">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Good loans you realistically expect to recover</span>
+          </div>
+        </div>
+
+        <!-- Column 2: Deductions & Real-time Results -->
+        <div>
+          <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem; border-bottom: 2px solid #cbd5e1; padding-bottom: 4px;">
+            2. Deductible Liabilities
+          </h3>
+
+          <div class="form-group">
+            <label class="form-label" for="val-debts">Immediate Debts & Unpaid Bills (<span class="curr-symbol">PKR</span>)</label>
+            <input type="number" id="val-debts" class="form-control zakat-input" min="0" placeholder="0" value="0">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Rent, salaries, or loans currently due for payment</span>
+          </div>
+
+          <!-- Live Result Card -->
+          <div class="result-box" style="margin-top: 1.5rem; background: #fff; border: 2px solid var(--cat-calc); box-shadow: var(--shadow-md);">
+            <h4 style="font-size: 1.125rem; font-weight: 700; color: #92400e; margin-bottom: 1rem; text-align: center;">
+              Zakat Calculation Summary
+            </h4>
+
+            <div style="display: flex; justify-content: space-between; font-size: 0.9375rem; padding: 6px 0; border-bottom: 1px solid var(--border);">
+              <span style="color: var(--text-muted);">Gross Assets:</span>
+              <strong id="res-gross">0</strong>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 0.9375rem; padding: 6px 0; border-bottom: 1px solid var(--border);">
+              <span style="color: var(--text-muted);">Less Liabilities:</span>
+              <strong id="res-debts" style="color: #ef4444;">- 0</strong>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 1rem; padding: 8px 0; border-bottom: 2px solid var(--border);">
+              <span style="font-weight: 700; color: var(--text-main);">Net Zakatable Wealth:</span>
+              <strong id="res-net" style="color: var(--text-main);">0</strong>
+            </div>
+
+            <div style="margin-top: 1.25rem; background: var(--cat-calc-light); padding: 1rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--cat-calc-border);">
+              <div style="font-size: 0.8125rem; text-transform: uppercase; font-weight: 700; color: #92400e; letter-spacing: 0.05em;">Total Zakat Due (2.5%)</div>
+              <div id="res-zakat-due" style="font-size: 2.25rem; font-weight: 900; color: #b45309; margin: 4px 0;">0</div>
+              <div id="nisab-status-badge" style="font-size: 0.8125rem; font-weight: 600; color: #065f46;">Enter your amounts to calculate</div>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem;">
+              <button id="copy-summary-btn" class="btn btn-primary" style="flex: 1; background: #d97706; border-color: #d97706;">
+                <span>📋</span> Copy Summary
+              </button>
+              <button id="reset-zakat-btn" class="btn btn-secondary" style="min-width: 100px;">
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Calculate Your Zakat</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Tally Zakatable Assets</h3>
+          <p class="step-desc">Enter the total current cash value of your gold, silver, bank accounts, and trade merchandise.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Deduct Due Debts</h3>
+          <p class="step-desc">Subtract any immediate unpaid loans, bills, or credit obligations currently due.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Get 2.5% Zakat Due</h3>
+          <p class="step-desc">If your net balance meets the Nisab threshold, your 2.5% obligation is calculated automatically.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Zakat Calculator FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🪙</span> Is personal property like houses or personal cars subject to Zakat?</h3>
+          <p class="faq-answer">No. Primary residences, personal vehicles, everyday household clothing, and furniture are exempt from Zakat. Only wealth held for growth, trade, gold, silver, and liquid savings are zakatable.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📅</span> When is Zakat paid?</h3>
+          <p class="faq-answer">Zakat is due once every lunar (Hijri) year (354 days) after your wealth has maintained or exceeded the Nisab threshold for that entire duration. Many Muslims choose to fulfill this duty during Ramadan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Calculators</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="electricity-bill-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">⚡</span>
+            <span class="tool-badge badge-calc">Bill</span>
+          </div>
+          <h3 class="tool-card-title">Electricity Bill Calculator</h3>
+          <p class="tool-card-desc">Estimate Pakistani DISCO electricity bills with custom slabs.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="discount-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🏷️</span>
+            <span class="tool-badge badge-calc">Shopping</span>
+          </div>
+          <h3 class="tool-card-title">Discount Calculator</h3>
+          <p class="tool-card-desc">Calculate sale discounts, final price, and percentage savings.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const currencySelect = document.getElementById('currency-select');
+    const currSymbols = document.querySelectorAll('.curr-symbol');
+    const inputs = document.querySelectorAll('.zakat-input');
+
+    const resGross = document.getElementById('res-gross');
+    const resDebts = document.getElementById('res-debts');
+    const resNet = document.getElementById('res-net');
+    const resZakatDue = document.getElementById('res-zakat-due');
+    const nisabBadge = document.getElementById('nisab-status-badge');
+    const copySummaryBtn = document.getElementById('copy-summary-btn');
+    const resetZakatBtn = document.getElementById('reset-zakat-btn');
+
+    function formatCurrency(val) {
+      const code = currencySelect.value;
+      return `${code} ${val.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+    }
+
+    currencySelect.addEventListener('change', () => {
+      currSymbols.forEach(el => el.textContent = currencySelect.value);
+      calculateZakat();
+    });
+
+    inputs.forEach(input => {
+      input.addEventListener('input', calculateZakat);
+    });
+
+    function calculateZakat() {
+      const gold = parseFloat(document.getElementById('val-gold').value) || 0;
+      const silver = parseFloat(document.getElementById('val-silver').value) || 0;
+      const cash = parseFloat(document.getElementById('val-cash').value) || 0;
+      const business = parseFloat(document.getElementById('val-business').value) || 0;
+      const investments = parseFloat(document.getElementById('val-investments').value) || 0;
+      const receivable = parseFloat(document.getElementById('val-receivable').value) || 0;
+      const debts = parseFloat(document.getElementById('val-debts').value) || 0;
+
+      const gross = gold + silver + cash + business + investments + receivable;
+      const net = Math.max(0, gross - debts);
+      const zakatDue = net * 0.025;
+
+      resGross.textContent = formatCurrency(gross);
+      resDebts.textContent = `- ${formatCurrency(debts)}`;
+      resNet.textContent = formatCurrency(net);
+      resZakatDue.textContent = formatCurrency(zakatDue);
+
+      if (net > 0) {
+        nisabBadge.textContent = '✓ Zakat applies if this wealth was maintained for 1 lunar year.';
+        nisabBadge.style.color = '#065f46';
+      } else {
+        nisabBadge.textContent = 'Net Zakatable wealth is zero or negative.';
+        nisabBadge.style.color = '#64748b';
+      }
+    }
+
+    copySummaryBtn.addEventListener('click', () => {
+      const summaryText = `--- Zakat Calculation Summary ---\nGross Assets: ${resGross.textContent}\nLiabilities: ${resDebts.textContent}\nNet Zakatable Wealth: ${resNet.textContent}\nTotal Zakat Due (2.5%): ${resZakatDue.textContent}\nCalculated via FreeOnlineTools (freeonlinetools.vercel.app)`;
+      copyToClipboard(summaryText, 'Zakat summary copied to clipboard!');
+    });
+
+    resetZakatBtn.addEventListener('click', () => {
+      inputs.forEach(i => i.value = '0');
+      calculateZakat();
+      showToast('Calculator reset.');
+    });
+
+    calculateZakat();
+  </script>
+</body>
+</html>

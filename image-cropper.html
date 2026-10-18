@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Cropper Online Free — Crop Photos to Square, 16:9 & Custom Ratios</title>
+  <meta name="description" content="Free online image cropper. Crop photos to 1:1 square, 16:9 widescreen, 4:3 or freeform ratios directly in your browser without uploading to any server.">
+  <meta name="keywords" content="image cropper online free, crop photo online, crop image square, crop 16:9, crop avatar instagram">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/image-cropper.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .crop-stage-container {
+      position: relative;
+      background: #334155;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      touch-action: none;
+      min-height: 320px;
+      max-height: 480px;
+    }
+    #crop-canvas {
+      display: block;
+      max-width: 100%;
+      max-height: 480px;
+      object-fit: contain;
+    }
+    .ratio-btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .ratio-btn {
+      padding: 6px 14px;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-image-tools.html" class="nav-link">Image Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image active"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-image-tools.html">Image Tools</a>
+      <span>/</span>
+      <span>Image Cropper</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — files never leave your device</div>
+      <h1 class="tool-page-title">Image Cropper Online Free</h1>
+      <p class="tool-page-subtitle">Crop photos with customizable aspect ratios (1:1 Square, 16:9, 4:3, 9:16) or drag freely to isolate any portion of your image.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Upload Dropzone -->
+      <div class="file-dropzone" id="dropzone">
+        <input type="file" id="file-input" accept="image/*">
+        <div class="dropzone-icon">✂️</div>
+        <div class="dropzone-text">Click to choose an image, or drag & drop here</div>
+        <div class="dropzone-subtext">JPG, PNG, WebP supported. 100% Client-Side.</div>
+      </div>
+
+      <!-- Workspace -->
+      <div id="cropper-workspace" style="display: none; margin-top: 1.5rem;">
+        <!-- Aspect Ratio Controls -->
+        <div>
+          <label class="form-label">Aspect Ratio Preset</label>
+          <div class="ratio-btn-group">
+            <button type="button" class="btn btn-secondary ratio-btn active" data-ratio="free">Freeform</button>
+            <button type="button" class="btn btn-secondary ratio-btn" data-ratio="1:1">1:1 (Square)</button>
+            <button type="button" class="btn btn-secondary ratio-btn" data-ratio="16:9">16:9 (Landscape)</button>
+            <button type="button" class="btn btn-secondary ratio-btn" data-ratio="4:3">4:3 (Photo)</button>
+            <button type="button" class="btn btn-secondary ratio-btn" data-ratio="9:16">9:16 (Story / Reel)</button>
+          </div>
+        </div>
+
+        <!-- Interactive Canvas Stage -->
+        <div class="crop-stage-container" id="stage-container">
+          <canvas id="crop-canvas"></canvas>
+        </div>
+
+        <!-- Position & Size adjustment sliders for fine-tuning -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; background: var(--bg-surface); padding: 12px; border-radius: var(--radius-md);">
+          <div>
+            <label class="form-label" for="slider-x" style="font-size: 0.8125rem;">Horizontal Position (X)</label>
+            <input type="range" id="slider-x" min="0" max="100" value="10" style="width: 100%;">
+          </div>
+          <div>
+            <label class="form-label" for="slider-y" style="font-size: 0.8125rem;">Vertical Position (Y)</label>
+            <input type="range" id="slider-y" min="0" max="100" value="10" style="width: 100%;">
+          </div>
+          <div>
+            <label class="form-label" for="slider-size" style="font-size: 0.8125rem;">Crop Area Size</label>
+            <input type="range" id="slider-size" min="10" max="100" value="80" style="width: 100%;">
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; margin-top: 1.25rem; flex-wrap: wrap;">
+          <button id="do-crop-btn" class="btn btn-primary" style="flex: 1;">
+            <span>✂️</span> Apply Crop
+          </button>
+          <button id="reset-btn" class="btn btn-secondary" style="min-width: 140px;">
+            Reset / Change Image
+          </button>
+        </div>
+
+        <!-- Result Box (Appears after crop) -->
+        <div id="crop-result-box" class="result-box" style="display: none; margin-top: 1.5rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main);">Cropped Result</h3>
+          <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
+            <div style="background: #fff; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border); max-width: 260px;">
+              <img id="result-img" style="max-width: 100%; border-radius: var(--radius-sm);" alt="Cropped image">
+            </div>
+            <div style="flex: 1; min-width: 220px;">
+              <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.25rem;">Resulting Dimensions:</div>
+              <div id="result-dims" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem;">-</div>
+              <div id="result-size" style="font-size: 0.875rem; color: var(--cat-image); font-weight: 600; margin-bottom: 1rem;">-</div>
+              <a id="download-crop-btn" class="btn btn-success btn-block" style="text-decoration: none;" download="cropped-image.jpg">
+                <span>⬇️</span> Download Cropped Image
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Crop Images Online</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Select Picture</h3>
+          <p class="step-desc">Upload your photo into the interactive canvas workspace.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Select Area</h3>
+          <p class="step-desc">Choose an aspect ratio (1:1 for Instagram or 16:9 for YouTube) and slide the position & size controls.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Apply & Download</h3>
+          <p class="step-desc">Tap "Apply Crop" to generate your final image and download it in high resolution.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Image Cropper FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📱</span> What is the best aspect ratio for social media profile pictures?</h3>
+          <p class="faq-answer">Use the <strong>1:1 (Square)</strong> preset. Most platforms (WhatsApp, Instagram, Twitter/X, LinkedIn) use square avatars that get masked into circles.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔒</span> Is my cropped photo stored anywhere?</h3>
+          <p class="faq-answer">No. All cropping and canvas slicing occurs inside your browser memory. Nothing is ever saved to a server.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Image Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="image-compressor.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📉</span>
+            <span class="tool-badge badge-image">Compressor</span>
+          </div>
+          <h3 class="tool-card-title">Image Compressor</h3>
+          <p class="tool-card-desc">Reduce image file size with custom quality slider.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="image-resizer.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📐</span>
+            <span class="tool-badge badge-image">Resizer</span>
+          </div>
+          <h3 class="tool-card-title">Image Resizer</h3>
+          <p class="tool-card-desc">Scale pixel dimensions with aspect ratio lock.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    let originalImage = null;
+    let originalFile = null;
+    let selectedRatio = 'free'; // 'free', '1:1', '16:9', '4:3', '9:16'
+
+    // Crop box coordinates in image space
+    let cropBox = { x: 0, y: 0, w: 0, h: 0 };
+
+    const fileInput = document.getElementById('file-input');
+    const dropzone = document.getElementById('dropzone');
+    const workspace = document.getElementById('cropper-workspace');
+    const canvas = document.getElementById('crop-canvas');
+    const ctx = canvas.getContext('2d');
+    const sliderX = document.getElementById('slider-x');
+    const sliderY = document.getElementById('slider-y');
+    const sliderSize = document.getElementById('slider-size');
+    const doCropBtn = document.getElementById('do-crop-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const cropResultBox = document.getElementById('crop-result-box');
+    const resultImg = document.getElementById('result-img');
+    const resultDims = document.getElementById('result-dims');
+    const resultSize = document.getElementById('result-size');
+    const downloadCropBtn = document.getElementById('download-crop-btn');
+
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) handleFile(e.target.files[0]);
+    });
+
+    document.querySelectorAll('.ratio-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active', 'btn-primary'));
+        btn.classList.add('active', 'btn-primary');
+        selectedRatio = btn.dataset.ratio;
+        updateCropBoxFromSliders();
+        drawCropStage();
+      });
+    });
+
+    sliderX.addEventListener('input', () => { updateCropBoxFromSliders(); drawCropStage(); });
+    sliderY.addEventListener('input', () => { updateCropBoxFromSliders(); drawCropStage(); });
+    sliderSize.addEventListener('input', () => { updateCropBoxFromSliders(); drawCropStage(); });
+
+    doCropBtn.addEventListener('click', performCrop);
+
+    resetBtn.addEventListener('click', () => {
+      workspace.style.display = 'none';
+      dropzone.style.display = 'block';
+      fileInput.value = '';
+      originalImage = null;
+      cropResultBox.style.display = 'none';
+    });
+
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) {
+        showToast('Please select a valid photo.');
+        return;
+      }
+      originalFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          originalImage = img;
+          dropzone.style.display = 'none';
+          workspace.style.display = 'block';
+
+          // Set canvas render resolution
+          const maxDisplayWidth = 800;
+          let scale = 1;
+          if (img.naturalWidth > maxDisplayWidth) {
+            scale = maxDisplayWidth / img.naturalWidth;
+          }
+          canvas.width = Math.round(img.naturalWidth * scale);
+          canvas.height = Math.round(img.naturalHeight * scale);
+
+          sliderX.value = 10;
+          sliderY.value = 10;
+          sliderSize.value = 80;
+
+          updateCropBoxFromSliders();
+          drawCropStage();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updateCropBoxFromSliders() {
+      if (!originalImage) return;
+
+      const imgW = originalImage.naturalWidth;
+      const imgH = originalImage.naturalHeight;
+      const sizePct = parseInt(sliderSize.value, 10) / 100;
+
+      let cropW = Math.round(imgW * sizePct);
+      let cropH = Math.round(imgH * sizePct);
+
+      if (selectedRatio === '1:1') {
+        const minSide = Math.min(cropW, cropH);
+        cropW = minSide;
+        cropH = minSide;
+      } else if (selectedRatio === '16:9') {
+        cropH = Math.round(cropW * (9 / 16));
+        if (cropH > imgH) {
+          cropH = imgH;
+          cropW = Math.round(cropH * (16 / 9));
+        }
+      } else if (selectedRatio === '4:3') {
+        cropH = Math.round(cropW * (3 / 4));
+        if (cropH > imgH) {
+          cropH = imgH;
+          cropW = Math.round(cropH * (4 / 3));
+        }
+      } else if (selectedRatio === '9:16') {
+        cropW = Math.round(cropH * (9 / 16));
+        if (cropW > imgW) {
+          cropW = imgW;
+          cropH = Math.round(cropW * (16 / 9));
+        }
+      }
+
+      // Max allowable X and Y
+      const maxX = Math.max(0, imgW - cropW);
+      const maxY = Math.max(0, imgH - cropH);
+
+      const posX = Math.round((parseInt(sliderX.value, 10) / 100) * maxX);
+      const posY = Math.round((parseInt(sliderY.value, 10) / 100) * maxY);
+
+      cropBox = { x: posX, y: posY, w: cropW, h: cropH };
+    }
+
+    function drawCropStage() {
+      if (!originalImage) return;
+
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const scaleX = cw / originalImage.naturalWidth;
+      const scaleY = ch / originalImage.naturalHeight;
+
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.drawImage(originalImage, 0, 0, cw, ch);
+
+      // Dark overlay
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
+      ctx.fillRect(0, 0, cw, ch);
+
+      // Clear the crop window
+      const rx = cropBox.x * scaleX;
+      const ry = cropBox.y * scaleY;
+      const rw = cropBox.w * scaleX;
+      const rh = cropBox.h * scaleY;
+
+      ctx.drawImage(originalImage, cropBox.x, cropBox.y, cropBox.w, cropBox.h, rx, ry, rw, rh);
+
+      // Draw crop boundary border
+      ctx.strokeStyle = '#2563eb';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(rx, ry, rw, rh);
+
+      // Draw rule of thirds grid
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(rx + rw / 3, ry); ctx.lineTo(rx + rw / 3, ry + rh);
+      ctx.moveTo(rx + (2 * rw) / 3, ry); ctx.lineTo(rx + (2 * rw) / 3, ry + rh);
+      ctx.moveTo(rx, ry + rh / 3); ctx.lineTo(rx + rw, ry + rh / 3);
+      ctx.moveTo(rx, ry + (2 * rh) / 3); ctx.lineTo(rx + rw, ry + (2 * rh) / 3);
+      ctx.stroke();
+    }
+
+    function performCrop() {
+      if (!originalImage || cropBox.w <= 0 || cropBox.h <= 0) return;
+
+      const cropCanvas = document.createElement('canvas');
+      cropCanvas.width = cropBox.w;
+      cropCanvas.height = cropBox.h;
+      const cropCtx = cropCanvas.getContext('2d');
+
+      cropCtx.drawImage(
+        originalImage,
+        cropBox.x, cropBox.y, cropBox.w, cropBox.h,
+        0, 0, cropBox.w, cropBox.h
+      );
+
+      cropCanvas.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        resultImg.src = url;
+        resultDims.textContent = `${cropBox.w} × ${cropBox.h} px`;
+        resultSize.textContent = formatBytes(blob.size);
+
+        const baseName = (originalFile && originalFile.name ? originalFile.name.replace(/\.[^/.]+$/, '') : 'image');
+        downloadCropBtn.href = url;
+        downloadCropBtn.download = `${baseName}-cropped.jpg`;
+
+        cropResultBox.style.display = 'block';
+        cropResultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        showToast('Image cropped successfully!');
+      }, 'image/jpeg', 0.92);
+    }
+  </script>
+</body>
+</html>

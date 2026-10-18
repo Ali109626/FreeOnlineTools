@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discount & Percentage Calculator Online Free — Sale Savings & Price Markdown</title>
+  <meta name="description" content="Free discount and percentage calculator. Calculate sale discounts, final price, total money saved, and percentage increase or decrease in your browser.">
+  <meta name="keywords" content="discount calculator online free, percentage calculator, sale calculator, off calculator, percent change">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/discount-calculator.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .tab-bar {
+      display: flex;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1.5rem;
+      gap: 0.5rem;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 10px 16px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .tab-btn.active {
+      color: var(--cat-calc);
+      border-bottom-color: var(--cat-calc);
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-calculators.html" class="nav-link">Calculators</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc active"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-calculators.html">Calculators</a>
+      <span>/</span>
+      <span>Discount Calculator</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — calculations processed locally</div>
+      <h1 class="tool-page-title">Discount & Percentage Calculator Online Free</h1>
+      <p class="tool-page-subtitle">Calculate sale discount savings, final marked-down prices, tax additions, and percentage changes.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Tabs -->
+      <div class="tab-bar">
+        <button type="button" class="tab-btn active" data-tab="tab-discount">🏷️ Sale Discount</button>
+        <button type="button" class="tab-btn" data-tab="tab-change">📈 % Increase / Decrease</button>
+        <button type="button" class="tab-btn" data-tab="tab-percent">🔢 Common % Math</button>
+      </div>
+
+      <!-- Tab 1: Sale Discount -->
+      <div id="tab-discount" class="tab-content active">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+          <div>
+            <div class="form-group">
+              <label class="form-label" for="orig-price">Original Price</label>
+              <input type="number" id="orig-price" class="form-control" min="0" step="any" value="1000" placeholder="e.g. 1000">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="discount-pct">Discount Percentage (%)</label>
+              <input type="number" id="discount-pct" class="form-control" min="0" max="100" step="any" value="25" placeholder="e.g. 25">
+            </div>
+
+            <!-- Quick % Presets -->
+            <div style="margin-bottom: 1.25rem;">
+              <label class="form-label" style="font-size: 0.8125rem;">Quick Presets:</label>
+              <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                <button type="button" class="btn btn-secondary disc-preset" data-val="10" style="padding: 4px 8px; font-size: 0.75rem;">10%</button>
+                <button type="button" class="btn btn-secondary disc-preset" data-val="15" style="padding: 4px 8px; font-size: 0.75rem;">15%</button>
+                <button type="button" class="btn btn-secondary disc-preset" data-val="20" style="padding: 4px 8px; font-size: 0.75rem;">20%</button>
+                <button type="button" class="btn btn-secondary disc-preset" data-val="25" style="padding: 4px 8px; font-size: 0.75rem;">25%</button>
+                <button type="button" class="btn btn-secondary disc-preset" data-val="30" style="padding: 4px 8px; font-size: 0.75rem;">30%</button>
+                <button type="button" class="btn btn-secondary disc-preset" data-val="50" style="padding: 4px 8px; font-size: 0.75rem;">50%</button>
+                <button type="button" class="btn btn-secondary disc-preset" data-val="70" style="padding: 4px 8px; font-size: 0.75rem;">70%</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="tax-pct">Optional Sales Tax (%)</label>
+              <input type="number" id="tax-pct" class="form-control" min="0" max="100" step="any" value="0" placeholder="e.g. 5">
+            </div>
+          </div>
+
+          <!-- Result Column -->
+          <div>
+            <div class="result-box" style="margin-top: 0; background: #fff; border: 2px solid var(--cat-calc); box-shadow: var(--shadow-md);">
+              <h3 style="font-size: 1.125rem; font-weight: 700; color: #92400e; margin-bottom: 1rem; text-align: center;">
+                Final Price Summary
+              </h3>
+
+              <div style="display: flex; justify-content: space-between; font-size: 0.9375rem; padding: 6px 0; border-bottom: 1px solid var(--border);">
+                <span style="color: var(--text-muted);">Original Price:</span>
+                <strong id="disc-res-orig">1,000.00</strong>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; font-size: 0.9375rem; padding: 6px 0; border-bottom: 1px solid var(--border);">
+                <span style="color: var(--text-muted);">You Save (Discount):</span>
+                <strong id="disc-res-save" style="color: #059669;">- 250.00 (25%)</strong>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; font-size: 0.9375rem; padding: 6px 0; border-bottom: 1px solid var(--border);">
+                <span style="color: var(--text-muted);">Sales Tax:</span>
+                <strong id="disc-res-tax">+ 0.00</strong>
+              </div>
+
+              <div style="margin-top: 1.25rem; background: var(--cat-calc-light); padding: 1.25rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--cat-calc-border);">
+                <div style="font-size: 0.8125rem; text-transform: uppercase; font-weight: 700; color: #92400e;">Final Price to Pay</div>
+                <div id="disc-res-final" style="font-size: 2.25rem; font-weight: 900; color: #b45309; margin: 4px 0;">750.00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Percentage Increase / Decrease -->
+      <div id="tab-change" class="tab-content">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+          <div>
+            <div class="form-group">
+              <label class="form-label" for="val-from">Initial Value (From)</label>
+              <input type="number" id="val-from" class="form-control" step="any" value="50">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="val-to">Final Value (To)</label>
+              <input type="number" id="val-to" class="form-control" step="any" value="75">
+            </div>
+
+            <button id="calc-change-btn" class="btn btn-primary btn-block">Calculate % Change</button>
+          </div>
+
+          <div>
+            <div class="result-box" style="margin-top: 0; text-align: center;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Percentage Change Result</h3>
+              <div id="change-result-pct" style="font-size: 2.5rem; font-weight: 900; color: var(--cat-calc); margin: 0.5rem 0;">+50%</div>
+              <div id="change-result-text" style="font-size: 0.9375rem; color: var(--text-muted);">An increase of 25 from the initial value.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Common Percentage Questions -->
+      <div id="tab-percent" class="tab-content">
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <!-- What is X% of Y? -->
+          <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+            <h4 style="font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.75rem;">1. What is X% of Y?</h4>
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span>What is</span>
+              <input type="number" id="pct1-x" class="form-control" style="width: 80px;" value="20">
+              <span>% of</span>
+              <input type="number" id="pct1-y" class="form-control" style="width: 120px;" value="500">
+              <span>=</span>
+              <strong id="pct1-res" style="font-size: 1.25rem; color: var(--primary);">100</strong>
+            </div>
+          </div>
+
+          <!-- X is what % of Y? -->
+          <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+            <h4 style="font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.75rem;">2. X is what percent of Y?</h4>
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <input type="number" id="pct2-x" class="form-control" style="width: 100px;" value="25">
+              <span>is what % of</span>
+              <input type="number" id="pct2-y" class="form-control" style="width: 100px;" value="200">
+              <span>=</span>
+              <strong id="pct2-res" style="font-size: 1.25rem; color: var(--primary);">12.5%</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Calculate Discounts & Percentages</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Enter Original Price</h3>
+          <p class="step-desc">Input the retail tag price before any sale or promotional markdown.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Specify Discount %</h3>
+          <p class="step-desc">Type your discount percentage (e.g. 20% or 50% off) or tap a quick button.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">See Net Savings</h3>
+          <p class="step-desc">Instantly inspect the final amount to pay and the total cash saved.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Discount Calculator FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🏷️</span> How is a percentage discount calculated?</h3>
+          <p class="faq-answer">Multiply the original price by the discount percentage divided by 100 to get savings amount, then subtract that from the original price.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📈</span> How do I calculate percentage increase?</h3>
+          <p class="faq-answer">Subtract the old value from the new value, divide by the old value, and multiply by 100.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Calculators</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="zakat-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🪙</span>
+            <span class="tool-badge badge-calc">Finance</span>
+          </div>
+          <h3 class="tool-card-title">Zakat Calculator</h3>
+          <p class="tool-card-desc">Calculate 2.5% Zakat on Gold, Cash, and assets.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="bmi-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">⚖️</span>
+            <span class="tool-badge badge-calc">Health</span>
+          </div>
+          <h3 class="tool-card-title">BMI Calculator</h3>
+          <p class="tool-card-desc">Calculate your Body Mass Index and healthy weight range.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Tab 1: Discount
+    const origPrice = document.getElementById('orig-price');
+    const discountPct = document.getElementById('discount-pct');
+    const taxPct = document.getElementById('tax-pct');
+    const discResOrig = document.getElementById('disc-res-orig');
+    const discResSave = document.getElementById('disc-res-save');
+    const discResTax = document.getElementById('disc-res-tax');
+    const discResFinal = document.getElementById('disc-res-final');
+
+    function calcDiscount() {
+      const p = parseFloat(origPrice.value) || 0;
+      const d = parseFloat(discountPct.value) || 0;
+      const t = parseFloat(taxPct.value) || 0;
+
+      const save = p * (d / 100);
+      const discounted = p - save;
+      const tax = discounted * (t / 100);
+      const finalPrice = discounted + tax;
+
+      discResOrig.textContent = p.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      discResSave.textContent = `- ${save.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${d}%)`;
+      discResTax.textContent = `+ ${tax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${t}%)`;
+      discResFinal.textContent = finalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    [origPrice, discountPct, taxPct].forEach(el => el.addEventListener('input', calcDiscount));
+
+    document.querySelectorAll('.disc-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        discountPct.value = btn.dataset.val;
+        calcDiscount();
+      });
+    });
+
+    // Tab 2: Change
+    const valFrom = document.getElementById('val-from');
+    const valTo = document.getElementById('val-to');
+    const changeResultPct = document.getElementById('change-result-pct');
+    const changeResultText = document.getElementById('change-result-text');
+
+    function calcChange() {
+      const from = parseFloat(valFrom.value) || 0;
+      const to = parseFloat(valTo.value) || 0;
+
+      if (from === 0) {
+        changeResultPct.textContent = 'N/A';
+        changeResultText.textContent = 'Cannot compute change from zero.';
+        return;
+      }
+
+      const diff = to - from;
+      const pct = (diff / Math.abs(from)) * 100;
+
+      if (pct > 0) {
+        changeResultPct.textContent = `+${pct.toFixed(2)}%`;
+        changeResultPct.style.color = '#059669';
+        changeResultText.textContent = `An increase of ${diff.toFixed(2)} from initial value.`;
+      } else if (pct < 0) {
+        changeResultPct.textContent = `${pct.toFixed(2)}%`;
+        changeResultPct.style.color = '#ef4444';
+        changeResultText.textContent = `A decrease of ${Math.abs(diff).toFixed(2)} from initial value.`;
+      } else {
+        changeResultPct.textContent = '0%';
+        changeResultPct.style.color = 'var(--text-muted)';
+        changeResultText.textContent = 'No change between initial and final values.';
+      }
+    }
+
+    [valFrom, valTo].forEach(el => el.addEventListener('input', calcChange));
+    document.getElementById('calc-change-btn').addEventListener('click', calcChange);
+
+    // Tab 3: Common %
+    const pct1X = document.getElementById('pct1-x');
+    const pct1Y = document.getElementById('pct1-y');
+    const pct1Res = document.getElementById('pct1-res');
+
+    function calcPct1() {
+      const x = parseFloat(pct1X.value) || 0;
+      const y = parseFloat(pct1Y.value) || 0;
+      pct1Res.textContent = ((x / 100) * y).toLocaleString(undefined, { maximumFractionDigits: 4 });
+    }
+    [pct1X, pct1Y].forEach(el => el.addEventListener('input', calcPct1));
+
+    const pct2X = document.getElementById('pct2-x');
+    const pct2Y = document.getElementById('pct2-y');
+    const pct2Res = document.getElementById('pct2-res');
+
+    function calcPct2() {
+      const x = parseFloat(pct2X.value) || 0;
+      const y = parseFloat(pct2Y.value) || 0;
+      if (y === 0) { pct2Res.textContent = '0%'; return; }
+      pct2Res.textContent = ((x / y) * 100).toFixed(2) + '%';
+    }
+    [pct2X, pct2Y].forEach(el => el.addEventListener('input', calcPct2));
+
+    calcDiscount();
+    calcChange();
+    calcPct1();
+    calcPct2();
+  </script>
+</body>
+</html>

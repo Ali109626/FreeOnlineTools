@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pakistan Electricity Bill Calculator Online Free — LESCO, MEPCO, K-Electric with Editable Slabs</title>
+  <meta name="description" content="Free Pakistan electricity bill calculator. Calculate electricity bills for LESCO, MEPCO, K-Electric, FESCO, and IESCO with editable unit slab rates, FPA, and GST.">
+  <meta name="keywords" content="electricity bill calculator pakistan, lesco bill calculator, mepco bill calculator, bijli bill calculator, editable slab rates, k-electric bill">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/electricity-bill-calculator.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .slab-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+    .slab-table th, .slab-table td {
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      text-align: left;
+    }
+    .slab-table th {
+      background: var(--bg-surface);
+      font-weight: 700;
+    }
+    .slab-rate-input {
+      width: 80px;
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      text-align: right;
+      font-size: 0.875rem;
+    }
+    .bill-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9375rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-calculators.html" class="nav-link">Calculators</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc active"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 960px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-calculators.html">Calculators</a>
+      <span>/</span>
+      <span>Electricity Bill Calculator</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — calculations processed locally</div>
+      <h1 class="tool-page-title">Pakistan Electricity Bill Calculator Online Free</h1>
+      <p class="tool-page-subtitle">Estimate residential power bills for LESCO, MEPCO, K-Electric, FESCO, GEPCO, and IESCO with fully customizable slab tariffs and government taxes.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- DISCO and Units Input Row -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; background: var(--bg-surface); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label" for="disco-select">Power Distribution Company (DISCO)</label>
+          <select id="disco-select" class="form-control">
+            <option value="LESCO">LESCO (Lahore)</option>
+            <option value="MEPCO">MEPCO (Multan)</option>
+            <option value="K-Electric">K-Electric (Karachi)</option>
+            <option value="IESCO">IESCO (Islamabad / Rawalpindi)</option>
+            <option value="FESCO">FESCO (Faisalabad)</option>
+            <option value="GEPCO">GEPCO (Gujranwala)</option>
+            <option value="PESCO">PESCO (Peshawar)</option>
+            <option value="HESCO">HESCO (Hyderabad)</option>
+            <option value="QESCO">QESCO (Quetta)</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label" for="units-input">Units Consumed (kWh)</label>
+          <input type="number" id="units-input" class="form-control" min="0" max="10000" value="280" placeholder="e.g. 250">
+        </div>
+
+        <div class="form-group" style="margin: 0;">
+          <label class="form-label" for="consumer-type">Consumer Classification</label>
+          <select id="consumer-type" class="form-control">
+            <option value="unprotected">Unprotected Consumer (General)</option>
+            <option value="protected">Protected Consumer (<= 200 units for 6 months)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+        <!-- Left: Editable Tariff Slabs & Taxes -->
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-main);">Editable Unit Slabs (PKR / Unit)</h3>
+            <button type="button" id="reset-tariffs-btn" style="background: none; border: none; font-size: 0.75rem; color: var(--primary); cursor: pointer; text-decoration: underline;">
+              Reset to Standard Slabs
+            </button>
+          </div>
+
+          <table class="slab-table">
+            <thead>
+              <tr>
+                <th>Unit Range Slab</th>
+                <th style="text-align: right;">Rate (Rs/Unit)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 – 100 Units</td>
+                <td style="text-align: right;"><input type="number" id="rate-slab-1" class="slab-rate-input" step="0.01" value="16.48"></td>
+              </tr>
+              <tr>
+                <td>101 – 200 Units</td>
+                <td style="text-align: right;"><input type="number" id="rate-slab-2" class="slab-rate-input" step="0.01" value="22.95"></td>
+              </tr>
+              <tr>
+                <td>201 – 300 Units</td>
+                <td style="text-align: right;"><input type="number" id="rate-slab-3" class="slab-rate-input" step="0.01" value="34.26"></td>
+              </tr>
+              <tr>
+                <td>301 – 400 Units</td>
+                <td style="text-align: right;"><input type="number" id="rate-slab-4" class="slab-rate-input" step="0.01" value="39.15"></td>
+              </tr>
+              <tr>
+                <td>401 – 500 Units</td>
+                <td style="text-align: right;"><input type="number" id="rate-slab-5" class="slab-rate-input" step="0.01" value="41.36"></td>
+              </tr>
+              <tr>
+                <td>501 – 600 Units</td>
+                <td style="text-align: right;"><input type="number" id="rate-slab-6" class="slab-rate-input" step="0.01" value="42.78"></td>
+              </tr>
+              <tr>
+                <td>601 – 700 Units</td>
+                <td style="text-align: right;"><input type="number" id="rate-slab-7" class="slab-rate-input" step="0.01" value="43.92"></td>
+              </tr>
+              <tr>
+                <td>Above 700 Units</td>
+                <td style="text-align: right;"><input type="number" id="rate-slab-8" class="slab-rate-input" step="0.01" value="48.84"></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top: 1rem; background: var(--bg-surface); padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <div style="font-weight: 700; font-size: 0.8125rem; margin-bottom: 0.5rem;">Surcharges & Taxes:</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.8125rem;">
+              <div>
+                <label>FPA (Rs/Unit):</label>
+                <input type="number" id="rate-fpa" class="slab-rate-input" step="0.01" value="3.50" style="width: 100%;">
+              </div>
+              <div>
+                <label>FC Surcharge (Rs/Unit):</label>
+                <input type="number" id="rate-fc" class="slab-rate-input" step="0.01" value="3.23" style="width: 100%;">
+              </div>
+              <div>
+                <label>GST (%):</label>
+                <input type="number" id="rate-gst" class="slab-rate-input" step="1" value="18" style="width: 100%;">
+              </div>
+              <div>
+                <label>TV License Fee (Rs):</label>
+                <input type="number" id="rate-tv" class="slab-rate-input" step="1" value="35" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Itemized Bill Breakdown -->
+        <div>
+          <div class="result-box" style="margin-top: 0; background: #fff; border: 2px solid var(--cat-calc); box-shadow: var(--shadow-md);">
+            <h3 style="font-size: 1.125rem; font-weight: 800; color: #92400e; margin-bottom: 1rem; text-align: center;">
+              Estimated Bill Breakdown (<span id="bill-disco-title">LESCO</span>)
+            </h3>
+
+            <div class="bill-row">
+              <span style="color: var(--text-muted);">Units Consumed:</span>
+              <strong id="bill-units">280 kWh</strong>
+            </div>
+
+            <div class="bill-row">
+              <span style="color: var(--text-muted);">Cost of Electricity (Energy Charges):</span>
+              <strong id="bill-cost-energy">Rs. 0</strong>
+            </div>
+
+            <div class="bill-row">
+              <span style="color: var(--text-muted);">Fuel Price Adjustment (FPA):</span>
+              <strong id="bill-fpa">Rs. 0</strong>
+            </div>
+
+            <div class="bill-row">
+              <span style="color: var(--text-muted);">F.C. Surcharge:</span>
+              <strong id="bill-fc">Rs. 0</strong>
+            </div>
+
+            <div class="bill-row">
+              <span style="color: var(--text-muted);">Electricity Duty (ED 1.5%):</span>
+              <strong id="bill-ed">Rs. 0</strong>
+            </div>
+
+            <div class="bill-row">
+              <span style="color: var(--text-muted);">General Sales Tax (GST 18%):</span>
+              <strong id="bill-gst">Rs. 0</strong>
+            </div>
+
+            <div class="bill-row">
+              <span style="color: var(--text-muted);">PTV License Fee:</span>
+              <strong id="bill-tv">Rs. 35</strong>
+            </div>
+
+            <!-- Big Final Total -->
+            <div style="margin-top: 1.25rem; background: var(--cat-calc-light); padding: 1.25rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--cat-calc-border);">
+              <div style="font-size: 0.8125rem; text-transform: uppercase; font-weight: 700; color: #92400e;">Total Payable Bill Amount</div>
+              <div id="bill-total-amount" style="font-size: 2.25rem; font-weight: 900; color: #b45309; margin: 4px 0;">Rs. 0</div>
+              <div style="font-size: 0.75rem; color: #78350f;">Estimated bill inclusive of government duties & surcharges</div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+              <button id="copy-bill-btn" class="btn btn-primary btn-block" style="background: #d97706; border-color: #d97706;">
+                <span>📋</span> Copy Bill Breakdown
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Calculate Your Electricity Bill</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Enter Meter Units</h3>
+          <p class="step-desc">Check your electricity meter reading or past bill and type your units consumed in kWh.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Select Company & Slabs</h3>
+          <p class="step-desc">Pick your distributor (LESCO, MEPCO, K-Electric) and review or edit slab rates if your recent bill differs.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">View Total Breakdown</h3>
+          <p class="step-desc">Instantly see your energy charges, FPA, surcharges, GST, and final estimated payable amount.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Pakistan Electricity Bill FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>⚡</span> What is the difference between Protected and Unprotected consumers?</h3>
+          <p class="faq-answer">Protected consumers are residential households consuming 200 units or less per month consistently for the last 6 consecutive months. They enjoy heavily subsidized government tariff slabs. If consumption exceeds 200 units in even one month, the consumer is classified as unprotected and charged higher standard tariffs.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>💰</span> What is Fuel Price Adjustment (FPA)?</h3>
+          <p class="faq-answer">FPA is a variable surcharge approved by NEPRA reflecting fluctuations in fuel prices (coal, furnace oil, RLNG) used by power generation companies compared to benchmark reference tariffs.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📝</span> Can I use this for K-Electric Karachi?</h3>
+          <p class="faq-answer">Yes, select "K-Electric" in the distributor dropdown. You can adjust the slab inputs to reflect NEPRA's multi-year tariff for KE.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Calculators</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="zakat-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🪙</span>
+            <span class="tool-badge badge-calc">Finance</span>
+          </div>
+          <h3 class="tool-card-title">Zakat Calculator</h3>
+          <p class="tool-card-desc">Calculate 2.5% Zakat on Gold, Cash, and assets.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="currency-converter.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">💱</span>
+            <span class="tool-badge badge-util">Currency</span>
+          </div>
+          <h3 class="tool-card-title">PKR Currency Converter</h3>
+          <p class="tool-card-desc">Convert USD, SAR, AED, and EUR to Pakistani Rupee.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const discoSelect = document.getElementById('disco-select');
+    const unitsInput = document.getElementById('units-input');
+    const consumerType = document.getElementById('consumer-type');
+    const billDiscoTitle = document.getElementById('bill-disco-title');
+
+    const rateSlabs = [
+      document.getElementById('rate-slab-1'),
+      document.getElementById('rate-slab-2'),
+      document.getElementById('rate-slab-3'),
+      document.getElementById('rate-slab-4'),
+      document.getElementById('rate-slab-5'),
+      document.getElementById('rate-slab-6'),
+      document.getElementById('rate-slab-7'),
+      document.getElementById('rate-slab-8')
+    ];
+
+    const rateFpa = document.getElementById('rate-fpa');
+    const rateFc = document.getElementById('rate-fc');
+    const rateGst = document.getElementById('rate-gst');
+    const rateTv = document.getElementById('rate-tv');
+
+    const billUnits = document.getElementById('bill-units');
+    const billCostEnergy = document.getElementById('bill-cost-energy');
+    const billFpa = document.getElementById('bill-fpa');
+    const billFc = document.getElementById('bill-fc');
+    const billEd = document.getElementById('bill-ed');
+    const billGst = document.getElementById('bill-gst');
+    const billTv = document.getElementById('bill-tv');
+    const billTotalAmount = document.getElementById('bill-total-amount');
+
+    const copyBillBtn = document.getElementById('copy-bill-btn');
+    const resetTariffsBtn = document.getElementById('reset-tariffs-btn');
+
+    function calculateBill() {
+      const units = Math.max(0, parseFloat(unitsInput.value) || 0);
+      billUnits.textContent = `${units} kWh`;
+      billDiscoTitle.textContent = discoSelect.value;
+
+      // Slab limits & rates
+      const limits = [100, 100, 100, 100, 100, 100, 100, Infinity];
+      let energyCost = 0;
+      let remainingUnits = units;
+
+      for (let i = 0; i < limits.length; i++) {
+        if (remainingUnits <= 0) break;
+        const take = Math.min(remainingUnits, limits[i]);
+        const rate = parseFloat(rateSlabs[i].value) || 0;
+        energyCost += take * rate;
+        remainingUnits -= take;
+      }
+
+      const fpaRate = parseFloat(rateFpa.value) || 0;
+      const fcRate = parseFloat(rateFc.value) || 0;
+      const gstPct = (parseFloat(rateGst.value) || 0) / 100;
+      const tvFee = parseFloat(rateTv.value) || 0;
+
+      const fpaAmount = units * fpaRate;
+      const fcAmount = units * fcRate;
+      const edAmount = energyCost * 0.015; // 1.5% electricity duty
+
+      const taxableBase = energyCost + fpaAmount + fcAmount + edAmount;
+      const gstAmount = taxableBase * gstPct;
+
+      const totalBill = Math.round(taxableBase + gstAmount + tvFee);
+
+      billCostEnergy.textContent = `Rs. ${energyCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      billFpa.textContent = `Rs. ${fpaAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      billFc.textContent = `Rs. ${fcAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      billEd.textContent = `Rs. ${edAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      billGst.textContent = `Rs. ${gstAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      billTv.textContent = `Rs. ${tvFee.toFixed(2)}`;
+      billTotalAmount.textContent = `Rs. ${totalBill.toLocaleString()}`;
+    }
+
+    [discoSelect, unitsInput, consumerType, rateFpa, rateFc, rateGst, rateTv, ...rateSlabs].forEach(el => {
+      el.addEventListener('input', calculateBill);
+      el.addEventListener('change', calculateBill);
+    });
+
+    consumerType.addEventListener('change', () => {
+      if (consumerType.value === 'protected') {
+        rateSlabs[0].value = '7.74';
+        rateSlabs[1].value = '10.06';
+      } else {
+        rateSlabs[0].value = '16.48';
+        rateSlabs[1].value = '22.95';
+      }
+      calculateBill();
+    });
+
+    resetTariffsBtn.addEventListener('click', () => {
+      rateSlabs[0].value = '16.48';
+      rateSlabs[1].value = '22.95';
+      rateSlabs[2].value = '34.26';
+      rateSlabs[3].value = '39.15';
+      rateSlabs[4].value = '41.36';
+      rateSlabs[5].value = '42.78';
+      rateSlabs[6].value = '43.92';
+      rateSlabs[7].value = '48.84';
+      rateFpa.value = '3.50';
+      rateFc.value = '3.23';
+      rateGst.value = '18';
+      rateTv.value = '35';
+      consumerType.value = 'unprotected';
+      calculateBill();
+      showToast('Standard slab tariffs restored.');
+    });
+
+    copyBillBtn.addEventListener('click', () => {
+      const summary = `--- Pakistan Electricity Bill Estimate (${discoSelect.value}) ---\nUnits: ${unitsInput.value} kWh\nEnergy Charges: ${billCostEnergy.textContent}\nFPA: ${billFpa.textContent}\nFC Surcharge: ${billFc.textContent}\nElectricity Duty: ${billEd.textContent}\nGST: ${billGst.textContent}\nTV Fee: ${billTv.textContent}\nTOTAL ESTIMATED BILL: ${billTotalAmount.textContent}\nCalculated via FreeOnlineTools (freeonlinetools.vercel.app)`;
+      copyToClipboard(summary, 'Bill breakdown copied to clipboard!');
+    });
+
+    calculateBill();
+  </script>
+</body>
+</html>

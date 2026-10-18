@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PKR Currency Converter Online Free — USD, EUR, GBP, SAR, AED to PKR with Editable Rates</title>
+  <meta name="description" content="Free online PKR currency converter. Convert USD, SAR, AED, GBP, and EUR to Pakistani Rupee with an editable exchange rates table for open and interbank markets.">
+  <meta name="keywords" content="pkr currency converter online free, usd to pkr, sar to pkr, aed to pkr, gbp to pkr, pakistani rupee exchange rates">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/currency-converter.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .rates-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+    }
+    .rates-table th, .rates-table td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .rates-table th {
+      background: var(--bg-surface);
+      font-weight: 700;
+    }
+    .rate-edit-input {
+      width: 100px;
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      text-align: right;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-utility-tools.html" class="nav-link">Utility Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util active"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-utility-tools.html">Fun & Utility</a>
+      <span>/</span>
+      <span>PKR Currency Converter</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — calculations processed locally</div>
+      <h1 class="tool-page-title">PKR Currency Converter Online Free</h1>
+      <p class="tool-page-subtitle">Convert foreign currencies to Pakistani Rupee (PKR) with customizable open-market exchange rates.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Conversion Converter Box -->
+      <div style="background: var(--bg-surface); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border); margin-bottom: 1.5rem;">
+        <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center;">
+          <!-- From -->
+          <div>
+            <label class="form-label" for="curr-amount">Amount</label>
+            <input type="number" id="curr-amount" class="form-control" style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;" value="100" min="0" step="any">
+            <select id="curr-from" class="form-control" style="font-weight: 600;"></select>
+          </div>
+
+          <!-- Swap -->
+          <div style="padding-top: 1.5rem;">
+            <button type="button" id="curr-swap-btn" class="btn btn-secondary" style="border-radius: var(--radius-full); width: 44px; height: 44px; padding: 0;" title="Swap Currencies">
+              ⇄
+            </button>
+          </div>
+
+          <!-- To -->
+          <div>
+            <label class="form-label">Converted Amount</label>
+            <div id="curr-result-box" style="min-height: 44px; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); display: flex; align-items: center; padding: 0 12px; font-size: 1.25rem; font-weight: 800; color: #047857; margin-bottom: 0.5rem;">
+              -
+            </div>
+            <select id="curr-to" class="form-control" style="font-weight: 600;"></select>
+          </div>
+        </div>
+
+        <div id="exchange-rate-banner" style="text-align: center; margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">
+          1 USD = 278.50 PKR
+        </div>
+      </div>
+
+      <!-- Editable Exchange Rates Table -->
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-main);">Editable Exchange Rates Table (vs 1 PKR)</h3>
+          <button id="reset-rates-btn" style="background: none; border: none; font-size: 0.8125rem; color: var(--primary); cursor: pointer; text-decoration: underline;">
+            Reset to Standard Rates
+          </button>
+        </div>
+        <p style="font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+          Exchange rates vary daily between State Bank interbank and currency exchange booths. Edit any rate below to instantly update the calculation:
+        </p>
+
+        <div style="overflow-x: auto;">
+          <table class="rates-table" id="rates-table-body">
+            <!-- Rendered via JS -->
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Convert Currency to PKR</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Enter Amount</h3>
+          <p class="step-desc">Type the amount of money you want to convert in the amount box.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Select Currencies</h3>
+          <p class="step-desc">Pick from USD, Saudi Riyal (SAR), UAE Dirham (AED), Euro, or GBP to PKR.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Edit Rate if Needed</h3>
+          <p class="step-desc">Adjust the exchange rate directly in the table to match today's exact local open market quote.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> PKR Currency Converter FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>💱</span> Why are the rates in this tool editable?</h3>
+          <p class="faq-answer">Foreign currency exchange rates in Pakistan vary based on whether you are doing bank wire transfers, buying cash from exchange companies, or receiving remittances. Allowing editable rates gives you 100% control over the exact calculation.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔒</span> Is my financial transaction logged or tracked?</h3>
+          <p class="faq-answer">No. All arithmetic operations execute locally on your phone or laptop. Nothing is sent to any external server.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="zakat-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🪙</span>
+            <span class="tool-badge badge-calc">Finance</span>
+          </div>
+          <h3 class="tool-card-title">Zakat Calculator</h3>
+          <p class="tool-card-desc">Calculate 2.5% Zakat on Gold, Silver, and Cash.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="discount-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🏷️</span>
+            <span class="tool-badge badge-calc">Shopping</span>
+          </div>
+          <h3 class="tool-card-title">Discount Calculator</h3>
+          <p class="tool-card-desc">Calculate sale discounts and money saved.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    // Rates relative to PKR (how many PKR for 1 foreign unit)
+    const DEFAULT_RATES = {
+      'USD': { name: 'US Dollar (USD)', pkr: 278.50, symbol: '$' },
+      'SAR': { name: 'Saudi Riyal (SAR)', pkr: 74.25, symbol: '﷼' },
+      'AED': { name: 'UAE Dirham (AED)', pkr: 75.82, symbol: 'د.إ' },
+      'GBP': { name: 'British Pound (GBP)', pkr: 362.40, symbol: '£' },
+      'EUR': { name: 'Euro (EUR)', pkr: 302.20, symbol: '€' },
+      'CAD': { name: 'Canadian Dollar (CAD)', pkr: 202.50, symbol: 'C$' },
+      'AUD': { name: 'Australian Dollar (AUD)', pkr: 182.10, symbol: 'A$' },
+      'CNY': { name: 'Chinese Yuan (CNY)', pkr: 38.65, symbol: '¥' },
+      'KWD': { name: 'Kuwaiti Dinar (KWD)', pkr: 908.15, symbol: 'KD' },
+      'PKR': { name: 'Pakistani Rupee (PKR)', pkr: 1.00, symbol: '₨' }
+    };
+
+    let activeRates = JSON.parse(JSON.stringify(DEFAULT_RATES));
+
+    const currAmount = document.getElementById('curr-amount');
+    const currFrom = document.getElementById('curr-from');
+    const currTo = document.getElementById('curr-to');
+    const currSwapBtn = document.getElementById('curr-swap-btn');
+    const currResultBox = document.getElementById('curr-result-box');
+    const exchangeRateBanner = document.getElementById('exchange-rate-banner');
+    const ratesTableBody = document.getElementById('rates-table-body');
+    const resetRatesBtn = document.getElementById('reset-rates-btn');
+
+    function populateDropdowns() {
+      currFrom.innerHTML = '';
+      currTo.innerHTML = '';
+
+      Object.keys(activeRates).forEach(code => {
+        const c = activeRates[code];
+        const opt1 = document.createElement('option');
+        opt1.value = code;
+        opt1.textContent = `${code} — ${c.name}`;
+        currFrom.appendChild(opt1);
+
+        const opt2 = document.createElement('option');
+        opt2.value = code;
+        opt2.textContent = `${code} — ${c.name}`;
+        currTo.appendChild(opt2);
+      });
+
+      currFrom.value = 'USD';
+      currTo.value = 'PKR';
+    }
+
+    function renderRatesTable() {
+      let html = `
+        <thead>
+          <tr>
+            <th>Currency</th>
+            <th>Code</th>
+            <th style="text-align: right;">Rate in PKR (1 Unit = ? PKR)</th>
+          </tr>
+        </thead>
+        <tbody>
+      `;
+
+      Object.keys(activeRates).forEach(code => {
+        if (code === 'PKR') return;
+        const c = activeRates[code];
+        html += `
+          <tr>
+            <td><strong>${escapeHtml(c.name)}</strong></td>
+            <td><code>${code}</code></td>
+            <td style="text-align: right;">
+              Rs. <input type="number" class="rate-edit-input" data-code="${code}" step="0.01" value="${c.pkr.toFixed(2)}">
+            </td>
+          </tr>
+        `;
+      });
+
+      html += '</tbody>';
+      ratesTableBody.innerHTML = html;
+
+      // Bind input events on editable rate fields
+      ratesTableBody.querySelectorAll('.rate-edit-input').forEach(inp => {
+        inp.addEventListener('input', (e) => {
+          const code = e.target.dataset.code;
+          const val = parseFloat(e.target.value);
+          if (val > 0) {
+            activeRates[code].pkr = val;
+            calculateCurrency();
+          }
+        });
+      });
+    }
+
+    function calculateCurrency() {
+      const amount = parseFloat(currAmount.value);
+      if (isNaN(amount) || amount < 0) {
+        currResultBox.textContent = '-';
+        return;
+      }
+
+      const fromCode = currFrom.value;
+      const toCode = currTo.value;
+
+      const rateFromInPkr = activeRates[fromCode].pkr;
+      const rateToInPkr = activeRates[toCode].pkr;
+
+      // Convert to PKR base first, then to target currency
+      const inPkr = amount * rateFromInPkr;
+      const finalVal = inPkr / rateToInPkr;
+
+      currResultBox.textContent = `${activeRates[toCode].symbol} ${finalVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+      // Banner rate
+      const directRate = rateFromInPkr / rateToInPkr;
+      exchangeRateBanner.textContent = `1 ${fromCode} = ${directRate.toFixed(4)} ${toCode}`;
+    }
+
+    currAmount.addEventListener('input', calculateCurrency);
+    currFrom.addEventListener('change', calculateCurrency);
+    currTo.addEventListener('change', calculateCurrency);
+
+    currSwapBtn.addEventListener('click', () => {
+      const temp = currFrom.value;
+      currFrom.value = currTo.value;
+      currTo.value = temp;
+      calculateCurrency();
+    });
+
+    resetRatesBtn.addEventListener('click', () => {
+      activeRates = JSON.parse(JSON.stringify(DEFAULT_RATES));
+      renderRatesTable();
+      calculateCurrency();
+      showToast('Standard exchange rates restored.');
+    });
+
+    populateDropdowns();
+    renderRatesTable();
+    calculateCurrency();
+  </script>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text to Speech Online Free — Urdu & English Voice TTS Reader</title>
+  <meta name="description" content="Free online text to speech (TTS) converter. Read text aloud in natural English and Urdu voices with custom rate, pitch, and playback controls. 100% private.">
+  <meta name="keywords" content="text to speech online free, urdu text to speech, english tts reader, read text aloud, voice synthesizer">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/text-to-speech.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-text-tools.html" class="nav-link">Text Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text active"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-text-tools.html">Text Tools</a>
+      <span>/</span>
+      <span>Text to Speech</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — synthesized locally in your browser</div>
+      <h1 class="tool-page-title">Text to Speech Online Free</h1>
+      <p class="tool-page-subtitle">Convert written text into natural-sounding voice audio with support for Urdu and English voices.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Text input -->
+      <div class="form-group">
+        <label class="form-label" for="tts-text">Enter Text to Read Aloud</label>
+        <textarea id="tts-text" class="form-control" style="min-height: 180px; font-size: 1.0625rem; line-height: 1.6;" placeholder="Type or paste English or Urdu text here, then tap 'Play Audio' to listen..."></textarea>
+      </div>
+
+      <!-- Quick sample text chips -->
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+        <span style="font-size: 0.8125rem; color: var(--text-muted); align-self: center;">Try sample:</span>
+        <button type="button" id="sample-en-btn" class="btn btn-secondary" style="padding: 4px 12px; font-size: 0.8125rem;">English Sample</button>
+        <button type="button" id="sample-ur-btn" class="btn btn-secondary" style="padding: 4px 12px; font-size: 0.8125rem;">اردو نمونہ (Urdu Sample)</button>
+        <button type="button" id="clear-tts-btn" class="btn btn-secondary" style="padding: 4px 12px; font-size: 0.8125rem;">Clear Text</button>
+      </div>
+
+      <!-- Controls Configuration Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; background: var(--bg-surface); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border); margin-bottom: 1.5rem;">
+        <!-- Voice selector -->
+        <div style="grid-column: 1 / -1;">
+          <label class="form-label" for="voice-select">Choose Voice (Urdu / English / System)</label>
+          <select id="voice-select" class="form-control"></select>
+        </div>
+
+        <!-- Speed / Rate -->
+        <div>
+          <label class="form-label" for="rate-slider">
+            Speed: <strong id="rate-val" style="color: var(--primary);">1.0x</strong>
+          </label>
+          <input type="range" id="rate-slider" min="0.5" max="2" step="0.1" value="1" style="width: 100%;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
+            <span>Slow (0.5x)</span>
+            <span>Fast (2.0x)</span>
+          </div>
+        </div>
+
+        <!-- Pitch -->
+        <div>
+          <label class="form-label" for="pitch-slider">
+            Pitch: <strong id="pitch-val" style="color: var(--primary);">1.0</strong>
+          </label>
+          <input type="range" id="pitch-slider" min="0.5" max="1.5" step="0.1" value="1" style="width: 100%;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
+            <span>Lower</span>
+            <span>Higher</span>
+          </div>
+        </div>
+
+        <!-- Volume -->
+        <div>
+          <label class="form-label" for="vol-slider">
+            Volume: <strong id="vol-val" style="color: var(--primary);">100%</strong>
+          </label>
+          <input type="range" id="vol-slider" min="0" max="1" step="0.1" value="1" style="width: 100%;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
+            <span>Mute</span>
+            <span>Max</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Playback Controls -->
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <button id="play-btn" class="btn btn-primary" style="flex: 2; min-width: 160px;">
+          <span id="play-icon">🔊</span> <span id="play-text">Speak / Play</span>
+        </button>
+        <button id="pause-btn" class="btn btn-secondary" style="flex: 1; min-width: 110px;">
+          <span>⏸️</span> Pause
+        </button>
+        <button id="stop-btn" class="btn btn-danger" style="flex: 1; min-width: 110px;">
+          <span>⏹️</span> Stop
+        </button>
+      </div>
+
+      <div id="speech-status" style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted); text-align: center;">
+        Ready to speak.
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Use Text to Speech</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Enter Text</h3>
+          <p class="step-desc">Type or paste any English, Urdu, or multilingual text into the input box.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Customize Voice</h3>
+          <p class="step-desc">Select your preferred voice language, adjust talking speed, and tweak audio pitch.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Listen Live</h3>
+          <p class="step-desc">Hit the Speak button to listen aloud. Pause, resume, or stop anytime.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Text to Speech FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔊</span> Why do some voices sound different on different devices?</h3>
+          <p class="faq-answer">Text-to-speech uses the speech synthesis engines installed in your web browser and operating system (such as Google voices on Android/Chrome, Apple Siri voices on iOS/Safari, or Microsoft voices on Windows).</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔒</span> Is my spoken text recorded or uploaded?</h3>
+          <p class="faq-answer">No. All speech synthesis is processed natively on your device. Zero audio or text is sent to our servers.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Text Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="roman-to-urdu.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">✍️</span>
+            <span class="tool-badge badge-text">Urdu</span>
+          </div>
+          <h3 class="tool-card-title">Roman to Urdu Converter</h3>
+          <p class="tool-card-desc">Type Urdu in English alphabets and get Urdu script.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="word-counter.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📝</span>
+            <span class="tool-badge badge-text">Counter</span>
+          </div>
+          <h3 class="tool-card-title">Word & Character Counter</h3>
+          <p class="tool-card-desc">Count words, characters, and calculate speaking time.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const synth = window.speechSynthesis;
+    let voices = [];
+
+    const ttsText = document.getElementById('tts-text');
+    const voiceSelect = document.getElementById('voice-select');
+    const rateSlider = document.getElementById('rate-slider');
+    const rateVal = document.getElementById('rate-val');
+    const pitchSlider = document.getElementById('pitch-slider');
+    const pitchVal = document.getElementById('pitch-val');
+    const volSlider = document.getElementById('vol-slider');
+    const volVal = document.getElementById('vol-val');
+    const playBtn = document.getElementById('play-btn');
+    const pauseBtn = document.getElementById('pause-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    const speechStatus = document.getElementById('speech-status');
+
+    function populateVoices() {
+      if (!synth) {
+        speechStatus.textContent = 'Speech synthesis is not supported in this browser.';
+        return;
+      }
+      voices = synth.getVoices();
+      if (!voices.length) return;
+
+      voiceSelect.innerHTML = '';
+
+      // Separate into preferred (Urdu, Hindi, English) and others
+      const urduHindiVoices = [];
+      const englishVoices = [];
+      const otherVoices = [];
+
+      voices.forEach((voice, index) => {
+        const lang = voice.lang.toLowerCase();
+        if (lang.includes('ur') || lang.includes('hi')) {
+          urduHindiVoices.push({ voice, index });
+        } else if (lang.startsWith('en')) {
+          englishVoices.push({ voice, index });
+        } else {
+          otherVoices.push({ voice, index });
+        }
+      });
+
+      function appendGroup(label, list) {
+        if (!list.length) return;
+        const group = document.createElement('optgroup');
+        group.label = label;
+        list.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item.index;
+          opt.textContent = `${item.voice.name} (${item.voice.lang})${item.voice.default ? ' — Default' : ''}`;
+          group.appendChild(opt);
+        });
+        voiceSelect.appendChild(group);
+      }
+
+      appendGroup('🌟 Urdu & Hindi Voices', urduHindiVoices);
+      appendGroup('🇬🇧 English Voices', englishVoices);
+      appendGroup('🌐 Other Languages', otherVoices);
+    }
+
+    populateVoices();
+    if (synth && synth.onvoiceschanged !== undefined) {
+      synth.onvoiceschanged = populateVoices;
+    }
+
+    rateSlider.addEventListener('input', () => rateVal.textContent = rateSlider.value + 'x');
+    pitchSlider.addEventListener('input', () => pitchVal.textContent = pitchSlider.value);
+    volSlider.addEventListener('input', () => volVal.textContent = Math.round(volSlider.value * 100) + '%');
+
+    playBtn.addEventListener('click', () => {
+      const text = ttsText.value.trim();
+      if (!text) {
+        showToast('Please enter text to speak.');
+        return;
+      }
+
+      if (synth.paused) {
+        synth.resume();
+        speechStatus.textContent = '▶️ Resumed playing...';
+        return;
+      }
+
+      synth.cancel(); // Stop any ongoing speech
+
+      const utter = new SpeechSynthesisUtterance(text);
+      const selectedIndex = parseInt(voiceSelect.value, 10);
+      if (voices[selectedIndex]) {
+        utter.voice = voices[selectedIndex];
+      }
+
+      utter.rate = parseFloat(rateSlider.value);
+      utter.pitch = parseFloat(pitchSlider.value);
+      utter.volume = parseFloat(volSlider.value);
+
+      utter.onstart = () => {
+        speechStatus.textContent = '🔊 Speaking text...';
+      };
+
+      utter.onend = () => {
+        speechStatus.textContent = '✓ Finished speaking.';
+      };
+
+      utter.onerror = (e) => {
+        console.error('Speech error', e);
+        speechStatus.textContent = 'Speech error occurred.';
+      };
+
+      synth.speak(utter);
+    });
+
+    pauseBtn.addEventListener('click', () => {
+      if (synth.speaking && !synth.paused) {
+        synth.pause();
+        speechStatus.textContent = '⏸️ Playback paused.';
+      }
+    });
+
+    stopBtn.addEventListener('click', () => {
+      if (synth.speaking) {
+        synth.cancel();
+        speechStatus.textContent = '⏹️ Playback stopped.';
+      }
+    });
+
+    document.getElementById('sample-en-btn').addEventListener('click', () => {
+      ttsText.value = "Hello! Free Online Tools offers high-speed client-side tools designed for privacy, simplicity, and speed on mobile devices.";
+      showToast('English sample loaded.');
+    });
+
+    document.getElementById('sample-ur-btn').addEventListener('click', () => {
+      ttsText.value = "السلام علیکم! فری آن لائن ٹولز میں خوش آمدید۔ یہ تمام ٹولز آپ کے موبائل فون میں تیزی سے کام کرتے ہیں۔";
+      showToast('Urdu sample loaded.');
+    });
+
+    document.getElementById('clear-tts-btn').addEventListener('click', () => {
+      ttsText.value = '';
+      if (synth.speaking) synth.cancel();
+      speechStatus.textContent = 'Text cleared.';
+    });
+  </script>
+</body>
+</html>

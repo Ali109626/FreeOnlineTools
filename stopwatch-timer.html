@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stopwatch & Timer Online Free — Millisecond Chronometer & Audio Alarm</title>
+  <meta name="description" content="Free online stopwatch and countdown timer. Millisecond-accurate chronometer with lap recording and customizable countdown timer with Web Audio chime alarm.">
+  <meta name="keywords" content="stopwatch online free, countdown timer, online timer with alarm, pomodoro timer, lap timer, millisecond stopwatch">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/stopwatch-timer.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .time-digits-display {
+      font-family: var(--font-mono);
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 800;
+      color: var(--text-main);
+      text-align: center;
+      letter-spacing: 0.05em;
+      margin: 1.5rem 0;
+      user-select: none;
+    }
+    .lap-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.9375rem;
+    }
+    .lap-table th, .lap-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    .lap-table th {
+      background: var(--bg-surface);
+      font-weight: 700;
+    }
+    .lap-fastest { color: #059669; font-weight: 700; }
+    .lap-slowest { color: #dc2626; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-utility-tools.html" class="nav-link">Utility Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util active"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 860px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-utility-tools.html">Fun & Utility</a>
+      <span>/</span>
+      <span>Stopwatch & Timer</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — browser timing with Web Audio synthesis</div>
+      <h1 class="tool-page-title">Stopwatch & Timer Online Free</h1>
+      <p class="tool-page-subtitle">Track split laps with millisecond precision or set customizable countdown timers with sound chime alerts.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Mode Tabs -->
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
+        <button type="button" id="tab-btn-stopwatch" class="btn btn-primary" style="flex: 1; background: var(--cat-util); border-color: var(--cat-util);">
+          ⏱️ Stopwatch
+        </button>
+        <button type="button" id="tab-btn-timer" class="btn btn-secondary" style="flex: 1;">
+          ⏳ Countdown Timer
+        </button>
+      </div>
+
+      <!-- Section 1: Stopwatch -->
+      <div id="section-stopwatch">
+        <div class="time-digits-display" id="sw-display">00:00:00.00</div>
+
+        <!-- Controls -->
+        <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+          <button id="sw-start-btn" class="btn btn-primary" style="min-width: 130px; background: #059669; border-color: #059669;">
+            <span>▶</span> Start
+          </button>
+          <button id="sw-lap-btn" class="btn btn-secondary" style="min-width: 110px;" disabled>
+            <span>🚩</span> Lap
+          </button>
+          <button id="sw-reset-btn" class="btn btn-secondary" style="min-width: 110px;" disabled>
+            <span>🔄</span> Reset
+          </button>
+        </div>
+
+        <!-- Laps Table -->
+        <div id="sw-laps-container" style="display: none; margin-top: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="font-size: 0.9375rem; font-weight: 700; color: var(--text-main);">Recorded Laps (<span id="sw-lap-count">0</span>)</h4>
+            <button id="sw-clear-laps" style="background: none; border: none; font-size: 0.8125rem; color: var(--text-muted); cursor: pointer;">Clear Laps</button>
+          </div>
+          <table class="lap-table">
+            <thead>
+              <tr>
+                <th>Lap #</th>
+                <th>Split Time</th>
+                <th>Total Elapsed</th>
+              </tr>
+            </thead>
+            <tbody id="sw-laps-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 2: Countdown Timer -->
+      <div id="section-timer" style="display: none;">
+        <!-- Input Row -->
+        <div id="timer-inputs-row" style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <div style="text-align: center;">
+            <input type="number" id="tm-hours" class="form-control" min="0" max="99" value="0" style="width: 75px; text-align: center; font-size: 1.5rem; font-weight: 700;">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Hours</span>
+          </div>
+          <span style="font-size: 1.5rem; font-weight: 700; color: var(--text-muted);">:</span>
+          <div style="text-align: center;">
+            <input type="number" id="tm-minutes" class="form-control" min="0" max="59" value="5" style="width: 75px; text-align: center; font-size: 1.5rem; font-weight: 700;">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Minutes</span>
+          </div>
+          <span style="font-size: 1.5rem; font-weight: 700; color: var(--text-muted);">:</span>
+          <div style="text-align: center;">
+            <input type="number" id="tm-seconds" class="form-control" min="0" max="59" value="0" style="width: 75px; text-align: center; font-size: 1.5rem; font-weight: 700;">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Seconds</span>
+          </div>
+        </div>
+
+        <!-- Presets -->
+        <div style="display: flex; justify-content: center; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+          <button type="button" class="btn btn-secondary tm-preset" data-m="1">1 min</button>
+          <button type="button" class="btn btn-secondary tm-preset" data-m="5">5 min</button>
+          <button type="button" class="btn btn-secondary tm-preset" data-m="10">10 min</button>
+          <button type="button" class="btn btn-secondary tm-preset" data-m="25">25 min (Pomodoro)</button>
+          <button type="button" class="btn btn-secondary tm-preset" data-m="45">45 min</button>
+        </div>
+
+        <!-- Display countdown -->
+        <div class="time-digits-display" id="tm-display" style="color: var(--cat-util);">00:05:00</div>
+
+        <!-- Controls -->
+        <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+          <button id="tm-start-btn" class="btn btn-primary" style="min-width: 140px; background: var(--cat-util); border-color: var(--cat-util);">
+            <span>▶</span> Start Timer
+          </button>
+          <button id="tm-reset-btn" class="btn btn-secondary" style="min-width: 110px;">
+            <span>🔄</span> Reset
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Use Stopwatch & Timer</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Select Mode</h3>
+          <p class="step-desc">Pick between the millisecond Stopwatch or Countdown Timer tabs above.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Start Tracking</h3>
+          <p class="step-desc">Hit Start to measure lap splits or start your study Pomodoro session.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Hear Chime Alert</h3>
+          <p class="step-desc">When your timer completes, an audio chime plays directly from your device.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Stopwatch & Timer FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>⏱️</span> How accurate is this browser stopwatch?</h3>
+          <p class="faq-answer">It uses `performance.now()` high-resolution monotonic timestamps, ensuring microsecond hardware precision unaffected by system clock adjustments.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔔</span> How does the alarm sound without external audio files?</h3>
+          <p class="faq-answer">We synthesize pleasant chime alert chords natively using the browser's Web Audio API (`AudioContext`). It works completely offline with zero loading time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="todo-list.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">✅</span>
+            <span class="tool-badge badge-util">Tasks</span>
+          </div>
+          <h3 class="tool-card-title">To-Do List</h3>
+          <p class="tool-card-desc">Organize productivity tasks with auto-save.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="age-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🎂</span>
+            <span class="tool-badge badge-calc">Personal</span>
+          </div>
+          <h3 class="tool-card-title">Age Calculator</h3>
+          <p class="tool-card-desc">Find exact age and countdown to next birthday.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    // Tab switching
+    const tabBtnStopwatch = document.getElementById('tab-btn-stopwatch');
+    const tabBtnTimer = document.getElementById('tab-btn-timer');
+    const secStopwatch = document.getElementById('section-stopwatch');
+    const secTimer = document.getElementById('section-timer');
+
+    tabBtnStopwatch.addEventListener('click', () => {
+      tabBtnStopwatch.classList.replace('btn-secondary', 'btn-primary');
+      tabBtnTimer.classList.replace('btn-primary', 'btn-secondary');
+      secStopwatch.style.display = 'block';
+      secTimer.style.display = 'none';
+    });
+
+    tabBtnTimer.addEventListener('click', () => {
+      tabBtnTimer.classList.replace('btn-secondary', 'btn-primary');
+      tabBtnStopwatch.classList.replace('btn-primary', 'btn-secondary');
+      secTimer.style.display = 'block';
+      secStopwatch.style.display = 'none';
+    });
+
+    // Web Audio Synthesizer Chime
+    function playChimeAlarm() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        notes.forEach((freq, i) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          const startTime = audioCtx.currentTime + (i * 0.15);
+          gain.gain.setValueAtTime(0, startTime);
+          gain.gain.linearRampToValueAtTime(0.3, startTime + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.6);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.6);
+        });
+      } catch (e) {
+        console.error('Audio synthesis failed', e);
+      }
+    }
+
+    // --- STOPWATCH LOGIC ---
+    let swRunning = false;
+    let swStartTime = 0;
+    let swElapsedTime = 0;
+    let swAnimId = null;
+    let swLaps = [];
+    let lastLapTime = 0;
+
+    const swDisplay = document.getElementById('sw-display');
+    const swStartBtn = document.getElementById('sw-start-btn');
+    const swLapBtn = document.getElementById('sw-lap-btn');
+    const swResetBtn = document.getElementById('sw-reset-btn');
+    const swLapsContainer = document.getElementById('sw-laps-container');
+    const swLapsBody = document.getElementById('sw-laps-body');
+    const swLapCount = document.getElementById('sw-lap-count');
+    const swClearLaps = document.getElementById('sw-clear-laps');
+
+    function formatTime(ms) {
+      const hrs = Math.floor(ms / 3600000);
+      const mins = Math.floor((ms % 3600000) / 60000);
+      const secs = Math.floor((ms % 60000) / 1000);
+      const millis = Math.floor((ms % 1000) / 10);
+      return `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}.${String(millis).padStart(2, '0')}`;
+    }
+
+    function updateStopwatch() {
+      const now = performance.now();
+      const current = swElapsedTime + (now - swStartTime);
+      swDisplay.textContent = formatTime(current);
+      swAnimId = requestAnimationFrame(updateStopwatch);
+    }
+
+    swStartBtn.addEventListener('click', () => {
+      if (!swRunning) {
+        swRunning = true;
+        swStartTime = performance.now();
+        swAnimId = requestAnimationFrame(updateStopwatch);
+        swStartBtn.innerHTML = '<span>⏸</span> Pause';
+        swStartBtn.style.backgroundColor = '#d97706';
+        swStartBtn.style.borderColor = '#d97706';
+        swLapBtn.disabled = false;
+        swResetBtn.disabled = false;
+      } else {
+        swRunning = false;
+        cancelAnimationFrame(swAnimId);
+        swElapsedTime += performance.now() - swStartTime;
+        swStartBtn.innerHTML = '<span>▶</span> Resume';
+        swStartBtn.style.backgroundColor = '#059669';
+        swStartBtn.style.borderColor = '#059669';
+        swLapBtn.disabled = true;
+      }
+    });
+
+    swLapBtn.addEventListener('click', () => {
+      if (!swRunning) return;
+      const total = swElapsedTime + (performance.now() - swStartTime);
+      const split = total - lastLapTime;
+      lastLapTime = total;
+      swLaps.unshift({ num: swLaps.length + 1, split, total });
+      renderLaps();
+    });
+
+    function renderLaps() {
+      swLapCount.textContent = swLaps.length;
+      if (!swLaps.length) {
+        swLapsContainer.style.display = 'none';
+        return;
+      }
+      swLapsContainer.style.display = 'block';
+
+      // Find best and slowest
+      let min = Infinity, max = -Infinity;
+      swLaps.forEach(l => {
+        if (l.split < min) min = l.split;
+        if (l.split > max) max = l.split;
+      });
+
+      swLapsBody.innerHTML = swLaps.map(l => {
+        let cls = '';
+        if (swLaps.length > 1) {
+          if (l.split === min) cls = 'lap-fastest';
+          else if (l.split === max) cls = 'lap-slowest';
+        }
+        return `
+          <tr class="${cls}">
+            <td>#${l.num}</td>
+            <td>+${formatTime(l.split)}</td>
+            <td>${formatTime(l.total)}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    swResetBtn.addEventListener('click', () => {
+      swRunning = false;
+      cancelAnimationFrame(swAnimId);
+      swElapsedTime = 0;
+      lastLapTime = 0;
+      swDisplay.textContent = '00:00:00.00';
+      swStartBtn.innerHTML = '<span>▶</span> Start';
+      swStartBtn.style.backgroundColor = '#059669';
+      swStartBtn.style.borderColor = '#059669';
+      swLapBtn.disabled = true;
+      swResetBtn.disabled = true;
+    });
+
+    swClearLaps.addEventListener('click', () => {
+      swLaps = [];
+      renderLaps();
+    });
+
+    // --- COUNTDOWN TIMER LOGIC ---
+    let tmRunning = false;
+    let tmInterval = null;
+    let tmRemainingSeconds = 300;
+
+    const tmHours = document.getElementById('tm-hours');
+    const tmMinutes = document.getElementById('tm-minutes');
+    const tmSeconds = document.getElementById('tm-seconds');
+    const tmDisplay = document.getElementById('tm-display');
+    const tmStartBtn = document.getElementById('tm-start-btn');
+    const tmResetBtn = document.getElementById('tm-reset-btn');
+
+    function formatTimerDisplay(secs) {
+      const h = Math.floor(secs / 3600);
+      const m = Math.floor((secs % 3600) / 60);
+      const s = secs % 60;
+      return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function syncFromInputs() {
+      const h = parseInt(tmHours.value, 10) || 0;
+      const m = parseInt(tmMinutes.value, 10) || 0;
+      const s = parseInt(tmSeconds.value, 10) || 0;
+      tmRemainingSeconds = (h * 3600) + (m * 60) + s;
+      tmDisplay.textContent = formatTimerDisplay(tmRemainingSeconds);
+    }
+
+    [tmHours, tmMinutes, tmSeconds].forEach(el => el.addEventListener('input', () => {
+      if (!tmRunning) syncFromInputs();
+    }));
+
+    document.querySelectorAll('.tm-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (tmRunning) resetTimer();
+        const m = parseInt(btn.dataset.m, 10);
+        tmHours.value = 0;
+        tmMinutes.value = m;
+        tmSeconds.value = 0;
+        syncFromInputs();
+      });
+    });
+
+    tmStartBtn.addEventListener('click', () => {
+      if (!tmRunning) {
+        if (tmRemainingSeconds <= 0) syncFromInputs();
+        if (tmRemainingSeconds <= 0) {
+          showToast('Please set a timer duration.');
+          return;
+        }
+
+        tmRunning = true;
+        tmStartBtn.innerHTML = '<span>⏸</span> Pause';
+        tmStartBtn.classList.replace('btn-primary', 'btn-secondary');
+
+        tmInterval = setInterval(() => {
+          tmRemainingSeconds--;
+          tmDisplay.textContent = formatTimerDisplay(tmRemainingSeconds);
+
+          if (tmRemainingSeconds <= 0) {
+            clearInterval(tmInterval);
+            tmRunning = false;
+            tmStartBtn.innerHTML = '<span>▶</span> Start';
+            tmStartBtn.classList.replace('btn-secondary', 'btn-primary');
+            playChimeAlarm();
+            showToast('⏰ Timer finished!');
+          }
+        }, 1000);
+      } else {
+        tmRunning = false;
+        clearInterval(tmInterval);
+        tmStartBtn.innerHTML = '<span>▶</span> Resume';
+        tmStartBtn.classList.replace('btn-secondary', 'btn-primary');
+      }
+    });
+
+    function resetTimer() {
+      tmRunning = false;
+      clearInterval(tmInterval);
+      tmStartBtn.innerHTML = '<span>▶</span> Start';
+      tmStartBtn.classList.replace('btn-secondary', 'btn-primary');
+      syncFromInputs();
+    }
+
+    tmResetBtn.addEventListener('click', resetTimer);
+    syncFromInputs();
+  </script>
+</body>
+</html>

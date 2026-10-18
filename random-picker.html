@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Name & Team Picker Online Free — Lucky Draw Winner & Group Generator</title>
+  <meta name="description" content="Free online random name and team picker. Draw contest winners with exciting animated celebration or divide any group into balanced random teams instantly.">
+  <meta name="keywords" content="random name picker online free, lucky draw generator, team generator, random group maker, raffle winner picker">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/random-picker.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .winner-stage {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      margin-top: 1.5rem;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .winner-name-display {
+      font-size: clamp(1.75rem, 5vw, 3rem);
+      font-weight: 900;
+      color: #f59e0b;
+      margin: 0.5rem 0;
+      text-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
+    }
+    #confetti-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .teams-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .team-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .team-header {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+    }
+    .team-members-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.875rem;
+    }
+    .team-members-list li {
+      padding: 4px 0;
+      border-bottom: 1px dashed #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-generators.html" class="nav-link">Generators</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen active"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-generators.html">Generators</a>
+      <span>/</span>
+      <span>Random Picker</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — cryptographically random on your device</div>
+      <h1 class="tool-page-title">Random Name & Team Picker Online Free</h1>
+      <p class="tool-page-subtitle">Draw lucky raffle winners with celebratory confetti animation or generate balanced random teams for games, sports, and classrooms.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Mode Tabs -->
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
+        <button type="button" id="tab-btn-single" class="btn btn-primary" style="flex: 1;">
+          🎉 Pick a Winner (Lucky Draw)
+        </button>
+        <button type="button" id="tab-btn-teams" class="btn btn-secondary" style="flex: 1;">
+          👥 Split into Teams
+        </button>
+      </div>
+
+      <!-- Names List Input Area -->
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+          <label class="form-label" for="names-input" style="margin: 0;">Enter Names (One per line or comma-separated)</label>
+          <span id="names-count" style="font-size: 0.8125rem; color: var(--text-muted); font-weight: 600;">8 names entered</span>
+        </div>
+        <textarea id="names-input" class="form-control" style="min-height: 140px; font-size: 0.9375rem; line-height: 1.5;" placeholder="Ali&#10;Bilal&#10;Fatima&#10;Hamza&#10;Usman&#10;Ayesha&#10;Zainab&#10;Omer">Ali
+Bilal
+Fatima
+Hamza
+Usman
+Ayesha
+Zainab
+Omer</textarea>
+      </div>
+
+      <!-- Quick sample load & clear buttons -->
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+        <button id="load-sample-btn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.8125rem;">Load Sample Squad</button>
+        <button id="clear-names-btn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.8125rem;">Clear Names</button>
+      </div>
+
+      <!-- Mode 1: Single Winner Settings & Button -->
+      <div id="mode-single-section">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+          <input type="checkbox" id="remove-winner-chk" style="width: 16px; height: 16px;">
+          <label for="remove-winner-chk" style="font-size: 0.875rem; cursor: pointer;">
+            Remove chosen winner from the list after drawing
+          </label>
+        </div>
+
+        <button id="pick-winner-btn" class="btn btn-primary btn-block" style="font-size: 1.125rem; padding: 12px 24px; background: #0284c7; border-color: #0284c7;">
+          <span>🎲</span> Pick a Random Winner!
+        </button>
+
+        <!-- Animated Stage -->
+        <div class="winner-stage" id="stage-box">
+          <canvas id="confetti-canvas"></canvas>
+          <div style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; font-weight: 700;">And the Winner Is:</div>
+          <div class="winner-name-display" id="winner-name">Tap "Pick a Winner"</div>
+          <div id="winner-meta" style="font-size: 0.875rem; color: #cbd5e1;">Ready for lucky draw!</div>
+        </div>
+      </div>
+
+      <!-- Mode 2: Split into Teams Settings & Button -->
+      <div id="mode-teams-section" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem; background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md);">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <label class="form-label" for="teams-num" style="margin: 0;">Number of Teams:</label>
+            <input type="number" id="teams-num" class="form-control" min="2" max="50" value="2" style="width: 80px;">
+          </div>
+          <button id="generate-teams-btn" class="btn btn-primary" style="flex: 1; min-width: 160px; background: #0284c7; border-color: #0284c7;">
+            <span>👥</span> Generate Teams Now
+          </button>
+        </div>
+
+        <!-- Generated Teams Output -->
+        <div class="teams-grid" id="teams-output-grid"></div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Pick Names & Teams</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Paste Participants</h3>
+          <p class="step-desc">Enter names one per line or separated by commas into the text box.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Choose Mode</h3>
+          <p class="step-desc">Pick "Lucky Draw" to crown a single winner or "Split into Teams" for group assignments.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Instant Randomization</h3>
+          <p class="step-desc">Enjoy smooth suspenseful animations and copy the balanced team rosters.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Random Picker FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🎲</span> Is the random selection truly fair and unbiased?</h3>
+          <p class="faq-answer">Yes! We use the browser's cryptographic pseudo-random number generator (`crypto.getRandomValues`). Every person on your list has an exactly equal statistical chance of being chosen.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>👥</span> What if the number of people does not divide evenly into teams?</h3>
+          <p class="faq-answer">The tool automatically distributes remaining participants across the teams to keep group sizes as balanced as mathematically possible.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Generators</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="password-generator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🔑</span>
+            <span class="tool-badge badge-gen">Security</span>
+          </div>
+          <h3 class="tool-card-title">Strong Password Generator</h3>
+          <p class="tool-card-desc">Generate random unhackable passwords.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="todo-list.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">✅</span>
+            <span class="tool-badge badge-util">Tasks</span>
+          </div>
+          <h3 class="tool-card-title">To-Do List</h3>
+          <p class="tool-card-desc">Keep track of tasks with localStorage backup.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const namesInput = document.getElementById('names-input');
+    const namesCount = document.getElementById('names-count');
+    const tabBtnSingle = document.getElementById('tab-btn-single');
+    const tabBtnTeams = document.getElementById('tab-btn-teams');
+    const modeSingle = document.getElementById('mode-single-section');
+    const modeTeams = document.getElementById('mode-teams-section');
+
+    const pickWinnerBtn = document.getElementById('pick-winner-btn');
+    const winnerNameEl = document.getElementById('winner-name');
+    const winnerMetaEl = document.getElementById('winner-meta');
+    const removeWinnerChk = document.getElementById('remove-winner-chk');
+    const loadSampleBtn = document.getElementById('load-sample-btn');
+    const clearNamesBtn = document.getElementById('clear-names-btn');
+
+    const teamsNum = document.getElementById('teams-num');
+    const generateTeamsBtn = document.getElementById('generate-teams-btn');
+    const teamsOutputGrid = document.getElementById('teams-output-grid');
+
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiParticles = [];
+    let confettiAnimId = null;
+
+    function getParsedNames() {
+      const raw = namesInput.value;
+      if (!raw.trim()) return [];
+      return raw.split(/[\n,]+/).map(n => n.trim()).filter(n => n.length > 0);
+    }
+
+    function updateCount() {
+      const count = getParsedNames().length;
+      namesCount.textContent = `${count} name${count === 1 ? '' : 's'} entered`;
+    }
+
+    namesInput.addEventListener('input', updateCount);
+
+    tabBtnSingle.addEventListener('click', () => {
+      tabBtnSingle.classList.replace('btn-secondary', 'btn-primary');
+      tabBtnTeams.classList.replace('btn-primary', 'btn-secondary');
+      modeSingle.style.display = 'block';
+      modeTeams.style.display = 'none';
+    });
+
+    tabBtnTeams.addEventListener('click', () => {
+      tabBtnTeams.classList.replace('btn-secondary', 'btn-primary');
+      tabBtnSingle.classList.replace('btn-primary', 'btn-secondary');
+      modeTeams.style.display = 'block';
+      modeSingle.style.display = 'none';
+    });
+
+    loadSampleBtn.addEventListener('click', () => {
+      namesInput.value = "Babar Azam\nShaheen Afridi\nMohammad Rizwan\nNaseem Shah\nShadab Khan\nFakhar Zaman\nHaris Rauf\nIftikhar Ahmed";
+      updateCount();
+      showToast('Sample squad loaded!');
+    });
+
+    clearNamesBtn.addEventListener('click', () => {
+      namesInput.value = '';
+      updateCount();
+      showToast('Cleared.');
+    });
+
+    // Confetti Animation
+    function launchConfetti() {
+      confettiCanvas.width = confettiCanvas.parentElement.clientWidth;
+      confettiCanvas.height = confettiCanvas.parentElement.clientHeight;
+      confettiParticles = [];
+
+      const colors = ['#f59e0b', '#3b82f6', '#10b981', '#ec4899', '#8b5cf6', '#ef4444'];
+      for (let i = 0; i < 80; i++) {
+        confettiParticles.push({
+          x: confettiCanvas.width / 2,
+          y: confettiCanvas.height / 2,
+          w: Math.random() * 8 + 4,
+          h: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 12,
+          vy: (Math.random() - 0.7) * 14,
+          gravity: 0.35,
+          rot: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 10
+        });
+      }
+
+      if (confettiAnimId) cancelAnimationFrame(confettiAnimId);
+
+      function render() {
+        confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        let active = false;
+
+        confettiParticles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += p.gravity;
+          p.rot += p.rotSpeed;
+
+          if (p.y < confettiCanvas.height) active = true;
+
+          confettiCtx.save();
+          confettiCtx.translate(p.x, p.y);
+          confettiCtx.rotate((p.rot * Math.PI) / 180);
+          confettiCtx.fillStyle = p.color;
+          confettiCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          confettiCtx.restore();
+        });
+
+        if (active) {
+          confettiAnimId = requestAnimationFrame(render);
+        } else {
+          confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        }
+      }
+      render();
+    }
+
+    // Pick Winner (with animated suspense shuffle)
+    pickWinnerBtn.addEventListener('click', () => {
+      const names = getParsedNames();
+      if (names.length === 0) {
+        showToast('Please enter at least one name.');
+        return;
+      }
+
+      pickWinnerBtn.disabled = true;
+      winnerMetaEl.textContent = 'Selecting randomly...';
+
+      let iterations = 0;
+      const interval = setInterval(() => {
+        const randIdx = Math.floor(Math.random() * names.length);
+        winnerNameEl.textContent = names[randIdx];
+        iterations++;
+
+        if (iterations > 18) {
+          clearInterval(interval);
+          // Pick cryptographically
+          const randArray = new Uint32Array(1);
+          window.crypto.getRandomValues(randArray);
+          const finalIndex = randArray[0] % names.length;
+          const winner = names[finalIndex];
+
+          winnerNameEl.textContent = winner;
+          winnerMetaEl.textContent = `Chosen from ${names.length} candidates!`;
+          launchConfetti();
+          pickWinnerBtn.disabled = false;
+          showToast(`Winner: ${winner}!`);
+
+          if (removeWinnerChk.checked) {
+            names.splice(finalIndex, 1);
+            namesInput.value = names.join('\n');
+            updateCount();
+          }
+        }
+      }, 70);
+    });
+
+    // Split into Teams (Fisher-Yates Shuffle)
+    generateTeamsBtn.addEventListener('click', () => {
+      const names = getParsedNames();
+      const num = parseInt(teamsNum.value, 10);
+
+      if (names.length < num) {
+        showToast(`Need at least ${num} names for ${num} teams.`);
+        return;
+      }
+
+      // Cryptographic shuffle
+      const shuffled = [...names];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const rand = new Uint32Array(1);
+        window.crypto.getRandomValues(rand);
+        const j = rand[0] % (i + 1);
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      const teams = Array.from({ length: num }, () => []);
+      shuffled.forEach((name, index) => {
+        teams[index % num].push(name);
+      });
+
+      teamsOutputGrid.innerHTML = teams.map((team, idx) => `
+        <div class="team-card">
+          <div class="team-header">
+            <span>Team ${idx + 1} (${team.length})</span>
+            <button type="button" class="btn btn-secondary" onclick="copyToClipboard('${team.join(', ')}', 'Team ${idx + 1} copied!')" style="padding: 2px 6px; font-size: 0.6875rem;">Copy</button>
+          </div>
+          <ul class="team-members-list">
+            ${team.map(m => `<li>• ${escapeHtml(m)}</li>`).join('')}
+          </ul>
+        </div>
+      `).join('');
+
+      showToast(`Generated ${num} balanced teams!`);
+    });
+
+    updateCount();
+  </script>
+</body>
+</html>

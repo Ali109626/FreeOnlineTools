@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator Online Free — Downloadable High-Res PNG QR Codes</title>
+  <meta name="description" content="Free online QR code generator. Create custom scannable QR codes for websites, plain text, WiFi networks, WhatsApp, and contacts. Download as crisp PNG.">
+  <meta name="keywords" content="qr code generator online free, make qr code, free qr code maker, wifi qr code, custom qr code png">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/qr-code-generator.html">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    .qr-type-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .qr-type-btn {
+      padding: 8px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .qr-display-box {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+    }
+    #qrcode-target img, #qrcode-target canvas {
+      margin: 0 auto;
+      display: block;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-generators.html" class="nav-link">Generators</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen active"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-generators.html">Generators</a>
+      <span>/</span>
+      <span>QR Code Generator</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — generated locally without redirects</div>
+      <h1 class="tool-page-title">QR Code Generator Online Free</h1>
+      <p class="tool-page-subtitle">Create non-expiring, static QR codes for links, text, WiFi logins, WhatsApp messages, and contact cards.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Input Type Pills -->
+      <div class="qr-type-tabs">
+        <button type="button" class="btn btn-secondary qr-type-btn active" data-type="url">🌐 URL / Link</button>
+        <button type="button" class="btn btn-secondary qr-type-btn" data-type="text">📝 Plain Text</button>
+        <button type="button" class="btn btn-secondary qr-type-btn" data-type="wifi">📶 WiFi Network</button>
+        <button type="button" class="btn btn-secondary qr-type-btn" data-type="whatsapp">💬 WhatsApp</button>
+        <button type="button" class="btn btn-secondary qr-type-btn" data-type="vcard">👤 Contact (vCard)</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <!-- Left Column: Inputs & Styling -->
+        <div>
+          <!-- Type 1: URL -->
+          <div id="pane-url" class="qr-pane">
+            <div class="form-group">
+              <label class="form-label" for="input-url">Website URL</label>
+              <input type="url" id="input-url" class="form-control" value="https://freeonlinetools.vercel.app" placeholder="https://example.com">
+            </div>
+          </div>
+
+          <!-- Type 2: Text -->
+          <div id="pane-text" class="qr-pane" style="display: none;">
+            <div class="form-group">
+              <label class="form-label" for="input-text">Text Content</label>
+              <textarea id="input-text" class="form-control" rows="3" placeholder="Type plain text to encode into the QR code..."></textarea>
+            </div>
+          </div>
+
+          <!-- Type 3: WiFi -->
+          <div id="pane-wifi" class="qr-pane" style="display: none;">
+            <div class="form-group">
+              <label class="form-label" for="wifi-ssid">WiFi Network Name (SSID)</label>
+              <input type="text" id="wifi-ssid" class="form-control" placeholder="MyHomeWiFi">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="wifi-pass">WiFi Password</label>
+              <input type="text" id="wifi-pass" class="form-control" placeholder="SecretPassword">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="wifi-enc">Encryption Type</label>
+              <select id="wifi-enc" class="form-control">
+                <option value="WPA">WPA / WPA2 / WPA3 (Standard)</option>
+                <option value="WEP">WEP</option>
+                <option value="nopass">No Password (Open)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Type 4: WhatsApp -->
+          <div id="pane-whatsapp" class="qr-pane" style="display: none;">
+            <div class="form-group">
+              <label class="form-label" for="wa-number">Phone Number (with Country Code, no + or spaces)</label>
+              <input type="tel" id="wa-number" class="form-control" placeholder="e.g. 923001234567">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="wa-msg">Pre-filled Message</label>
+              <input type="text" id="wa-msg" class="form-control" placeholder="Hi, I am interested in your services!">
+            </div>
+          </div>
+
+          <!-- Type 5: vCard -->
+          <div id="pane-vcard" class="qr-pane" style="display: none;">
+            <div class="form-group">
+              <label class="form-label" for="vcard-name">Full Name</label>
+              <input type="text" id="vcard-name" class="form-control" placeholder="e.g. Sara Khan">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="vcard-phone">Phone Number</label>
+              <input type="tel" id="vcard-phone" class="form-control" placeholder="+92 300 1234567">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="vcard-email">Email Address</label>
+              <input type="email" id="vcard-email" class="form-control" placeholder="sara@example.com">
+            </div>
+          </div>
+
+          <!-- Customization Settings -->
+          <div style="background: var(--bg-surface); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border); margin-top: 1rem;">
+            <div style="font-size: 0.8125rem; font-weight: 700; margin-bottom: 0.75rem;">Color & Size Customization:</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div>
+                <label class="form-label" for="qr-fg" style="font-size: 0.75rem;">Foreground Color</label>
+                <input type="color" id="qr-fg" value="#000000" style="width: 100%; height: 38px; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; padding: 2px;">
+              </div>
+              <div>
+                <label class="form-label" for="qr-bg" style="font-size: 0.75rem;">Background Color</label>
+                <input type="color" id="qr-bg" value="#ffffff" style="width: 100%; height: 38px; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; padding: 2px;">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 0.75rem; margin-bottom: 0;">
+              <label class="form-label" for="qr-size-select" style="font-size: 0.75rem;">Resolution Size</label>
+              <select id="qr-size-select" class="form-control" style="min-height: 36px; font-size: 0.8125rem;">
+                <option value="256">Medium (256 × 256 px)</option>
+                <option value="384">Large (384 × 384 px)</option>
+                <option value="512">Ultra High-Res (512 × 512 px)</option>
+                <option value="180">Compact (180 × 180 px)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Live QR Preview & Download -->
+        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="qr-display-box">
+            <div id="qrcode-target"></div>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <button id="download-qr-btn" class="btn btn-success btn-block" style="font-size: 1rem;">
+              <span>⬇️</span> Download PNG QR Code
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Generate QR Codes Online</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Choose Content Type</h3>
+          <p class="step-desc">Pick whether you want to encode a website link, WiFi network, or WhatsApp number.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Customize Visuals</h3>
+          <p class="step-desc">Select custom dark and light brand colors and choose your preferred resolution size.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Download PNG</h3>
+          <p class="step-desc">Tap the green download button to save a high-resolution, static PNG ready for printing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> QR Code Generator FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📱</span> Will these QR codes expire after a few months?</h3>
+          <p class="faq-answer">No, never! These are genuine <strong>static QR codes</strong>. The destination URL or WiFi details are directly encoded into the visual black-and-white grid pattern without any intermediate tracking servers or expiration timers.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📶</span> How does a WiFi QR code work?</h3>
+          <p class="faq-answer">When visitors or customers scan your WiFi QR code using their phone camera, their device automatically connects to the wireless network without having to type out long, complex passwords.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Generators</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="password-generator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🔑</span>
+            <span class="tool-badge badge-gen">Security</span>
+          </div>
+          <h3 class="tool-card-title">Strong Password Generator</h3>
+          <p class="tool-card-desc">Generate random unhackable passwords.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="color-picker.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🎨</span>
+            <span class="tool-badge badge-gen">Design</span>
+          </div>
+          <h3 class="tool-card-title">Color Picker & Palette</h3>
+          <p class="tool-card-desc">Explore color harmonies and copy HEX/RGB codes.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    let activeType = 'url';
+    let qrcodeInstance = null;
+
+    const qrTarget = document.getElementById('qrcode-target');
+    const qrFg = document.getElementById('qr-fg');
+    const qrBg = document.getElementById('qr-bg');
+    const qrSizeSelect = document.getElementById('qr-size-select');
+    const downloadQrBtn = document.getElementById('download-qr-btn');
+
+    // Panes
+    const panes = {
+      url: document.getElementById('pane-url'),
+      text: document.getElementById('pane-text'),
+      wifi: document.getElementById('pane-wifi'),
+      whatsapp: document.getElementById('pane-whatsapp'),
+      vcard: document.getElementById('pane-vcard')
+    };
+
+    // Tabs
+    document.querySelectorAll('.qr-type-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.qr-type-btn').forEach(b => b.classList.remove('active', 'btn-primary'));
+        btn.classList.add('active', 'btn-primary');
+        activeType = btn.dataset.type;
+
+        Object.keys(panes).forEach(k => {
+          panes[k].style.display = (k === activeType) ? 'block' : 'none';
+        });
+
+        generateQR();
+      });
+    });
+
+    function getPayload() {
+      if (activeType === 'url') {
+        return document.getElementById('input-url').value.trim() || 'https://freeonlinetools.vercel.app';
+      } else if (activeType === 'text') {
+        return document.getElementById('input-text').value.trim() || 'FreeOnlineTools';
+      } else if (activeType === 'wifi') {
+        const ssid = document.getElementById('wifi-ssid').value.trim() || 'MyWiFi';
+        const pass = document.getElementById('wifi-pass').value.trim();
+        const enc = document.getElementById('wifi-enc').value;
+        return `WIFI:T:${enc};S:${ssid};P:${pass};;`;
+      } else if (activeType === 'whatsapp') {
+        const num = document.getElementById('wa-number').value.replace(/[^0-9]/g, '');
+        const msg = encodeURIComponent(document.getElementById('wa-msg').value.trim());
+        return `https://wa.me/${num}?text=${msg}`;
+      } else if (activeType === 'vcard') {
+        const name = document.getElementById('vcard-name').value.trim() || 'Contact';
+        const phone = document.getElementById('vcard-phone').value.trim();
+        const email = document.getElementById('vcard-email').value.trim();
+        return `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEMAIL:${email}\nEND:VCARD`;
+      }
+      return 'FreeOnlineTools';
+    }
+
+    function generateQR() {
+      if (typeof QRCode === 'undefined') return;
+
+      const payload = getPayload();
+      const size = parseInt(qrSizeSelect.value, 10);
+      const colorDark = qrFg.value;
+      const colorLight = qrBg.value;
+
+      qrTarget.innerHTML = '';
+      qrcodeInstance = new QRCode(qrTarget, {
+        text: payload,
+        width: size,
+        height: size,
+        colorDark: colorDark,
+        colorLight: colorLight,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    // Event listeners on all inputs
+    document.querySelectorAll('.tool-box input, .tool-box select, .tool-box textarea').forEach(el => {
+      el.addEventListener('input', generateQR);
+      el.addEventListener('change', generateQR);
+    });
+
+    downloadQrBtn.addEventListener('click', () => {
+      // Find canvas or image inside qrTarget
+      const canvas = qrTarget.querySelector('canvas');
+      let dataUrl = '';
+
+      if (canvas) {
+        dataUrl = canvas.toDataURL('image/png');
+      } else {
+        const img = qrTarget.querySelector('img');
+        if (img) dataUrl = img.src;
+      }
+
+      if (!dataUrl) {
+        showToast('Please wait for QR code to render.');
+        return;
+      }
+
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `qrcode-${activeType}.png`;
+      a.click();
+      showToast('QR code downloaded!');
+    });
+
+    // Initial render
+    window.addEventListener('load', generateQR);
+    setTimeout(generateQR, 300);
+  </script>
+</body>
+</html>

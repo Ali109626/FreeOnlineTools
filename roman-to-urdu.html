@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roman to Urdu Converter Online Free — Type Urdu in English Script (رومن اردو کنورٹر)</title>
+  <meta name="description" content="Free online Roman to Urdu typing converter. Easily type Urdu using English letters and instantly get beautiful Urdu Nastaliq text with one-click copy.">
+  <meta name="keywords" content="roman to urdu converter, roman urdu typing, english to urdu script, urdu keyboard online, transliteration urdu">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/roman-to-urdu.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .urdu-output {
+      font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', Tahoma, Arial, sans-serif;
+      font-size: 1.5rem;
+      line-height: 2;
+      direction: rtl;
+      text-align: right;
+    }
+    .urdu-char-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 0.75rem;
+    }
+    .urdu-key-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 4px 10px;
+      font-size: 1.125rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .urdu-key-btn:hover {
+      background: #e2e8f0;
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-text-tools.html" class="nav-link">Text Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text active"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-text-tools.html">Text Tools</a>
+      <span>/</span>
+      <span>Roman to Urdu Converter</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — transliteration runs on your device</div>
+      <h1 class="tool-page-title">Roman to Urdu Converter Online Free</h1>
+      <p class="tool-page-subtitle">Type Urdu phonetically using the English keyboard (Roman Urdu) and instantly get genuine Urdu text (اردو رسم الخط).</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Presets quick bar -->
+      <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+        <span style="font-size: 0.8125rem; font-weight: 600; color: var(--text-muted);">Quick Examples:</span>
+        <button type="button" class="btn btn-secondary sample-quote" data-sample="Aap ka kya haal hai? Mein bilkul theek hoon." style="padding: 4px 10px; font-size: 0.8125rem;">"Aap ka kya haal hai?"</button>
+        <button type="button" class="btn btn-secondary sample-quote" data-sample="Pakistan zindabad, hamesha khush raho." style="padding: 4px 10px; font-size: 0.8125rem;">"Pakistan zindabad"</button>
+        <button type="button" class="btn btn-secondary sample-quote" data-sample="Bohat bohat shukriya mere pyare dost!" style="padding: 4px 10px; font-size: 0.8125rem;">"Bohat bohat shukriya"</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+        <!-- Roman Urdu Input -->
+        <div>
+          <label class="form-label" for="roman-input">
+            Roman Urdu Input (Type in English)
+          </label>
+          <textarea id="roman-input" class="form-control" style="min-height: 180px; font-size: 1.0625rem;" placeholder="Type here in Roman Urdu, e.g. 'Assalam o alaikum! Aaj mausam bohat acha hai...'"></textarea>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <button id="clear-btn" class="btn btn-secondary" style="padding: 8px 14px; font-size: 0.875rem;">
+              <span>🗑️</span> Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- Urdu Output -->
+        <div>
+          <label class="form-label" for="urdu-output">
+            Urdu Text Result (اردو ٹیکسٹ)
+          </label>
+          <textarea id="urdu-output" class="form-control urdu-output" style="min-height: 180px;" placeholder="یہاں اردو تحریر خود بخود آئے گی..."></textarea>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
+            <button id="copy-urdu-btn" class="btn btn-primary" style="flex: 1;">
+              <span>📋</span> Copy Urdu Text
+            </button>
+            <button id="download-txt-btn" class="btn btn-secondary" style="padding: 8px 14px; font-size: 0.875rem;">
+              <span>💾</span> Save .txt
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Urdu Letters Bar -->
+      <div style="margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+        <span style="font-size: 0.8125rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Click to Insert Urdu Character:</span>
+        <div class="urdu-char-bar">
+          <button type="button" class="urdu-key-btn">آ</button>
+          <button type="button" class="urdu-key-btn">ا</button>
+          <button type="button" class="urdu-key-btn">ب</button>
+          <button type="button" class="urdu-key-btn">پ</button>
+          <button type="button" class="urdu-key-btn">ت</button>
+          <button type="button" class="urdu-key-btn">ٹ</button>
+          <button type="button" class="urdu-key-btn">ث</button>
+          <button type="button" class="urdu-key-btn">ج</button>
+          <button type="button" class="urdu-key-btn">چ</button>
+          <button type="button" class="urdu-key-btn">ح</button>
+          <button type="button" class="urdu-key-btn">خ</button>
+          <button type="button" class="urdu-key-btn">د</button>
+          <button type="button" class="urdu-key-btn">ڈ</button>
+          <button type="button" class="urdu-key-btn">ذ</button>
+          <button type="button" class="urdu-key-btn">ر</button>
+          <button type="button" class="urdu-key-btn">ڑ</button>
+          <button type="button" class="urdu-key-btn">ز</button>
+          <button type="button" class="urdu-key-btn">ژ</button>
+          <button type="button" class="urdu-key-btn">س</button>
+          <button type="button" class="urdu-key-btn">ش</button>
+          <button type="button" class="urdu-key-btn">ص</button>
+          <button type="button" class="urdu-key-btn">ض</button>
+          <button type="button" class="urdu-key-btn">ط</button>
+          <button type="button" class="urdu-key-btn">ظ</button>
+          <button type="button" class="urdu-key-btn">ع</button>
+          <button type="button" class="urdu-key-btn">غ</button>
+          <button type="button" class="urdu-key-btn">ف</button>
+          <button type="button" class="urdu-key-btn">ق</button>
+          <button type="button" class="urdu-key-btn">ک</button>
+          <button type="button" class="urdu-key-btn">گ</button>
+          <button type="button" class="urdu-key-btn">ل</button>
+          <button type="button" class="urdu-key-btn">م</button>
+          <button type="button" class="urdu-key-btn">ن</button>
+          <button type="button" class="urdu-key-btn">ں</button>
+          <button type="button" class="urdu-key-btn">و</button>
+          <button type="button" class="urdu-key-btn">ہ</button>
+          <button type="button" class="urdu-key-btn">ھ</button>
+          <button type="button" class="urdu-key-btn">ء</button>
+          <button type="button" class="urdu-key-btn">ی</button>
+          <button type="button" class="urdu-key-btn">ے</button>
+          <button type="button" class="urdu-key-btn">؟</button>
+          <button type="button" class="urdu-key-btn">۔</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Convert Roman to Urdu</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Type in English Letters</h3>
+          <p class="step-desc">Write your sentence in phonetic Roman Urdu (e.g., "aap kaise hain").</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Instant Conversion</h3>
+          <p class="step-desc">Our transliteration engine converts your letters into genuine Urdu Nastaliq characters in real time.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Copy or Share</h3>
+          <p class="step-desc">Tap "Copy Urdu Text" to paste into WhatsApp, Facebook, Word documents, or SMS.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Roman to Urdu FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>✍️</span> Do I need to install an Urdu keyboard on my phone?</h3>
+          <p class="faq-answer">No! You can type using your standard English keyboard. This tool does the transliteration conversion right here inside your browser.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📱</span> Can I copy and paste this Urdu text into WhatsApp or Instagram?</h3>
+          <p class="faq-answer">Yes, absolutely! The output is standard Unicode Urdu text that works everywhere on Android, iPhone, Windows, Mac, and all social media apps.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Text Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="text-to-speech.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🔊</span>
+            <span class="tool-badge badge-text">TTS</span>
+          </div>
+          <h3 class="tool-card-title">Text to Speech</h3>
+          <p class="tool-card-desc">Listen to Urdu or English text read aloud in natural voices.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="word-counter.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📝</span>
+            <span class="tool-badge badge-text">Counter</span>
+          </div>
+          <h3 class="tool-card-title">Word & Character Counter</h3>
+          <p class="tool-card-desc">Count words and characters in Urdu and English text.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="case-converter.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🔠</span>
+            <span class="tool-badge badge-text">Formatter</span>
+          </div>
+          <h3 class="tool-card-title">Case Converter</h3>
+          <p class="tool-card-desc">Convert casing to UPPERCASE, Title Case, and more.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const romanInput = document.getElementById('roman-input');
+    const urduOutput = document.getElementById('urdu-output');
+    const copyUrduBtn = document.getElementById('copy-urdu-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const downloadTxtBtn = document.getElementById('download-txt-btn');
+
+    // High-frequency Roman Urdu Dictionary mapping
+    const URDU_WORD_DICT = {
+      'aap': 'آپ', 'ap': 'آپ', 'aur': 'اور', 'or': 'اور', 'hai': 'ہے', 'hy': 'ہے', 'hain': 'ہیں',
+      'hein': 'ہیں', 'hyn': 'ہیں', 'kya': 'کیا', 'kia': 'کیا', 'kyun': 'کیوں', 'kyon': 'کیوں',
+      'kaise': 'کیسے', 'kaisay': 'کیسے', 'kese': 'کیسے', 'mein': 'میں', 'main': 'میں', 'theek': 'ٹھیک',
+      'thik': 'ٹھیک', 'shukriya': 'شکریہ', 'shukria': 'شکریہ', 'bohat': 'بہت', 'bht': 'بہت',
+      'acha': 'اچھا', 'accha': 'اچھا', 'nahi': 'نہیں', 'nahin': 'نہیں', 'nh': 'نہیں', 'nhi': 'نہیں',
+      'haan': 'ہاں', 'han': 'ہاں', 'bhai': 'بھائی', 'dost': 'دوست', 'khuda': 'خدا', 'hafiz': 'حافظ',
+      'salam': 'سلام', 'assalam': 'السلام', 'walaykum': 'وعلیکم', 'alaikum': 'علیکم', 'ka': 'کا',
+      'ki': 'کی', 'ke': 'کے', 'kay': 'کے', 'ko': 'کو', 'se': 'سے', 'say': 'سے', 'ye': 'یہ',
+      'yeh': 'یہ', 'wo': 'وہ', 'woh': 'وہ', 'mera': 'میرا', 'meri': 'میری', 'mere': 'میرے',
+      'tera': 'تیرا', 'teri': 'تیری', 'tere': 'تیرے', 'hum': 'ہم', 'ham': 'ہم', 'tum': 'تم',
+      'unka': 'ان کا', 'unki': 'ان کی', 'unke': 'ان کے', 'sab': 'سب', 'kuch': 'کچھ', 'koi': 'کوئی',
+      'kisi': 'کسی', 'lekin': 'لیکن', 'magar': 'مگر', 'bhi': 'بھی', 'to': 'تو', 'toh': 'تو',
+      'pakistan': 'پاکستان', 'zindabad': 'زندہ باد', 'lahore': 'لاہور', 'karachi': 'کراچی',
+      'islamabad': 'اسلام آباد', 'aaj': 'آج', 'kal': 'کل', 'parso': 'پرسوں', 'subah': 'صبح',
+      'sham': 'شام', 'raat': 'رات', 'waqt': 'وقت', 'din': 'دن', 'saal': 'سال', 'mausam': 'موسم',
+      'pyar': 'پیار', 'khushi': 'خوشی', 'dil': 'دل', 'ghar': 'گھر', 'kam': 'کام', 'kaam': 'کام'
+    };
+
+    // Digraph rules
+    const DIGRAPHS = [
+      ['kh', 'خ'], ['gh', 'غ'], ['sh', 'ش'], ['ch', 'چ'], ['zh', 'ژ'],
+      ['th', 'تھ'], ['dh', 'دھ'], ['bh', 'بھ'], ['ph', 'پھ'], ['jh', 'جھ'],
+      ['rh', 'ڑھ'], ['aa', 'آ'], ['ee', 'ی'], ['oo', 'و'], ['ai', 'ے'], ['ay', 'ے']
+    ];
+
+    // Single character map
+    const CHAR_MAP = {
+      'a': 'ا', 'b': 'ب', 'p': 'پ', 't': 'ت', 'j': 'ج', 'c': 'چ', 'h': 'ہ',
+      'd': 'د', 'r': 'ر', 'z': 'ز', 's': 'س', 'f': 'ف', 'q': 'ق', 'k': 'ک',
+      'g': 'گ', 'l': 'ل', 'm': 'م', 'n': 'ن', 'w': 'و', 'v': 'و', 'y': 'ی',
+      'e': 'ے', 'i': 'ی', 'o': 'و', 'u': 'و', 'x': 'کس',
+      'A': 'آ', 'B': 'ب', 'T': 'ٹ', 'D': 'ڈ', 'R': 'ڑ', 'S': 'ص', 'Z': 'ض',
+      'H': 'ح', 'K': 'خ', 'G': 'غ', 'N': 'ں', 'W': 'و', 'Y': 'ے',
+      '?': '؟', ',': '،', ';': '؛', '.': '۔'
+    };
+
+    function transliterateWord(word) {
+      if (!word) return '';
+      const cleanLower = word.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (URDU_WORD_DICT[cleanLower]) {
+        // preserve punctuation around word
+        return word.toLowerCase().replace(cleanLower, URDU_WORD_DICT[cleanLower]);
+      }
+
+      let res = '';
+      let i = 0;
+      while (i < word.length) {
+        // Check 2-letter digraphs
+        if (i < word.length - 1) {
+          const two = word.substring(i, i + 2).toLowerCase();
+          const match = DIGRAPHS.find(d => d[0] === two);
+          if (match) {
+            res += match[1];
+            i += 2;
+            continue;
+          }
+        }
+
+        const ch = word[i];
+        if (CHAR_MAP[ch]) {
+          res += CHAR_MAP[ch];
+        } else {
+          res += ch;
+        }
+        i++;
+      }
+      return res;
+    }
+
+    function convertRomanToUrdu(text) {
+      if (!text) return '';
+      // Split tokens preserving whitespace and newlines
+      const tokens = text.split(/(\s+|\n+)/);
+      return tokens.map(token => {
+        if (/^\s+$/.test(token) || token === '\n') return token;
+        return transliterateWord(token);
+      }).join('');
+    }
+
+    romanInput.addEventListener('input', () => {
+      urduOutput.value = convertRomanToUrdu(romanInput.value);
+    });
+
+    copyUrduBtn.addEventListener('click', () => {
+      if (!urduOutput.value.trim()) {
+        showToast('Nothing to copy!');
+        return;
+      }
+      copyToClipboard(urduOutput.value, 'Urdu text copied to clipboard!');
+    });
+
+    clearBtn.addEventListener('click', () => {
+      romanInput.value = '';
+      urduOutput.value = '';
+      showToast('Cleared.');
+    });
+
+    downloadTxtBtn.addEventListener('click', () => {
+      const text = urduOutput.value.trim();
+      if (!text) {
+        showToast('Nothing to save!');
+        return;
+      }
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'urdu-text.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('File downloaded.');
+    });
+
+    document.querySelectorAll('.sample-quote').forEach(btn => {
+      btn.addEventListener('click', () => {
+        romanInput.value = btn.dataset.sample;
+        urduOutput.value = convertRomanToUrdu(romanInput.value);
+      });
+    });
+
+    document.querySelectorAll('.urdu-key-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const char = btn.textContent;
+        urduOutput.value += char;
+        showToast(`Inserted ${char}`);
+      });
+    });
+  </script>
+</body>
+</html>

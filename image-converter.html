@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Converter Online Free — JPG to PNG, PNG to JPG, WebP Converter</title>
+  <meta name="description" content="Convert images between JPG, PNG, and WebP format online for free. 100% client-side in your browser with zero quality degradation.">
+  <meta name="keywords" content="image converter online free, jpg to png, png to jpg, webp converter, convert image format, convert photo">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/image-converter.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-image-tools.html" class="nav-link">Image Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image active"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-image-tools.html">Image Tools</a>
+      <span>/</span>
+      <span>Image Converter</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — files never leave your device</div>
+      <h1 class="tool-page-title">Image Converter Online Free</h1>
+      <p class="tool-page-subtitle">Convert JPG to PNG, PNG to JPG, or any image to modern WebP format without uploading to external servers.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Upload Dropzone -->
+      <div class="file-dropzone" id="dropzone">
+        <input type="file" id="file-input" accept="image/*">
+        <div class="dropzone-icon">🔄</div>
+        <div class="dropzone-text">Click to choose an image, or drag & drop here</div>
+        <div class="dropzone-subtext">JPG, PNG, WebP, BMP, GIF, SVG supported</div>
+      </div>
+
+      <!-- Workspace -->
+      <div id="converter-workspace" style="display: none; margin-top: 1.5rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+          <!-- Controls Column -->
+          <div>
+            <div style="background: var(--bg-surface); padding: 12px; border-radius: var(--radius-sm); margin-bottom: 1.25rem;">
+              <div style="font-size: 0.8125rem; color: var(--text-muted);">Source File:</div>
+              <div id="orig-name" style="font-weight: 700; color: var(--text-main); font-size: 0.9375rem; word-break: break-all;">-</div>
+              <div id="orig-info" style="font-size: 0.8125rem; color: var(--text-muted); margin-top: 2px;">-</div>
+            </div>
+
+            <!-- Target Format Buttons -->
+            <div class="form-group">
+              <label class="form-label">Select Target Format</label>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+                <button type="button" class="btn btn-secondary fmt-btn active" data-fmt="image/png" style="padding: 10px 4px;">PNG</button>
+                <button type="button" class="btn btn-secondary fmt-btn" data-fmt="image/jpeg" style="padding: 10px 4px;">JPG / JPEG</button>
+                <button type="button" class="btn btn-secondary fmt-btn" data-fmt="image/webp" style="padding: 10px 4px;">WebP</button>
+              </div>
+            </div>
+
+            <!-- Quality slider for lossy formats -->
+            <div id="quality-group" class="form-group" style="display: none;">
+              <label class="form-label" for="quality-range">
+                Output Quality: <strong id="quality-val" style="color: var(--primary);">90%</strong>
+              </label>
+              <input type="range" id="quality-range" min="10" max="100" value="90" style="width: 100%;">
+            </div>
+
+            <button id="convert-btn" class="btn btn-primary btn-block">
+              <span>⚡</span> Convert Format
+            </button>
+          </div>
+
+          <!-- Output Preview & Download -->
+          <div class="result-box" style="margin-top: 0; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem;">Converted File</h3>
+              <div style="background: #fff; padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 4px;">
+                  <span style="color: var(--text-muted);">Format:</span>
+                  <strong id="new-fmt-text" style="color: var(--primary); text-transform: uppercase;">PNG</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+                  <span style="color: var(--text-muted);">File Size:</span>
+                  <strong id="new-size-text" style="color: var(--cat-image);">-</strong>
+                </div>
+              </div>
+
+              <div style="text-align: center; background: #fff; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border); max-height: 220px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                <img id="converted-preview" style="max-height: 200px; max-width: 100%; object-fit: contain;" alt="Converted preview">
+              </div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+              <a id="download-btn" class="btn btn-success btn-block" style="text-decoration: none;" download="converted-image.png">
+                <span>⬇️</span> Download Converted Image
+              </a>
+              <button id="reset-btn" class="btn btn-secondary btn-block" style="margin-top: 0.5rem;">
+                Convert Another Image
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Convert Images Online</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Select Image</h3>
+          <p class="step-desc">Drop your JPG, PNG, or WebP photo into the converter box above or browse files on your device.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Choose Format</h3>
+          <p class="step-desc">Pick your destination format: PNG (lossless), JPG (universal), or WebP (modern web standard).</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Download Instantly</h3>
+          <p class="step-desc">Your converted photo is rendered on-the-fly and ready for instant one-click download.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Image Converter FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔄</span> What happens to transparency when converting PNG to JPG?</h3>
+          <p class="faq-answer">Because the standard JPEG format does not support alpha channel transparency, any transparent areas in your PNG are smoothly rendered over a crisp white background.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🌐</span> Why should I convert images to WebP?</h3>
+          <p class="faq-answer">WebP images are on average 25% to 35% smaller than comparable JPEGs and PNGs while retaining crisp quality and transparency support, speeding up website loading times.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Image Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="image-compressor.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📉</span>
+            <span class="tool-badge badge-image">Compressor</span>
+          </div>
+          <h3 class="tool-card-title">Image Compressor</h3>
+          <p class="tool-card-desc">Compress JPG, PNG & WebP images without losing quality.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="image-resizer.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📐</span>
+            <span class="tool-badge badge-image">Resizer</span>
+          </div>
+          <h3 class="tool-card-title">Image Resizer</h3>
+          <p class="tool-card-desc">Resize photo width & height in exact pixels.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    let originalImage = null;
+    let originalFile = null;
+    let selectedMime = 'image/png';
+
+    const fileInput = document.getElementById('file-input');
+    const dropzone = document.getElementById('dropzone');
+    const workspace = document.getElementById('converter-workspace');
+    const origNameEl = document.getElementById('orig-name');
+    const origInfoEl = document.getElementById('orig-info');
+    const newFmtText = document.getElementById('new-fmt-text');
+    const newSizeText = document.getElementById('new-size-text');
+    const convertedPreview = document.getElementById('converted-preview');
+    const downloadBtn = document.getElementById('download-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const convertBtn = document.getElementById('convert-btn');
+    const qualityGroup = document.getElementById('quality-group');
+    const qualityRange = document.getElementById('quality-range');
+    const qualityVal = document.getElementById('quality-val');
+
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) handleFile(e.target.files[0]);
+    });
+
+    document.querySelectorAll('.fmt-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.fmt-btn').forEach(b => b.classList.remove('active', 'btn-primary'));
+        btn.classList.add('active', 'btn-primary');
+        selectedMime = btn.dataset.fmt;
+        qualityGroup.style.display = (selectedMime === 'image/png') ? 'none' : 'block';
+        convertImage();
+      });
+    });
+
+    qualityRange.addEventListener('input', () => {
+      qualityVal.textContent = qualityRange.value + '%';
+    });
+    qualityRange.addEventListener('change', convertImage);
+    convertBtn.addEventListener('click', convertImage);
+
+    resetBtn.addEventListener('click', () => {
+      workspace.style.display = 'none';
+      dropzone.style.display = 'block';
+      fileInput.value = '';
+      originalImage = null;
+      originalFile = null;
+    });
+
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) {
+        showToast('Please select a valid image file.');
+        return;
+      }
+      originalFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          originalImage = img;
+          dropzone.style.display = 'none';
+          workspace.style.display = 'block';
+
+          origNameEl.textContent = file.name;
+          origInfoEl.textContent = `${img.naturalWidth} × ${img.naturalHeight} px (${formatBytes(file.size)})`;
+
+          // Pick alternate format as sensible default
+          if (file.type === 'image/png') {
+            selectFormatButton('image/jpeg');
+          } else {
+            selectFormatButton('image/png');
+          }
+
+          convertImage();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function selectFormatButton(mime) {
+      selectedMime = mime;
+      document.querySelectorAll('.fmt-btn').forEach(btn => {
+        if (btn.dataset.fmt === mime) {
+          btn.classList.add('active', 'btn-primary');
+        } else {
+          btn.classList.remove('active', 'btn-primary');
+        }
+      });
+      qualityGroup.style.display = (mime === 'image/png') ? 'none' : 'block';
+    }
+
+    function convertImage() {
+      if (!originalImage) return;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = originalImage.naturalWidth;
+      canvas.height = originalImage.naturalHeight;
+      const ctx = canvas.getContext('2d');
+
+      if (selectedMime === 'image/jpeg') {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      ctx.drawImage(originalImage, 0, 0);
+
+      const quality = parseInt(qualityRange.value, 10) / 100;
+
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        convertedPreview.src = url;
+
+        let ext = '.png';
+        let label = 'PNG';
+        if (selectedMime === 'image/jpeg') { ext = '.jpg'; label = 'JPG'; }
+        else if (selectedMime === 'image/webp') { ext = '.webp'; label = 'WebP'; }
+
+        newFmtText.textContent = label;
+        newSizeText.textContent = formatBytes(blob.size);
+
+        const baseName = (originalFile && originalFile.name ? originalFile.name.replace(/\.[^/.]+$/, '') : 'image');
+        downloadBtn.href = url;
+        downloadBtn.download = `${baseName}-converted${ext}`;
+
+        showToast(`Converted to ${label}!`);
+      }, selectedMime, quality);
+    }
+  </script>
+</body>
+</html>

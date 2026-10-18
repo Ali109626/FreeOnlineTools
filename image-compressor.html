@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Compressor Online Free — Compress JPG, PNG & WebP Without Losing Quality</title>
+  <meta name="description" content="Free online image compressor. Reduce image file size by up to 80% directly in your browser. 100% private — your photos never leave your device.">
+  <meta name="keywords" content="image compressor online free, compress jpg, compress png, compress webp, reduce image size, shrink photo mb to kb">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/image-compressor.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-image-tools.html" class="nav-link">Image Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image active"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-image-tools.html">Image Tools</a>
+      <span>/</span>
+      <span>Image Compressor</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — files never leave your device</div>
+      <h1 class="tool-page-title">Image Compressor Online Free</h1>
+      <p class="tool-page-subtitle">Compress JPG, PNG, and WebP images quickly with custom quality control and instant side-by-side file size comparison.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Upload Dropzone -->
+      <div class="file-dropzone" id="dropzone">
+        <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp">
+        <div class="dropzone-icon">📥</div>
+        <div class="dropzone-text">Click to choose an image, or drag & drop here</div>
+        <div class="dropzone-subtext">Supports JPG, PNG, WebP (Processed 100% locally in your browser)</div>
+      </div>
+
+      <!-- Controls & Preview (Hidden until image selected) -->
+      <div id="compressor-workspace" style="display: none; margin-top: 1.5rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem;">
+          <!-- Controls Column -->
+          <div>
+            <div class="form-group">
+              <label class="form-label" for="quality-slider">
+                Compression Quality: <strong id="quality-val" style="color: var(--primary);">75%</strong>
+              </label>
+              <input type="range" id="quality-slider" min="5" max="100" value="75" style="width: 100%; height: 8px; cursor: pointer;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <span>Smaller File</span>
+                <span>Best Quality</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="format-select">Output Format</label>
+              <select id="format-select" class="form-control">
+                <option value="image/jpeg">JPEG (.jpg)</option>
+                <option value="image/webp">WebP (.webp - recommended)</option>
+                <option value="image/png">PNG (.png)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="max-dimension">Max Width/Height (Optional scale)</label>
+              <select id="max-dimension" class="form-control">
+                <option value="0">Original Resolution</option>
+                <option value="1920">Full HD (Max 1920px)</option>
+                <option value="1280">HD (Max 1280px)</option>
+                <option value="800">Web Standard (Max 800px)</option>
+              </select>
+            </div>
+
+            <button id="compress-btn" class="btn btn-primary btn-block" style="margin-top: 0.5rem;">
+              <span>⚡</span> Recompress Image
+            </button>
+          </div>
+
+          <!-- Stats & Results Card -->
+          <div class="result-box" style="margin-top: 0; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main);">Compression Results</h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="background: #fff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Original Size</div>
+                  <div id="orig-size" style="font-size: 1.125rem; font-weight: 700; color: var(--text-main);">-</div>
+                  <div id="orig-dims" style="font-size: 0.75rem; color: var(--text-muted);">-</div>
+                </div>
+                <div style="background: #ecfdf5; padding: 10px; border-radius: var(--radius-sm); border: 1px solid #a7f3d0;">
+                  <div style="font-size: 0.75rem; color: #065f46;">Compressed Size</div>
+                  <div id="comp-size" style="font-size: 1.125rem; font-weight: 700; color: #047857;">-</div>
+                  <div id="saved-pct" style="font-size: 0.75rem; font-weight: 600; color: #059669;">-</div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <a id="download-btn" class="btn btn-success btn-block" style="text-decoration: none;" download="compressed-image.jpg">
+                <span>⬇️</span> Download Compressed Image
+              </a>
+              <button id="reset-btn" class="btn btn-secondary btn-block" style="margin-top: 0.5rem;">
+                Choose Another Image
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Preview -->
+        <div style="margin-top: 1.5rem; text-align: center; background: #f8fafc; padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <div style="font-size: 0.8125rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem;">Live Preview</div>
+          <img id="preview-img" style="max-height: 380px; margin: 0 auto; border-radius: var(--radius-sm); box-shadow: var(--shadow-sm);" alt="Compressed image preview">
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Compress Images Online</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Upload Image</h3>
+          <p class="step-desc">Drag and drop any JPG, PNG, or WebP photo into the upload box or tap to choose a file from your device.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Adjust Quality</h3>
+          <p class="step-desc">Slide the quality slider to find your preferred balance between small file size and crisp image detail.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Download</h3>
+          <p class="step-desc">View your compressed file size and percentage saved, then tap the green Download button to save your photo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Image Compressor FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔒</span> Will my photos be sent to a server?</h3>
+          <p class="faq-answer">No. The compression algorithm executes directly inside your browser using the HTML5 Canvas API. Your photos never leave your device.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📉</span> How much can I reduce image file size?</h3>
+          <p class="faq-answer">Depending on the initial format and resolution, you can typically reduce file size by 50% to 80% without noticeable degradation in visual quality.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🖼️</span> Which format gives the smallest file size?</h3>
+          <p class="faq-answer">WebP almost always delivers the lowest file size while preserving high visual fidelity, making it ideal for websites and mobile applications.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Image Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="image-resizer.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📐</span>
+            <span class="tool-badge badge-image">Resizer</span>
+          </div>
+          <h3 class="tool-card-title">Image Resizer</h3>
+          <p class="tool-card-desc">Resize image pixel dimensions with aspect ratio lock.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="image-converter.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🔄</span>
+            <span class="tool-badge badge-image">Converter</span>
+          </div>
+          <h3 class="tool-card-title">Image Converter</h3>
+          <p class="tool-card-desc">Convert between JPG, PNG, and WebP formats instantly.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="image-cropper.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">✂️</span>
+            <span class="tool-badge badge-image">Cropper</span>
+          </div>
+          <h3 class="tool-card-title">Image Cropper</h3>
+          <p class="tool-card-desc">Crop photos to square or widescreen aspect ratios.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    let originalImage = null;
+    let originalFile = null;
+
+    const fileInput = document.getElementById('file-input');
+    const dropzone = document.getElementById('dropzone');
+    const workspace = document.getElementById('compressor-workspace');
+    const qualitySlider = document.getElementById('quality-slider');
+    const qualityVal = document.getElementById('quality-val');
+    const formatSelect = document.getElementById('format-select');
+    const maxDimension = document.getElementById('max-dimension');
+    const compressBtn = document.getElementById('compress-btn');
+    const downloadBtn = document.getElementById('download-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const previewImg = document.getElementById('preview-img');
+    const origSizeEl = document.getElementById('orig-size');
+    const origDimsEl = document.getElementById('orig-dims');
+    const compSizeEl = document.getElementById('comp-size');
+    const savedPctEl = document.getElementById('saved-pct');
+
+    // Drag and drop handlers
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) handleFile(e.target.files[0]);
+    });
+
+    qualitySlider.addEventListener('input', () => {
+      qualityVal.textContent = qualitySlider.value + '%';
+    });
+
+    qualitySlider.addEventListener('change', compressCurrent);
+    formatSelect.addEventListener('change', compressCurrent);
+    maxDimension.addEventListener('change', compressCurrent);
+    compressBtn.addEventListener('click', compressCurrent);
+
+    resetBtn.addEventListener('click', () => {
+      workspace.style.display = 'none';
+      dropzone.style.display = 'block';
+      fileInput.value = '';
+      originalImage = null;
+      originalFile = null;
+    });
+
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) {
+        showToast('Please select a valid image file (JPG, PNG, WebP).');
+        return;
+      }
+      originalFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          originalImage = img;
+          dropzone.style.display = 'none';
+          workspace.style.display = 'block';
+
+          origSizeEl.textContent = formatBytes(file.size);
+          origDimsEl.textContent = `${img.naturalWidth} × ${img.naturalHeight} px`;
+
+          // Default format selection to match file if possible
+          if (file.type === 'image/webp') formatSelect.value = 'image/webp';
+          else if (file.type === 'image/png') formatSelect.value = 'image/png';
+          else formatSelect.value = 'image/jpeg';
+
+          compressCurrent();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function compressCurrent() {
+      if (!originalImage) return;
+
+      const quality = parseInt(qualitySlider.value, 10) / 100;
+      const format = formatSelect.value;
+      const maxDim = parseInt(maxDimension.value, 10);
+
+      let targetWidth = originalImage.naturalWidth;
+      let targetHeight = originalImage.naturalHeight;
+
+      if (maxDim > 0 && (targetWidth > maxDim || targetHeight > maxDim)) {
+        if (targetWidth > targetHeight) {
+          targetHeight = Math.round((targetHeight * maxDim) / targetWidth);
+          targetWidth = maxDim;
+        } else {
+          targetWidth = Math.round((targetWidth * maxDim) / targetHeight);
+          targetHeight = maxDim;
+        }
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+      const ctx = canvas.getContext('2d');
+
+      // If converting to JPEG, fill white background to prevent black transparent areas
+      if (format === 'image/jpeg') {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, targetWidth, targetHeight);
+      }
+
+      ctx.drawImage(originalImage, 0, 0, targetWidth, targetHeight);
+
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+
+        const url = URL.createObjectURL(blob);
+        previewImg.src = url;
+
+        // Extension for download
+        let ext = '.jpg';
+        if (format === 'image/webp') ext = '.webp';
+        else if (format === 'image/png') ext = '.png';
+
+        const baseName = (originalFile && originalFile.name ? originalFile.name.replace(/\.[^/.]+$/, '') : 'image');
+        downloadBtn.href = url;
+        downloadBtn.download = `${baseName}-compressed${ext}`;
+
+        compSizeEl.textContent = formatBytes(blob.size);
+
+        const diff = originalFile.size - blob.size;
+        const pct = Math.round((diff / originalFile.size) * 100);
+
+        if (pct > 0) {
+          savedPctEl.textContent = `-${pct}% smaller!`;
+          savedPctEl.style.color = '#059669';
+        } else {
+          savedPctEl.textContent = `+${Math.abs(pct)}% (try lower quality)`;
+          savedPctEl.style.color = '#d97706';
+        }
+
+        showToast('Image compressed successfully!');
+      }, format, quality);
+    }
+  </script>
+</body>
+</html>

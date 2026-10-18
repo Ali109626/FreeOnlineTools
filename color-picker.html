@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Picker & Palette Generator Online Free — HEX, RGB & Color Harmonies</title>
+  <meta name="description" content="Free online color picker and palette generator. Pick any color, get HEX/RGB/HSL values, and generate complementary, analogous, and triadic color harmonies.">
+  <meta name="keywords" content="color picker online free, color palette generator, hex to rgb, eyedropper tool, color harmony, css color codes">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/color-picker.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .color-preview-box {
+      width: 100%;
+      height: 140px;
+      border-radius: var(--radius-md);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: flex-end;
+      padding: 12px;
+      color: #fff;
+      font-weight: 700;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      transition: background-color 0.15s ease;
+    }
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+    .swatch-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .swatch-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .swatch-color {
+      height: 70px;
+      width: 100%;
+    }
+    .swatch-label {
+      padding: 8px 6px;
+      font-size: 0.75rem;
+      text-align: center;
+      font-weight: 700;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-generators.html" class="nav-link">Generators</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen active"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-generators.html">Generators</a>
+      <span>/</span>
+      <span>Color Picker</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — client-side color calculations</div>
+      <h1 class="tool-page-title">Color Picker & Palette Generator Online Free</h1>
+      <p class="tool-page-subtitle">Inspect color codes in HEX, RGB, and HSL formats and generate harmonic palettes with one-click copying.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Main Picker Row -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        <div>
+          <!-- Color Preview & Eyedropper -->
+          <div id="color-preview" class="color-preview-box" style="background-color: #2563eb;">
+            <span id="preview-hex-tag">#2563EB</span>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+            <input type="color" id="native-color-picker" value="#2563eb" style="width: 50px; height: 42px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; padding: 2px;">
+            <button id="eyedropper-btn" class="btn btn-secondary" style="flex: 1;">
+              <span>💉</span> Pick from Screen
+            </button>
+            <button id="random-color-btn" class="btn btn-secondary" style="flex: 1;">
+              <span>🎲</span> Random
+            </button>
+          </div>
+        </div>
+
+        <!-- Color Format Code Boxes -->
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; justify-content: center;">
+          <!-- HEX -->
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="width: 50px; font-weight: 700; font-size: 0.8125rem; color: var(--text-muted);">HEX:</span>
+            <input type="text" id="code-hex" class="form-control" style="font-family: var(--font-mono); font-weight: 600;" value="#2563EB">
+            <button type="button" class="btn btn-secondary copy-code-btn" data-target="code-hex" style="padding: 8px 12px;">Copy</button>
+          </div>
+
+          <!-- RGB -->
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="width: 50px; font-weight: 700; font-size: 0.8125rem; color: var(--text-muted);">RGB:</span>
+            <input type="text" id="code-rgb" class="form-control" style="font-family: var(--font-mono); font-weight: 600;" value="rgb(37, 99, 235)">
+            <button type="button" class="btn btn-secondary copy-code-btn" data-target="code-rgb" style="padding: 8px 12px;">Copy</button>
+          </div>
+
+          <!-- HSL -->
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="width: 50px; font-weight: 700; font-size: 0.8125rem; color: var(--text-muted);">HSL:</span>
+            <input type="text" id="code-hsl" class="form-control" style="font-family: var(--font-mono); font-weight: 600;" value="hsl(221, 83%, 53%)">
+            <button type="button" class="btn btn-secondary copy-code-btn" data-target="code-hsl" style="padding: 8px 12px;">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Harmonies Sections -->
+      <div style="border-top: 1px solid var(--border); padding-top: 1.5rem;">
+        <!-- 1. Complementary -->
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-main);">Complementary Colors (Opposite on Color Wheel)</h3>
+          <div class="swatch-grid" id="palette-complementary"></div>
+        </div>
+
+        <!-- 2. Analogous -->
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-main);">Analogous Palette (Harmonious Adjacent Hues)</h3>
+          <div class="swatch-grid" id="palette-analogous"></div>
+        </div>
+
+        <!-- 3. Triadic -->
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-main);">Triadic Palette (Balanced Triangle Scheme)</h3>
+          <div class="swatch-grid" id="palette-triadic"></div>
+        </div>
+
+        <!-- 4. Monochromatic -->
+        <div>
+          <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-main);">Monochromatic Tints & Shades</h3>
+          <div class="swatch-grid" id="palette-monochrome"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Generate Color Palettes</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Choose Color</h3>
+          <p class="step-desc">Pick from the visual gradient box, enter a HEX code, or use the Eyedropper tool.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Explore Harmonies</h3>
+          <p class="step-desc">View generated complementary, analogous, triadic, and monochromatic shade palettes.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Click to Copy</h3>
+          <p class="step-desc">Click any color swatch to copy its HEX code directly into your CSS or Figma project.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Color Picker FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🎨</span> What is an Analogous color palette?</h3>
+          <p class="faq-answer">Analogous colors sit next to each other on the 360° color wheel. They create serene, natural, and visually comfortable designs often found in nature.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>💉</span> Can I sample colors from other windows or tabs?</h3>
+          <p class="faq-answer">Yes! On Chromium-based browsers (Chrome, Edge, Opera), the "Pick from Screen" button activates the native EyeDropper API to sample any pixel anywhere on your display.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Generators</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="qr-code-generator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📱</span>
+            <span class="tool-badge badge-gen">QR Code</span>
+          </div>
+          <h3 class="tool-card-title">QR Code Generator</h3>
+          <p class="tool-card-desc">Generate custom QR codes with custom colors.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="password-generator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🔑</span>
+            <span class="tool-badge badge-gen">Security</span>
+          </div>
+          <h3 class="tool-card-title">Strong Password Generator</h3>
+          <p class="tool-card-desc">Create secure random passwords.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const nativePicker = document.getElementById('native-color-picker');
+    const colorPreview = document.getElementById('color-preview');
+    const previewHexTag = document.getElementById('preview-hex-tag');
+    const eyedropperBtn = document.getElementById('eyedropper-btn');
+    const randomColorBtn = document.getElementById('random-color-btn');
+
+    const codeHex = document.getElementById('code-hex');
+    const codeRgb = document.getElementById('code-rgb');
+    const codeHsl = document.getElementById('code-hsl');
+
+    const palComp = document.getElementById('palette-complementary');
+    const palAnalog = document.getElementById('palette-analogous');
+    const palTriad = document.getElementById('palette-triadic');
+    const palMono = document.getElementById('palette-monochrome');
+
+    // Color conversion utilities
+    function hexToRgb(hex) {
+      hex = hex.replace(/^#/, '');
+      if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+      const num = parseInt(hex, 16);
+      return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+    }
+
+    function rgbToHex(r, g, b) {
+      return '#' + [r, g, b].map(x => {
+        const h = Math.round(Math.max(0, Math.min(255, x))).toString(16);
+        return h.length === 1 ? '0' + h : h;
+      }).join('').toUpperCase();
+    }
+
+    function rgbToHsl(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+
+      if (max === min) {
+        h = s = 0;
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+      }
+      return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+    }
+
+    function hslToRgb(h, s, l) {
+      h = (h % 360 + 360) % 360;
+      s /= 100; l /= 100;
+      const c = (1 - Math.abs(2 * l - 1)) * s;
+      const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+      const m = l - c / 2;
+      let r = 0, g = 0, b = 0;
+
+      if (0 <= h && h < 60) { r = c; g = x; b = 0; }
+      else if (60 <= h && h < 120) { r = x; g = c; b = 0; }
+      else if (120 <= h && h < 180) { r = 0; g = c; b = x; }
+      else if (180 <= h && h < 240) { r = 0; g = x; b = c; }
+      else if (240 <= h && h < 300) { r = x; g = 0; b = c; }
+      else if (300 <= h && h < 360) { r = c; g = 0; b = x; }
+
+      return {
+        r: Math.round((r + m) * 255),
+        g: Math.round((g + m) * 255),
+        b: Math.round((b + m) * 255)
+      };
+    }
+
+    function hslToHex(h, s, l) {
+      const { r, g, b } = hslToRgb(h, s, l);
+      return rgbToHex(r, g, b);
+    }
+
+    function renderSwatch(container, hexList) {
+      container.innerHTML = hexList.map(hex => `
+        <div class="swatch-card" onclick="copyToClipboard('${hex}', 'Copied ${hex}!')" title="Click to copy ${hex}">
+          <div class="swatch-color" style="background-color: ${hex};"></div>
+          <div class="swatch-label">${hex}</div>
+        </div>
+      `).join('');
+    }
+
+    function updateColor(hex) {
+      if (!/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(hex)) return;
+
+      const rgb = hexToRgb(hex);
+      const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+      const normHex = rgbToHex(rgb.r, rgb.g, rgb.b);
+
+      colorPreview.style.backgroundColor = normHex;
+      previewHexTag.textContent = normHex;
+      nativePicker.value = normHex;
+
+      codeHex.value = normHex;
+      codeRgb.value = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      codeHsl.value = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+
+      // 1. Complementary
+      const compHex = hslToHex(hsl.h + 180, hsl.s, hsl.l);
+      renderSwatch(palComp, [normHex, compHex]);
+
+      // 2. Analogous
+      const an1 = hslToHex(hsl.h - 30, hsl.s, hsl.l);
+      const an2 = hslToHex(hsl.h - 15, hsl.s, hsl.l);
+      const an3 = hslToHex(hsl.h + 15, hsl.s, hsl.l);
+      const an4 = hslToHex(hsl.h + 30, hsl.s, hsl.l);
+      renderSwatch(palAnalog, [an1, an2, normHex, an3, an4]);
+
+      // 3. Triadic
+      const tri1 = hslToHex(hsl.h - 120, hsl.s, hsl.l);
+      const tri2 = hslToHex(hsl.h + 120, hsl.s, hsl.l);
+      renderSwatch(palTriad, [normHex, tri1, tri2]);
+
+      // 4. Monochromatic
+      const monoList = [15, 30, 50, 70, 85].map(l => hslToHex(hsl.h, hsl.s, l));
+      renderSwatch(palMono, monoList);
+    }
+
+    nativePicker.addEventListener('input', () => updateColor(nativePicker.value));
+    codeHex.addEventListener('input', () => updateColor(codeHex.value));
+
+    randomColorBtn.addEventListener('click', () => {
+      const rand = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+      updateColor(rand);
+      showToast('Random color generated!');
+    });
+
+    if (window.EyeDropper) {
+      eyedropperBtn.addEventListener('click', async () => {
+        try {
+          const eyeDropper = new EyeDropper();
+          const result = await eyeDropper.open();
+          if (result && result.sRGBHex) {
+            updateColor(result.sRGBHex);
+            showToast(`Sampled ${result.sRGBHex}!`);
+          }
+        } catch (e) {
+          // Eyedropper dismissed or cancelled
+        }
+      });
+    } else {
+      eyedropperBtn.disabled = true;
+      eyedropperBtn.title = 'EyeDropper API is supported in Chrome, Edge, and Opera';
+    }
+
+    document.querySelectorAll('.copy-code-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = document.getElementById(btn.dataset.target).value;
+        copyToClipboard(val, `Copied ${val}!`);
+      });
+    });
+
+    updateColor('#2563eb');
+  </script>
+</body>
+</html>

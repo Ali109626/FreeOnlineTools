@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word & Character Counter Online Free — Count Words, Letters & Reading Time</title>
+  <meta name="description" content="Free online word and character counter. Count words, characters with/without spaces, sentences, paragraphs, reading time, and keyword density in real-time.">
+  <meta name="keywords" content="word counter online free, character counter, letter count, sentence counter, reading time calculator">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/word-counter.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-text-tools.html" class="nav-link">Text Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text active"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-text-tools.html">Text Tools</a>
+      <span>/</span>
+      <span>Word Counter</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — text never leaves your device</div>
+      <h1 class="tool-page-title">Word & Character Counter Online Free</h1>
+      <p class="tool-page-subtitle">Real-time counts for words, letters, spaces, sentences, paragraphs, and reading duration as you type or paste.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Stat Tiles Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin-bottom: 1.25rem;">
+        <div style="background: var(--cat-text-light); border: 1px solid var(--cat-text-border); padding: 12px; border-radius: var(--radius-md); text-align: center;">
+          <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--cat-text);">Words</div>
+          <div id="stat-words" style="font-size: 1.75rem; font-weight: 800; color: var(--cat-text);">0</div>
+        </div>
+
+        <div style="background: var(--bg-surface); border: 1px solid var(--border); padding: 12px; border-radius: var(--radius-md); text-align: center;">
+          <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Characters</div>
+          <div id="stat-chars" style="font-size: 1.75rem; font-weight: 800; color: var(--text-main);">0</div>
+        </div>
+
+        <div style="background: var(--bg-surface); border: 1px solid var(--border); padding: 12px; border-radius: var(--radius-md); text-align: center;">
+          <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">No Spaces</div>
+          <div id="stat-chars-no-spaces" style="font-size: 1.75rem; font-weight: 800; color: var(--text-main);">0</div>
+        </div>
+
+        <div style="background: var(--bg-surface); border: 1px solid var(--border); padding: 12px; border-radius: var(--radius-md); text-align: center;">
+          <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Sentences</div>
+          <div id="stat-sentences" style="font-size: 1.75rem; font-weight: 800; color: var(--text-main);">0</div>
+        </div>
+
+        <div style="background: var(--bg-surface); border: 1px solid var(--border); padding: 12px; border-radius: var(--radius-md); text-align: center;">
+          <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Paragraphs</div>
+          <div id="stat-paragraphs" style="font-size: 1.75rem; font-weight: 800; color: var(--text-main);">0</div>
+        </div>
+      </div>
+
+      <!-- Textarea Input -->
+      <div class="form-group">
+        <textarea id="text-input" class="form-control" style="min-height: 240px; font-size: 1rem; line-height: 1.6;" placeholder="Type or paste your text here to begin counting immediately..."></textarea>
+      </div>
+
+      <!-- Action Buttons Bar -->
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+        <button id="copy-btn" class="btn btn-secondary">
+          <span>📋</span> Copy Text
+        </button>
+        <button id="clear-btn" class="btn btn-secondary">
+          <span>🗑️</span> Clear All
+        </button>
+        <button id="sample-btn" class="btn btn-secondary">
+          <span>📄</span> Load Sample Text
+        </button>
+      </div>
+
+      <!-- Reading Duration & Density Highlights -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+        <div>
+          <h4 style="font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem;">⏱️ Estimated Speeds</h4>
+          <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 4px;">
+            Reading Time: <strong id="reading-time" style="color: var(--text-main);">0 sec</strong> (~200 wpm)
+          </div>
+          <div style="font-size: 0.875rem; color: var(--text-muted);">
+            Speaking Time: <strong id="speaking-time" style="color: var(--text-main);">0 sec</strong> (~130 wpm)
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem;">📊 Top Repeated Keywords</h4>
+          <div id="keyword-list" style="font-size: 0.8125rem; color: var(--text-muted);">
+            Type some text to see word frequency analysis.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Count Words Online</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Paste or Type</h3>
+          <p class="step-desc">Enter your draft, essay, or tweet directly into the large text area above.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Inspect Live Stats</h3>
+          <p class="step-desc">Observe live counters update instantly with words, characters, sentences, and reading time.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Copy or Clear</h3>
+          <p class="step-desc">Use the one-click copy button to copy your polished text straight to your clipboard.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Word Counter FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📝</span> What is the character limit for Twitter / X?</h3>
+          <p class="faq-answer">Twitter/X allows 280 characters for standard accounts. Our character counter tracks this with and without spaces so you can stay within your limits.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>⏱️</span> How is reading time calculated?</h3>
+          <p class="faq-answer">Reading time is estimated using the standard average reading speed of 200 words per minute (wpm) for English and Urdu text.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Text Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="case-converter.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🔠</span>
+            <span class="tool-badge badge-text">Formatter</span>
+          </div>
+          <h3 class="tool-card-title">Case Converter</h3>
+          <p class="tool-card-desc">Switch letters to UPPERCASE, lowercase, or Title Case.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="roman-to-urdu.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">✍️</span>
+            <span class="tool-badge badge-text">Urdu</span>
+          </div>
+          <h3 class="tool-card-title">Roman to Urdu Converter</h3>
+          <p class="tool-card-desc">Type Urdu in English alphabets and get Urdu script.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="text-to-speech.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🔊</span>
+            <span class="tool-badge badge-text">TTS</span>
+          </div>
+          <h3 class="tool-card-title">Text to Speech</h3>
+          <p class="tool-card-desc">Listen to written words spoken aloud in natural voices.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const textInput = document.getElementById('text-input');
+    const statWords = document.getElementById('stat-words');
+    const statChars = document.getElementById('stat-chars');
+    const statCharsNoSpaces = document.getElementById('stat-chars-no-spaces');
+    const statSentences = document.getElementById('stat-sentences');
+    const statParagraphs = document.getElementById('stat-paragraphs');
+    const readingTimeEl = document.getElementById('reading-time');
+    const speakingTimeEl = document.getElementById('speaking-time');
+    const keywordListEl = document.getElementById('keyword-list');
+    const copyBtn = document.getElementById('copy-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const sampleBtn = document.getElementById('sample-btn');
+
+    textInput.addEventListener('input', updateStats);
+
+    copyBtn.addEventListener('click', () => {
+      if (!textInput.value.trim()) {
+        showToast('Nothing to copy!');
+        return;
+      }
+      copyToClipboard(textInput.value, 'Text copied to clipboard!');
+    });
+
+    clearBtn.addEventListener('click', () => {
+      textInput.value = '';
+      updateStats();
+      showToast('Text cleared.');
+    });
+
+    sampleBtn.addEventListener('click', () => {
+      textInput.value = "Welcome to FreeOnlineTools! This is a fast, 100% client-side web application suite designed for privacy and mobile performance.\n\nAll tools run directly on your phone or laptop without sending personal photos or sensitive documents to external servers. Try exploring the Image Compressor, Pakistan Electricity Bill Calculator, or Roman to Urdu typing tool!";
+      updateStats();
+    });
+
+    function updateStats() {
+      const text = textInput.value;
+
+      // Characters
+      const chars = text.length;
+      const charsNoSpaces = text.replace(/\s/g, '').length;
+
+      // Words
+      const trimmed = text.trim();
+      const words = trimmed ? trimmed.split(/\s+/).length : 0;
+
+      // Sentences (. ! ? followed by space or end)
+      const sentences = trimmed ? (trimmed.match(/[^.!?]+[.!?]+(\s|$)/g) || [trimmed]).length : 0;
+
+      // Paragraphs
+      const paragraphs = trimmed ? trimmed.split(/\n+/).filter(p => p.trim().length > 0).length : 0;
+
+      statWords.textContent = words.toLocaleString();
+      statChars.textContent = chars.toLocaleString();
+      statCharsNoSpaces.textContent = charsNoSpaces.toLocaleString();
+      statSentences.textContent = sentences.toLocaleString();
+      statParagraphs.textContent = paragraphs.toLocaleString();
+
+      // Reading time (200 wpm)
+      const readMinutes = words / 200;
+      if (readMinutes < 1) {
+        readingTimeEl.textContent = `${Math.ceil(readMinutes * 60)} sec`;
+      } else {
+        readingTimeEl.textContent = `${readMinutes.toFixed(1)} min`;
+      }
+
+      // Speaking time (130 wpm)
+      const speakMinutes = words / 130;
+      if (speakMinutes < 1) {
+        speakingTimeEl.textContent = `${Math.ceil(speakMinutes * 60)} sec`;
+      } else {
+        speakingTimeEl.textContent = `${speakMinutes.toFixed(1)} min`;
+      }
+
+      // Keyword Density
+      if (words > 2) {
+        const wordArr = trimmed.toLowerCase().match(/\b[a-z0-9]{3,}\b/gi) || [];
+        const freq = {};
+        const stopWords = new Set(['the', 'and', 'this', 'that', 'for', 'with', 'from', 'you', 'your', 'are', 'was', 'have', 'all', 'our']);
+        wordArr.forEach(w => {
+          if (!stopWords.has(w)) {
+            freq[w] = (freq[w] || 0) + 1;
+          }
+        });
+
+        const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        if (sorted.length > 0) {
+          keywordListEl.innerHTML = sorted.map(([w, c]) => `
+            <span style="display: inline-block; background: #fff; padding: 2px 8px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin: 2px;">
+              <strong>${escapeHtml(w)}</strong>: ${c}× (${Math.round((c / words) * 100)}%)
+            </span>
+          `).join('');
+        } else {
+          keywordListEl.textContent = 'Keep typing to see word frequency.';
+        }
+      } else {
+        keywordListEl.textContent = 'Type some text to see word frequency analysis.';
+      }
+    }
+  </script>
+</body>
+</html>

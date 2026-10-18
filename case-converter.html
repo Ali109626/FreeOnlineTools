@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Converter Online Free — UPPERCASE, lowercase, Title Case & camelCase</title>
+  <meta name="description" content="Free online case converter. Transform text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case instantly in your browser.">
+  <meta name="keywords" content="case converter online free, uppercase converter, lowercase, title case, camelcase converter, snake case">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/case-converter.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-text-tools.html" class="nav-link">Text Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text active"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-text-tools.html">Text Tools</a>
+      <span>/</span>
+      <span>Case Converter</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — text never leaves your device</div>
+      <h1 class="tool-page-title">Case Converter Online Free</h1>
+      <p class="tool-page-subtitle">Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case instantly.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Quick transformation action buttons -->
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem;">
+        <button type="button" class="btn btn-secondary case-btn" data-mode="upper">UPPERCASE</button>
+        <button type="button" class="btn btn-secondary case-btn" data-mode="lower">lowercase</button>
+        <button type="button" class="btn btn-secondary case-btn" data-mode="title">Title Case</button>
+        <button type="button" class="btn btn-secondary case-btn" data-mode="sentence">Sentence case</button>
+        <button type="button" class="btn btn-secondary case-btn" data-mode="camel">camelCase</button>
+        <button type="button" class="btn btn-secondary case-btn" data-mode="kebab">kebab-case</button>
+        <button type="button" class="btn btn-secondary case-btn" data-mode="snake">snake_case</button>
+        <button type="button" class="btn btn-secondary case-btn" data-mode="alt">aLtErNaTiNg</button>
+      </div>
+
+      <!-- Textarea input -->
+      <div class="form-group">
+        <textarea id="text-area" class="form-control" style="min-height: 220px; font-size: 1.0625rem; line-height: 1.6;" placeholder="Type or paste your text here to transform cases..."></textarea>
+      </div>
+
+      <!-- Bottom controls & stats -->
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button id="copy-btn" class="btn btn-primary">
+            <span>📋</span> Copy to Clipboard
+          </button>
+          <button id="clear-btn" class="btn btn-secondary">
+            <span>🗑️</span> Clear
+          </button>
+        </div>
+
+        <div style="font-size: 0.875rem; color: var(--text-muted);">
+          <span id="char-count">0</span> characters | <span id="word-count">0</span> words
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Convert Text Case</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Paste Your Text</h3>
+          <p class="step-desc">Enter any paragraph, heading, or code identifier into the text box above.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Choose Case Format</h3>
+          <p class="step-desc">Click any conversion button (such as UPPERCASE, Title Case, or camelCase).</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Copy Result</h3>
+          <p class="step-desc">Tap the blue "Copy to Clipboard" button to take your converted text anywhere.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Case Converter FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔠</span> What is the difference between Title Case and Capitalized Case?</h3>
+          <p class="faq-answer">Title Case capitalizes the principal words while keeping minor grammatical conjunctions and prepositions (like "and", "in", "the") in lowercase unless they begin the sentence.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>💻</span> What are camelCase, snake_case, and kebab-case used for?</h3>
+          <p class="faq-answer">These formats are widely used by software developers, programmers, and SEO specialists for variable names, JSON keys, CSS class identifiers, and web URL slugs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Text Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="word-counter.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📝</span>
+            <span class="tool-badge badge-text">Counter</span>
+          </div>
+          <h3 class="tool-card-title">Word & Character Counter</h3>
+          <p class="tool-card-desc">Count words, characters, and reading time.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="remove-duplicate-lines.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🧹</span>
+            <span class="tool-badge badge-text">Cleaner</span>
+          </div>
+          <h3 class="tool-card-title">Remove Duplicate Lines</h3>
+          <p class="tool-card-desc">Deduplicate list lines and sort alphabetically.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const textArea = document.getElementById('text-area');
+    const copyBtn = document.getElementById('copy-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const charCount = document.getElementById('char-count');
+    const wordCount = document.getElementById('word-count');
+
+    function updateCounts() {
+      const text = textArea.value;
+      charCount.textContent = text.length;
+      const trimmed = text.trim();
+      wordCount.textContent = trimmed ? trimmed.split(/\s+/).length : 0;
+    }
+
+    textArea.addEventListener('input', updateCounts);
+
+    document.querySelectorAll('.case-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const text = textArea.value;
+        if (!text) {
+          showToast('Please enter some text first.');
+          return;
+        }
+
+        const mode = btn.dataset.mode;
+        let converted = text;
+
+        if (mode === 'upper') {
+          converted = text.toUpperCase();
+        } else if (mode === 'lower') {
+          converted = text.toLowerCase();
+        } else if (mode === 'title') {
+          const minorWords = new Set(['a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'in', 'nor', 'of', 'on', 'or', 'so', 'the', 'to', 'up', 'yet']);
+          converted = text.toLowerCase().replace(/\b[a-z0-9']+\b/g, (match, index) => {
+            if (index > 0 && minorWords.has(match)) return match;
+            return match.charAt(0).toUpperCase() + match.slice(1);
+          });
+        } else if (mode === 'sentence') {
+          converted = text.toLowerCase().replace(/(^\s*|[.!?]\s*)([a-z])/g, (m, p1, p2) => p1 + p2.toUpperCase());
+        } else if (mode === 'camel') {
+          converted = text
+            .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
+            .replace(/^[^a-zA-Z0-9]+/, '');
+          if (converted.length > 0) {
+            converted = converted.charAt(0).toLowerCase() + converted.slice(1);
+          }
+        } else if (mode === 'kebab') {
+          converted = text
+            .trim()
+            .toLowerCase()
+            .replace(/[\s_]+/g, '-')
+            .replace(/[^a-z0-9\-]/g, '');
+        } else if (mode === 'snake') {
+          converted = text
+            .trim()
+            .toLowerCase()
+            .replace(/[\s\-]+/g, '_')
+            .replace(/[^a-z0-9_]/g, '');
+        } else if (mode === 'alt') {
+          converted = text.split('').map((c, i) => i % 2 === 0 ? c.toLowerCase() : c.toUpperCase()).join('');
+        }
+
+        textArea.value = converted;
+        updateCounts();
+        showToast(`Converted to ${btn.textContent}!`);
+      });
+    });
+
+    copyBtn.addEventListener('click', () => {
+      if (!textArea.value) {
+        showToast('Nothing to copy!');
+        return;
+      }
+      copyToClipboard(textArea.value, 'Text copied to clipboard!');
+    });
+
+    clearBtn.addEventListener('click', () => {
+      textArea.value = '';
+      updateCounts();
+      showToast('Cleared.');
+    });
+  </script>
+</body>
+</html>

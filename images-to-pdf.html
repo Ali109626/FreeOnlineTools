@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Images to PDF Online Free — Convert JPG & PNG Photos to PDF Document</title>
+  <meta name="description" content="Free online Images to PDF converter. Turn multiple JPG, PNG, and WebP pictures into a clean PDF document directly in your browser. 100% private.">
+  <meta name="keywords" content="images to pdf online free, jpg to pdf, png to pdf, photos to pdf, make pdf from images, convert pictures to pdf">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/images-to-pdf.html">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.9/pdf-lib.min.js"></script>
+  <style>
+    .image-grid-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .img-card-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 6px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .img-card-thumb {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+    }
+    .img-card-meta {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      text-align: center;
+    }
+    .img-card-actions {
+      display: flex;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .img-btn-nav {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .img-btn-nav:hover {
+      background: #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-pdf-file-tools.html" class="nav-link">PDF Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf active"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-pdf-file-tools.html">PDF & File Tools</a>
+      <span>/</span>
+      <span>Images to PDF</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — files never leave your device</div>
+      <h1 class="tool-page-title">Images to PDF Converter Online Free</h1>
+      <p class="tool-page-subtitle">Convert multiple JPG, PNG, or WebP images into a single multi-page PDF document in seconds.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Upload Dropzone -->
+      <div class="file-dropzone" id="dropzone">
+        <input type="file" id="images-input" accept="image/jpeg,image/png,image/webp" multiple>
+        <div class="dropzone-icon">🖼️</div>
+        <div class="dropzone-text">Click or drag & drop pictures here</div>
+        <div class="dropzone-subtext">JPG, PNG, WebP supported. Reorder and convert to PDF.</div>
+      </div>
+
+      <!-- Workspace -->
+      <div id="images-workspace" style="display: none; margin-top: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-main);">Selected Photos (<span id="img-count">0</span>)</h3>
+          <button type="button" id="add-more-imgs-btn" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8125rem;">
+            + Add More Images
+          </button>
+        </div>
+
+        <!-- Thumbnails Grid -->
+        <div class="image-grid-preview" id="img-preview-grid"></div>
+
+        <!-- Options Container -->
+        <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border); margin-top: 1.25rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div class="form-group" style="margin: 0;">
+              <label class="form-label" for="page-size-select">Page Format / Size</label>
+              <select id="page-size-select" class="form-control">
+                <option value="fit">Fit to Image Size</option>
+                <option value="a4-portrait">Standard A4 (Portrait)</option>
+                <option value="a4-landscape">Standard A4 (Landscape)</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="margin: 0;">
+              <label class="form-label" for="margin-select">Page Margin</label>
+              <select id="margin-select" class="form-control">
+                <option value="0">No Margin (Full Bleed)</option>
+                <option value="20">Small (20px)</option>
+                <option value="40">Large (40px)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.25rem;">
+          <button id="convert-pdf-btn" class="btn btn-primary" style="flex: 2; min-width: 180px; background: var(--cat-pdf); border-color: var(--cat-pdf);">
+            <span>📑</span> Convert to PDF Now
+          </button>
+          <button id="clear-all-imgs-btn" class="btn btn-secondary" style="flex: 1; min-width: 110px;">
+            Clear All
+          </button>
+        </div>
+
+        <div id="pdf-gen-status" style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted); text-align: center;"></div>
+
+        <!-- Download Card -->
+        <div id="download-card" class="result-box" style="display: none; text-align: center; background: #fff1f2; border-color: #fecdd3;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎉</div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: #9f1239; margin-bottom: 0.25rem;">PDF Created Successfully!</h3>
+          <p id="pdf-result-meta" style="font-size: 0.875rem; color: #be123c; margin-bottom: 1rem;">Your document is ready for download.</p>
+          <a id="download-pdf-link" class="btn btn-success" style="padding: 12px 24px; font-size: 1rem; text-decoration: none;" download="photos-document.pdf">
+            <span>⬇️</span> Download PDF
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Convert Images to PDF</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Upload Photos</h3>
+          <p class="step-desc">Select or drop any JPG, PNG, or WebP images into the upload workspace.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Order & Setup Pages</h3>
+          <p class="step-desc">Rearrange image order with arrow buttons and pick your page size (A4 or Fit).</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Download PDF</h3>
+          <p class="step-desc">Tap "Convert to PDF Now" and save your clean PDF document without watermarks.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Images to PDF FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📸</span> Can I convert scanned document photos into a PDF?</h3>
+          <p class="faq-answer">Yes! Take photos of your receipts, identity cards, assignments, or invoices and combine them into a single clean PDF document ready for submission.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔒</span> Are my photos uploaded to a cloud server?</h3>
+          <p class="faq-answer">Never. All image rendering and PDF compiling takes place directly inside your device's browser memory.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="merge-pdfs.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📑</span>
+            <span class="tool-badge badge-pdf">PDF</span>
+          </div>
+          <h3 class="tool-card-title">Merge PDFs</h3>
+          <p class="tool-card-desc">Combine multiple existing PDF files into one.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="image-compressor.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📉</span>
+            <span class="tool-badge badge-image">Compressor</span>
+          </div>
+          <h3 class="tool-card-title">Image Compressor</h3>
+          <p class="tool-card-desc">Shrink photo file sizes without losing quality.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    let imageList = [];
+
+    const imagesInput = document.getElementById('images-input');
+    const dropzone = document.getElementById('dropzone');
+    const workspace = document.getElementById('images-workspace');
+    const previewGrid = document.getElementById('img-preview-grid');
+    const imgCountEl = document.getElementById('img-count');
+    const addMoreImgsBtn = document.getElementById('add-more-imgs-btn');
+    const convertPdfBtn = document.getElementById('convert-pdf-btn');
+    const clearAllImgsBtn = document.getElementById('clear-all-imgs-btn');
+    const pageSizeSelect = document.getElementById('page-size-select');
+    const marginSelect = document.getElementById('margin-select');
+    const pdfGenStatus = document.getElementById('pdf-gen-status');
+    const downloadCard = document.getElementById('download-card');
+    const pdfResultMeta = document.getElementById('pdf-result-meta');
+    const downloadPdfLink = document.getElementById('download-pdf-link');
+
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      handleNewImages(Array.from(e.dataTransfer.files));
+    });
+
+    imagesInput.addEventListener('change', (e) => {
+      handleNewImages(Array.from(e.target.files));
+    });
+
+    addMoreImgsBtn.addEventListener('click', () => {
+      imagesInput.click();
+    });
+
+    function handleNewImages(files) {
+      const valid = files.filter(f => f.type.startsWith('image/'));
+      if (!valid.length) {
+        showToast('Please select valid image files.');
+        return;
+      }
+
+      valid.forEach(file => {
+        const previewUrl = URL.createObjectURL(file);
+        imageList.push({ file, previewUrl });
+      });
+
+      renderImageGrid();
+      dropzone.style.display = 'none';
+      workspace.style.display = 'block';
+      downloadCard.style.display = 'none';
+    }
+
+    function renderImageGrid() {
+      imgCountEl.textContent = imageList.length;
+      if (imageList.length === 0) {
+        dropzone.style.display = 'block';
+        workspace.style.display = 'none';
+        return;
+      }
+
+      previewGrid.innerHTML = imageList.map((item, index) => `
+        <div class="img-card-item">
+          <img src="${item.previewUrl}" class="img-card-thumb" alt="Thumb">
+          <div class="img-card-meta">${escapeHtml(item.file.name)}</div>
+          <div class="img-card-actions">
+            <button type="button" class="img-btn-nav" onclick="moveImg(${index}, -1)" ${index === 0 ? 'disabled' : ''} title="Move Left">←</button>
+            <button type="button" class="img-btn-nav" onclick="moveImg(${index}, 1)" ${index === imageList.length - 1 ? 'disabled' : ''} title="Move Right">→</button>
+            <button type="button" class="img-btn-nav" onclick="removeImg(${index})" style="color: #ef4444;" title="Remove">✕</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.moveImg = function(index, delta) {
+      const target = index + delta;
+      if (target < 0 || target >= imageList.length) return;
+      const temp = imageList[index];
+      imageList[index] = imageList[target];
+      imageList[target] = temp;
+      renderImageGrid();
+    };
+
+    window.removeImg = function(index) {
+      imageList.splice(index, 1);
+      renderImageGrid();
+    };
+
+    clearAllImgsBtn.addEventListener('click', () => {
+      imageList = [];
+      renderImageGrid();
+      downloadCard.style.display = 'none';
+      showToast('Cleared.');
+    });
+
+    // Helper: Convert any image file (including WebP) to JPEG arrayBuffer via canvas
+    async function getStandardImageBytes(file) {
+      if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+        return { bytes: await file.arrayBuffer(), type: 'jpg' };
+      }
+      if (file.type === 'image/png') {
+        return { bytes: await file.arrayBuffer(), type: 'png' };
+      }
+
+      // Convert WebP / other format to JPEG
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob(async (blob) => {
+            if (!blob) return reject(new Error('Canvas conversion failed'));
+            resolve({ bytes: await blob.arrayBuffer(), type: 'jpg' });
+          }, 'image/jpeg', 0.92);
+        };
+        img.onerror = reject;
+        img.src = URL.createObjectURL(file);
+      });
+    }
+
+    convertPdfBtn.addEventListener('click', async () => {
+      if (imageList.length === 0) {
+        showToast('Please add at least one image.');
+        return;
+      }
+
+      if (typeof PDFLib === 'undefined') {
+        showToast('PDF library loading... Please check internet connection.');
+        return;
+      }
+
+      pdfGenStatus.textContent = '⏳ Compiling PDF document... Please wait.';
+      convertPdfBtn.disabled = true;
+
+      try {
+        const pdfDoc = await PDFLib.PDFDocument.create();
+        const pageSizeOpt = pageSizeSelect.value;
+        const margin = parseInt(marginSelect.value, 10);
+
+        for (let i = 0; i < imageList.length; i++) {
+          pdfGenStatus.textContent = `Processing image ${i + 1} of ${imageList.length}...`;
+          const item = imageList[i];
+          const { bytes, type } = await getStandardImageBytes(item.file);
+
+          let embeddedImg;
+          if (type === 'png') {
+            embeddedImg = await pdfDoc.embedPng(bytes);
+          } else {
+            embeddedImg = await pdfDoc.embedJpg(bytes);
+          }
+
+          let pageWidth = embeddedImg.width;
+          let pageHeight = embeddedImg.height;
+
+          if (pageSizeOpt === 'a4-portrait') {
+            pageWidth = 595.28;
+            pageHeight = 841.89;
+          } else if (pageSizeOpt === 'a4-landscape') {
+            pageWidth = 841.89;
+            pageHeight = 595.28;
+          }
+
+          const page = pdfDoc.addPage([pageWidth, pageHeight]);
+
+          const availWidth = pageWidth - (margin * 2);
+          const availHeight = pageHeight - (margin * 2);
+
+          const scale = Math.min(availWidth / embeddedImg.width, availHeight / embeddedImg.height);
+          const drawW = embeddedImg.width * scale;
+          const drawH = embeddedImg.height * scale;
+
+          const drawX = margin + (availWidth - drawW) / 2;
+          const drawY = margin + (availHeight - drawH) / 2;
+
+          page.drawImage(embeddedImg, {
+            x: drawX,
+            y: drawY,
+            width: drawW,
+            height: drawH
+          });
+        }
+
+        pdfGenStatus.textContent = 'Saving PDF document...';
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+
+        downloadPdfLink.href = url;
+        downloadPdfLink.download = `images-to-pdf-${imageList.length}-pages.pdf`;
+        pdfResultMeta.textContent = `Generated a ${imageList.length}-page PDF (${formatBytes(blob.size)}).`;
+
+        downloadCard.style.display = 'block';
+        pdfGenStatus.textContent = '✓ Conversion complete!';
+        showToast('PDF created successfully!');
+        downloadCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } catch (err) {
+        console.error('Error generating PDF:', err);
+        pdfGenStatus.textContent = '❌ An error occurred while creating the PDF.';
+        showToast('Error converting images to PDF.');
+      } finally {
+        convertPdfBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator Online Free — Check Body Mass Index & Healthy Weight</title>
+  <meta name="description" content="Free online Body Mass Index (BMI) calculator. Check your BMI score in Metric (cm/kg) or Imperial (ft/lbs) with visual category gauge and healthy weight range.">
+  <meta name="keywords" content="bmi calculator online free, body mass index calculator, calculate bmi, healthy weight calculator, bmi chart">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/bmi-calculator.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .bmi-gauge {
+      display: flex;
+      height: 24px;
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin: 1.25rem 0 0.5rem;
+    }
+    .bmi-segment {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .seg-under { background: #3b82f6; }
+    .seg-normal { background: #10b981; }
+    .seg-over { background: #f59e0b; }
+    .seg-obese { background: #ef4444; }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-calculators.html" class="nav-link">Calculators</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc active"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 900px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-calculators.html">Calculators</a>
+      <span>/</span>
+      <span>BMI Calculator</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — health calculations processed locally</div>
+      <h1 class="tool-page-title">BMI Calculator Online Free</h1>
+      <p class="tool-page-subtitle">Check your Body Mass Index (BMI), healthy weight range, and nutritional status for adult men and women.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Unit System Toggle -->
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
+        <button type="button" id="btn-metric" class="btn btn-primary" style="flex: 1;">
+          Metric Units (cm, kg)
+        </button>
+        <button type="button" id="btn-imperial" class="btn btn-secondary" style="flex: 1;">
+          Imperial Units (ft, in, lbs)
+        </button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+        <!-- Inputs Column -->
+        <div>
+          <!-- Gender & Age optional -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
+            <div>
+              <label class="form-label" for="gender-select">Gender</label>
+              <select id="gender-select" class="form-control">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="age-val">Age (Years)</label>
+              <input type="number" id="age-val" class="form-control" min="2" max="120" value="26">
+            </div>
+          </div>
+
+          <!-- Metric Input Container -->
+          <div id="metric-inputs">
+            <div class="form-group">
+              <label class="form-label" for="height-cm">Height (cm)</label>
+              <input type="number" id="height-cm" class="form-control" min="50" max="250" value="175">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="weight-kg">Weight (kg)</label>
+              <input type="number" id="weight-kg" class="form-control" min="20" max="300" step="0.1" value="70">
+            </div>
+          </div>
+
+          <!-- Imperial Input Container (Hidden initially) -->
+          <div id="imperial-inputs" style="display: none;">
+            <div class="form-group">
+              <label class="form-label">Height (Feet & Inches)</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                <input type="number" id="height-ft" class="form-control" min="2" max="8" value="5" placeholder="Feet">
+                <input type="number" id="height-in" class="form-control" min="0" max="11" value="9" placeholder="Inches">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="weight-lbs">Weight (Pounds / lbs)</label>
+              <input type="number" id="weight-lbs" class="form-control" min="40" max="600" step="0.1" value="154">
+            </div>
+          </div>
+
+          <button id="calc-bmi-btn" class="btn btn-primary btn-block">
+            <span>⚖️</span> Recalculate BMI
+          </button>
+        </div>
+
+        <!-- Result Card -->
+        <div>
+          <div class="result-box" style="margin-top: 0; background: #fff; border: 2px solid var(--cat-calc); box-shadow: var(--shadow-md); text-align: center;">
+            <div style="font-size: 0.8125rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Your Body Mass Index (BMI)</div>
+            <div id="bmi-score" style="font-size: 3rem; font-weight: 900; color: #10b981; margin: 6px 0;">22.9</div>
+            <div id="bmi-status" style="display: inline-block; padding: 4px 16px; border-radius: var(--radius-full); font-weight: 700; font-size: 0.9375rem; background: #ecfdf5; color: #047857; margin-bottom: 1rem;">
+              Normal Weight
+            </div>
+
+            <!-- Color-coded visual gauge -->
+            <div class="bmi-gauge">
+              <div class="bmi-segment seg-under">Under &lt;18.5</div>
+              <div class="bmi-segment seg-normal">Normal 18.5-24.9</div>
+              <div class="bmi-segment seg-over">Over 25-29.9</div>
+              <div class="bmi-segment seg-obese">Obese ≥30</div>
+            </div>
+
+            <!-- Healthy weight range -->
+            <div style="background: var(--bg-surface); padding: 12px; border-radius: var(--radius-md); text-align: left; margin-top: 1.25rem; font-size: 0.875rem;">
+              <div style="margin-bottom: 4px;">
+                <span style="color: var(--text-muted);">Healthy Weight for Your Height:</span>
+                <strong id="healthy-range-text" style="color: var(--text-main);">-</strong>
+              </div>
+              <div>
+                <span style="color: var(--text-muted);">Est. Daily Calorie Need (BMR):</span>
+                <strong id="calories-text" style="color: var(--primary);">-</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Calculate Your BMI</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Choose Unit System</h3>
+          <p class="step-desc">Pick Metric (centimeters & kilograms) or Imperial (feet, inches & pounds).</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Enter Measurements</h3>
+          <p class="step-desc">Input your height and current body weight accurately.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Review Health Status</h3>
+          <p class="step-desc">Inspect your score, visual category bracket, and recommended target healthy weight.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> BMI Calculator FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>⚖️</span> What are the standard World Health Organization (WHO) BMI ranges?</h3>
+          <p class="faq-answer">
+            • Underweight: Under 18.5<br>
+            • Normal weight: 18.5 – 24.9<br>
+            • Overweight: 25.0 – 29.9<br>
+            • Obese: 30.0 or greater
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🏃</span> Does BMI distinguish between muscle mass and fat?</h3>
+          <p class="faq-answer">BMI is a screening tool based on height and weight. Highly trained athletes or bodybuilders with substantial muscle mass may have a high BMI without excess body fat.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Calculators</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="age-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🎂</span>
+            <span class="tool-badge badge-calc">Personal</span>
+          </div>
+          <h3 class="tool-card-title">Age Calculator</h3>
+          <p class="tool-card-desc">Find your exact chronological age in years and days.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="unit-converter.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📏</span>
+            <span class="tool-badge badge-util">Converter</span>
+          </div>
+          <h3 class="tool-card-title">Unit Converter</h3>
+          <p class="tool-card-desc">Convert weight (kg to lbs) and height (cm to ft/in).</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    let isMetric = true;
+
+    const btnMetric = document.getElementById('btn-metric');
+    const btnImperial = document.getElementById('btn-imperial');
+    const metricInputs = document.getElementById('metric-inputs');
+    const imperialInputs = document.getElementById('imperial-inputs');
+
+    const heightCm = document.getElementById('height-cm');
+    const weightKg = document.getElementById('weight-kg');
+    const heightFt = document.getElementById('height-ft');
+    const heightIn = document.getElementById('height-in');
+    const weightLbs = document.getElementById('weight-lbs');
+    const genderSelect = document.getElementById('gender-select');
+    const ageVal = document.getElementById('age-val');
+
+    const bmiScore = document.getElementById('bmi-score');
+    const bmiStatus = document.getElementById('bmi-status');
+    const healthyRangeText = document.getElementById('healthy-range-text');
+    const caloriesText = document.getElementById('calories-text');
+    const calcBmiBtn = document.getElementById('calc-bmi-btn');
+
+    btnMetric.addEventListener('click', () => {
+      isMetric = true;
+      btnMetric.classList.replace('btn-secondary', 'btn-primary');
+      btnImperial.classList.replace('btn-primary', 'btn-secondary');
+      metricInputs.style.display = 'block';
+      imperialInputs.style.display = 'none';
+      calcBMI();
+    });
+
+    btnImperial.addEventListener('click', () => {
+      isMetric = false;
+      btnImperial.classList.replace('btn-secondary', 'btn-primary');
+      btnMetric.classList.replace('btn-primary', 'btn-secondary');
+      imperialInputs.style.display = 'block';
+      metricInputs.style.display = 'none';
+      calcBMI();
+    });
+
+    function calcBMI() {
+      let hMeters = 0;
+      let wKg = 0;
+
+      if (isMetric) {
+        const cm = parseFloat(heightCm.value) || 0;
+        hMeters = cm / 100;
+        wKg = parseFloat(weightKg.value) || 0;
+      } else {
+        const ft = parseFloat(heightFt.value) || 0;
+        const inch = parseFloat(heightIn.value) || 0;
+        const totalInches = (ft * 12) + inch;
+        hMeters = totalInches * 0.0254;
+        wKg = (parseFloat(weightLbs.value) || 0) * 0.453592;
+      }
+
+      if (hMeters <= 0 || wKg <= 0) return;
+
+      const bmi = wKg / (hMeters * hMeters);
+      bmiScore.textContent = bmi.toFixed(1);
+
+      let statusLabel = '';
+      let statusColor = '';
+      let statusBg = '';
+
+      if (bmi < 18.5) {
+        statusLabel = 'Underweight';
+        statusColor = '#2563eb';
+        statusBg = '#eff6ff';
+      } else if (bmi <= 24.9) {
+        statusLabel = 'Normal Weight';
+        statusColor = '#059669';
+        statusBg = '#ecfdf5';
+      } else if (bmi <= 29.9) {
+        statusLabel = 'Overweight';
+        statusColor = '#d97706';
+        statusBg = '#fffbeb';
+      } else {
+        statusLabel = 'Obese';
+        statusColor = '#dc2626';
+        statusBg = '#fef2f2';
+      }
+
+      bmiStatus.textContent = statusLabel;
+      bmiStatus.style.color = statusColor;
+      bmiStatus.style.background = statusBg;
+      bmiScore.style.color = statusColor;
+
+      // Healthy weight range (18.5 to 24.9)
+      const minHealthyKg = 18.5 * (hMeters * hMeters);
+      const maxHealthyKg = 24.9 * (hMeters * hMeters);
+
+      if (isMetric) {
+        healthyRangeText.textContent = `${minHealthyKg.toFixed(1)} kg – ${maxHealthyKg.toFixed(1)} kg`;
+      } else {
+        const minLbs = minHealthyKg / 0.453592;
+        const maxLbs = maxHealthyKg / 0.453592;
+        healthyRangeText.textContent = `${minLbs.toFixed(1)} lbs – ${maxLbs.toFixed(1)} lbs`;
+      }
+
+      // Est BMR (Harris-Benedict equation)
+      const age = parseInt(ageVal.value, 10) || 25;
+      const isMale = genderSelect.value === 'male';
+      let bmr = 0;
+      if (isMale) {
+        bmr = 88.362 + (13.397 * wKg) + (4.799 * (hMeters * 100)) - (5.677 * age);
+      } else {
+        bmr = 447.593 + (9.247 * wKg) + (3.098 * (hMeters * 100)) - (4.330 * age);
+      }
+
+      caloriesText.textContent = `~${Math.round(bmr * 1.35).toLocaleString()} kcal / day (moderate activity)`;
+    }
+
+    [heightCm, weightKg, heightFt, heightIn, weightLbs, genderSelect, ageVal].forEach(el => {
+      el.addEventListener('input', calcBMI);
+    });
+    calcBmiBtn.addEventListener('click', calcBMI);
+
+    calcBMI();
+  </script>
+</body>
+</html>

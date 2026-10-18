@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List Online Free — Task Manager with Categories & Auto-Save</title>
+  <meta name="description" content="Free online to-do list manager. Organize daily tasks with categories, priorities, completion progress, and automatic localStorage browser save. 100% private.">
+  <meta name="keywords" content="todo list online free, task manager, checklist online, daily tasks planner, localstorage todo list">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/todo-list.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .task-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .task-item.completed {
+      background: #f8fafc;
+      opacity: 0.7;
+    }
+    .task-item.completed .task-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+    .task-checkbox {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .task-text {
+      flex: 1;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-main);
+      word-break: break-word;
+    }
+    .priority-badge {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+    }
+    .priority-high { background: #fee2e2; color: #dc2626; }
+    .priority-med { background: #fef3c7; color: #d97706; }
+    .priority-low { background: #e0f2fe; color: #0284c7; }
+    .progress-bar-container {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin: 8px 0 1.25rem;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--cat-util);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-utility-tools.html" class="nav-link">Utility Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util active"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Tool Header</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1rem; padding-bottom: 3rem; max-width: 860px;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-utility-tools.html">Fun & Utility</a>
+      <span>/</span>
+      <span>To-Do List</span>
+    </nav>
+
+    <div class="tool-header">
+      <div class="privacy-badge">🔒 100% private — saved locally in your browser storage</div>
+      <h1 class="tool-page-title">To-Do List Online Free</h1>
+      <p class="tool-page-subtitle">Clean daily task manager with categories, priorities, progress bar, and persistent localStorage auto-save.</p>
+    </div>
+
+    <!-- Working Tool Box -->
+    <div class="tool-box">
+      <!-- Add Task Form -->
+      <form id="add-task-form" style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; background: var(--bg-surface); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+        <div>
+          <label class="form-label" for="task-text-input">New Task</label>
+          <input type="text" id="task-text-input" class="form-control" placeholder="What needs to be done today? (e.g. Pay electricity bill, Review images)..." required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem;">
+          <div>
+            <label class="form-label" for="task-cat-select" style="font-size: 0.75rem;">Category</label>
+            <select id="task-cat-select" class="form-control" style="min-height: 38px; font-size: 0.875rem;">
+              <option value="Personal">Personal</option>
+              <option value="Work">Work</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Health">Health</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label" for="task-priority-select" style="font-size: 0.75rem;">Priority</label>
+            <select id="task-priority-select" class="form-control" style="min-height: 38px; font-size: 0.875rem;">
+              <option value="med">Medium Priority</option>
+              <option value="high">High Priority</option>
+              <option value="low">Low Priority</option>
+            </select>
+          </div>
+
+          <div style="display: flex; align-items: flex-end;">
+            <button type="submit" class="btn btn-primary btn-block" style="background: var(--cat-util); border-color: var(--cat-util); height: 38px;">
+              <span>+</span> Add Task
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Completion Progress Bar -->
+      <div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+          <span style="font-weight: 600; color: var(--text-main);">Completion Progress:</span>
+          <span id="progress-text" style="color: var(--cat-util); font-weight: 700;">0%</span>
+        </div>
+        <div class="progress-bar-container">
+          <div id="progress-fill" class="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- Filter Controls Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+        <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary filter-btn active" data-filter="all" style="padding: 6px 12px; font-size: 0.8125rem;">All</button>
+          <button type="button" class="btn btn-secondary filter-btn" data-filter="active" style="padding: 6px 12px; font-size: 0.8125rem;">Active</button>
+          <button type="button" class="btn btn-secondary filter-btn" data-filter="completed" style="padding: 6px 12px; font-size: 0.8125rem;">Completed</button>
+        </div>
+
+        <div style="display: flex; gap: 0.5rem;">
+          <button id="clear-completed-btn" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8125rem;">
+            Clear Completed
+          </button>
+        </div>
+      </div>
+
+      <!-- Task Items List -->
+      <div id="task-list-container">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- Mid Tool Ad Slot -->
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Tool Content</div>
+      </div>
+    </div>
+
+    <!-- 3-Step How To Use -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Manage Tasks Online</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Add Tasks</h3>
+          <p class="step-desc">Type your to-dos, select their category tags, and designate priority levels.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Check Off Completed</h3>
+          <p class="step-desc">Click the checkbox next to any task to cross it off and watch your progress bar fill up.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Automatic Persistence</h3>
+          <p class="step-desc">Everything saves automatically in your browser's local memory so you can return anytime.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> To-Do List FAQ</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>💾</span> Do I need an account to save my checklist?</h3>
+          <p class="faq-answer">No account or password is required! All tasks are securely saved into your browser's persistent `localStorage`. As long as you use the same browser, your tasks will be waiting for you.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔒</span> Can anyone else see my to-dos?</h3>
+          <p class="faq-answer">Never. Your tasks reside strictly in your private local browser storage and are never uploaded to any cloud database or server.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Utility Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="stopwatch-timer.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">⏱️</span>
+            <span class="tool-badge badge-util">Time</span>
+          </div>
+          <h3 class="tool-card-title">Stopwatch & Timer</h3>
+          <p class="tool-card-desc">Precise stopwatch with laps and audio chime alarm.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="unit-converter.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📏</span>
+            <span class="tool-badge badge-util">Converter</span>
+          </div>
+          <h3 class="tool-card-title">Unit Converter</h3>
+          <p class="tool-card-desc">Convert units of length, weight, speed, and temperature.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, and calculations.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const STORAGE_KEY = 'fot_todo_items';
+    let tasks = [];
+    let currentFilter = 'all';
+
+    const form = document.getElementById('add-task-form');
+    const taskTextInput = document.getElementById('task-text-input');
+    const taskCatSelect = document.getElementById('task-cat-select');
+    const taskPrioritySelect = document.getElementById('task-priority-select');
+    const taskListContainer = document.getElementById('task-list-container');
+    const progressText = document.getElementById('progress-text');
+    const progressFill = document.getElementById('progress-fill');
+    const clearCompletedBtn = document.getElementById('clear-completed-btn');
+
+    function loadTasks() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          tasks = JSON.parse(saved);
+        } else {
+          // Default initial tasks
+          tasks = [
+            { id: '1', text: 'Compress pictures with Image Compressor', cat: 'Work', priority: 'high', completed: true },
+            { id: '2', text: 'Calculate upcoming electricity bill units', cat: 'Personal', priority: 'med', completed: false },
+            { id: '3', text: 'Generate new WiFi QR Code for guests', cat: 'Personal', priority: 'low', completed: false }
+          ];
+          saveTasks();
+        }
+      } catch (e) {
+        tasks = [];
+      }
+      renderTasks();
+    }
+
+    function saveTasks() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+      } catch (e) {
+        console.error('Storage save error', e);
+      }
+    }
+
+    function renderTasks() {
+      let filtered = tasks;
+      if (currentFilter === 'active') {
+        filtered = tasks.filter(t => !t.completed);
+      } else if (currentFilter === 'completed') {
+        filtered = tasks.filter(t => t.completed);
+      }
+
+      if (filtered.length === 0) {
+        taskListContainer.innerHTML = `
+          <div style="padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.9375rem; background: var(--bg-surface); border-radius: var(--radius-md);">
+            No tasks found in this view. Add one above!
+          </div>
+        `;
+      } else {
+        taskListContainer.innerHTML = filtered.map(t => {
+          let badgeClass = 'priority-med';
+          let badgeLabel = 'Med';
+          if (t.priority === 'high') { badgeClass = 'priority-high'; badgeLabel = 'High'; }
+          else if (t.priority === 'low') { badgeClass = 'priority-low'; badgeLabel = 'Low'; }
+
+          return `
+            <div class="task-item ${t.completed ? 'completed' : ''}">
+              <input type="checkbox" class="task-checkbox" ${t.completed ? 'checked' : ''} onchange="toggleTask('${t.id}')">
+              <span class="task-text">${escapeHtml(t.text)}</span>
+              <span style="font-size: 0.75rem; color: var(--text-muted); background: var(--bg-surface); padding: 2px 8px; border-radius: var(--radius-sm);">${escapeHtml(t.cat)}</span>
+              <span class="priority-badge ${badgeClass}">${badgeLabel}</span>
+              <button type="button" onclick="deleteTask('${t.id}')" style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 4px; font-size: 1rem;" title="Delete task">✕</button>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Update progress bar
+      const total = tasks.length;
+      const completed = tasks.filter(t => t.completed).length;
+      const pct = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+      progressText.textContent = `${pct}% (${completed}/${total} completed)`;
+      progressFill.style.width = `${pct}%`;
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = taskTextInput.value.trim();
+      if (!text) return;
+
+      tasks.unshift({
+        id: Date.now().toString(),
+        text,
+        cat: taskCatSelect.value,
+        priority: taskPrioritySelect.value,
+        completed: false
+      });
+
+      saveTasks();
+      renderTasks();
+      taskTextInput.value = '';
+      showToast('Task added!');
+    });
+
+    window.toggleTask = function(id) {
+      const task = tasks.find(t => t.id === id);
+      if (task) {
+        task.completed = !task.completed;
+        saveTasks();
+        renderTasks();
+      }
+    };
+
+    window.deleteTask = function(id) {
+      tasks = tasks.filter(t => t.id !== id);
+      saveTasks();
+      renderTasks();
+      showToast('Task deleted.');
+    };
+
+    clearCompletedBtn.addEventListener('click', () => {
+      const prevCount = tasks.length;
+      tasks = tasks.filter(t => !t.completed);
+      saveTasks();
+      renderTasks();
+      const diff = prevCount - tasks.length;
+      showToast(`Cleared ${diff} completed task${diff === 1 ? '' : 's'}.`);
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'btn-primary'));
+        btn.classList.add('active', 'btn-primary');
+        currentFilter = btn.dataset.filter;
+        renderTasks();
+      });
+    });
+
+    loadTasks();
+  </script>
+</body>
+</html>

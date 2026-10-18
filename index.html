@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreeOnlineTools — 100% Free Client-Side Online Tools | No Signup</title>
+  <meta name="description" content="Fast, 100% client-side free online tools. Compress images, merge PDFs, calculate Pakistan electricity bills, convert Roman Urdu, generate QR codes, and more with zero signup.">
+  <meta name="keywords" content="free online tools, image compressor, roman to urdu, electricity bill calculator, merge pdf, qr code generator, zakat calculator, bmi calculator">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/">
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FreeOnlineTools — 100% Free Client-Side Online Tools">
+  <meta property="og:description" content="Free, secure, lightning-fast client-side tools. No uploads, no watermarks, no registration required.">
+  <meta property="og:url" content="https://freeonlinetools.vercel.app/">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span>⚡</span> FreeOnlineTools
+        <span class="logo-badge">100% Free</span>
+      </a>
+
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search 24+ free tools (e.g. compress, pdf, urdu)..." data-dropdown-target="header-search-results" aria-label="Search tools">
+          <div id="header-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="#categories" class="nav-link">Categories</a>
+        <a href="#popular" class="nav-link">Popular Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Quick Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Header Slot</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Free Online Tools — <span class="highlight">No Signup, No Watermark</span></h1>
+      <p class="hero-subtitle">Fast, mobile-friendly toolkit running 100% inside your browser. No files are ever sent to a server. Instant results on any device.</p>
+
+      <div class="hero-search-wrapper">
+        <div class="hero-search-box">
+          <span style="font-size: 1.25rem; margin-right: 8px;">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Type a tool name (e.g. Image Compressor, Zakat, Merge PDF)..." data-dropdown-target="hero-search-results" aria-label="Find any tool">
+          <button class="hero-search-btn" type="button">Find Tool</button>
+        </div>
+        <div id="hero-search-results" class="search-results-dropdown"></div>
+      </div>
+
+      <div class="hero-features">
+        <span class="hero-badge">🔒 100% Private (Client-Side)</span>
+        <span class="hero-badge">⚡ Instant Processing</span>
+        <span class="hero-badge">📱 Mobile Optimized</span>
+        <span class="hero-badge">🚫 Zero Registration</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 Categories Grid -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title"><span>📂</span> Explore Tool Categories</h2>
+        <p class="section-subtitle">Choose a category below to access specialized browser-based utilities.</p>
+      </div>
+
+      <div class="category-grid">
+        <!-- Category 1: Image Tools -->
+        <a href="category-image-tools.html" class="cat-card cat-card-image">
+          <div class="cat-card-header">
+            <div class="cat-card-icon">🖼️</div>
+            <div>
+              <h3 class="cat-card-title">Image Tools</h3>
+              <span class="cat-tool-pill">4 Tools</span>
+            </div>
+          </div>
+          <p class="cat-card-desc">Compress photos, resize pixel dimensions, convert formats (JPG/PNG/WebP), and crop photos with precision.</p>
+          <div class="cat-card-tools">
+            <span class="cat-tool-pill">Compressor</span>
+            <span class="cat-tool-pill">Resizer</span>
+            <span class="cat-tool-pill">Converter</span>
+            <span class="cat-tool-pill">Cropper</span>
+          </div>
+        </a>
+
+        <!-- Category 2: Text Tools -->
+        <a href="category-text-tools.html" class="cat-card cat-card-text">
+          <div class="cat-card-header">
+            <div class="cat-card-icon">📝</div>
+            <div>
+              <h3 class="cat-card-title">Text Tools</h3>
+              <span class="cat-tool-pill">5 Tools</span>
+            </div>
+          </div>
+          <p class="cat-card-desc">Count words & characters, convert Roman English to Urdu script, natural Text to Speech, switch cases & remove duplicates.</p>
+          <div class="cat-card-tools">
+            <span class="cat-tool-pill">Word Counter</span>
+            <span class="cat-tool-pill">Roman Urdu</span>
+            <span class="cat-tool-pill">TTS Voice</span>
+            <span class="cat-tool-pill">Case Converter</span>
+          </div>
+        </a>
+
+        <!-- Category 3: Calculators -->
+        <a href="category-calculators.html" class="cat-card cat-card-calc">
+          <div class="cat-card-header">
+            <div class="cat-card-icon">⚡</div>
+            <div>
+              <h3 class="cat-card-title">Calculators</h3>
+              <span class="cat-tool-pill">5 Tools</span>
+            </div>
+          </div>
+          <p class="cat-card-desc">Calculate Islamic Zakat, estimate Pakistani electricity bills with custom slab rates, age, discount & BMI metrics.</p>
+          <div class="cat-card-tools">
+            <span class="cat-tool-pill">Zakat</span>
+            <span class="cat-tool-pill">Electricity Bill</span>
+            <span class="cat-tool-pill">Age Calculator</span>
+            <span class="cat-tool-pill">BMI Score</span>
+          </div>
+        </a>
+
+        <!-- Category 4: PDF & File Tools -->
+        <a href="category-pdf-file-tools.html" class="cat-card cat-card-pdf">
+          <div class="cat-card-header">
+            <div class="cat-card-icon">📑</div>
+            <div>
+              <h3 class="cat-card-title">PDF & File Tools</h3>
+              <span class="cat-tool-pill">2 Tools</span>
+            </div>
+          </div>
+          <p class="cat-card-desc">Merge multiple PDF documents into one or transform galleries of images (JPG, PNG, WebP) into professional PDFs.</p>
+          <div class="cat-card-tools">
+            <span class="cat-tool-pill">Merge PDFs</span>
+            <span class="cat-tool-pill">Images to PDF</span>
+          </div>
+        </a>
+
+        <!-- Category 5: Generators -->
+        <a href="category-generators.html" class="cat-card cat-card-gen">
+          <div class="cat-card-header">
+            <div class="cat-card-icon">📱</div>
+            <div>
+              <h3 class="cat-card-title">Generators</h3>
+              <span class="cat-tool-pill">4 Tools</span>
+            </div>
+          </div>
+          <p class="cat-card-desc">Create custom downloadable QR codes, generate secure passwords, explore color palettes, and pick random winners.</p>
+          <div class="cat-card-tools">
+            <span class="cat-tool-pill">QR Codes</span>
+            <span class="cat-tool-pill">Password</span>
+            <span class="cat-tool-pill">Color Palettes</span>
+            <span class="cat-tool-pill">Team Picker</span>
+          </div>
+        </a>
+
+        <!-- Category 6: Fun & Utility -->
+        <a href="category-utility-tools.html" class="cat-card cat-card-util">
+          <div class="cat-card-header">
+            <div class="cat-card-icon">🛠️</div>
+            <div>
+              <h3 class="cat-card-title">Fun & Utility</h3>
+              <span class="cat-tool-pill">4 Tools</span>
+            </div>
+          </div>
+          <p class="cat-card-desc">Organize daily to-dos in localStorage, precise stopwatch and chime timer, unit converter, and PKR currency calculator.</p>
+          <div class="cat-card-tools">
+            <span class="cat-tool-pill">To-Do List</span>
+            <span class="cat-tool-pill">Stopwatch</span>
+            <span class="cat-tool-pill">Unit Converter</span>
+            <span class="cat-tool-pill">PKR Currency</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mid-Page Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Content</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popular Tools Section -->
+  <section class="section" id="popular" style="background-color: #ffffff;">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title"><span>🔥</span> Popular Free Tools</h2>
+        <p class="section-subtitle">Our most frequently used utilities by thousands of users daily.</p>
+      </div>
+
+      <div class="tools-grid">
+        <!-- 1. Image Compressor -->
+        <a href="image-compressor.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📉</span>
+            <span class="tool-badge badge-image">Image</span>
+          </div>
+          <h3 class="tool-card-title">Image Compressor</h3>
+          <p class="tool-card-desc">Compress JPG, PNG & WebP images up to 80% smaller without noticeable visual quality loss.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+
+        <!-- 2. Electricity Bill Calculator -->
+        <a href="electricity-bill-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">⚡</span>
+            <span class="tool-badge badge-calc">Calculator</span>
+          </div>
+          <h3 class="tool-card-title">Pakistan Electricity Bill</h3>
+          <p class="tool-card-desc">Accurately calculate LESCO, MEPCO & K-Electric bill amounts with custom slab rates, FPA & GST.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+
+        <!-- 3. Roman to Urdu -->
+        <a href="roman-to-urdu.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">✍️</span>
+            <span class="tool-badge badge-text">Text</span>
+          </div>
+          <h3 class="tool-card-title">Roman to Urdu Converter</h3>
+          <p class="tool-card-desc">Type Urdu in English alphabets and instantly get correct Urdu Nastaliq text with one-click copy.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+
+        <!-- 4. QR Code Generator -->
+        <a href="qr-code-generator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📱</span>
+            <span class="tool-badge badge-gen">Generator</span>
+          </div>
+          <h3 class="tool-card-title">QR Code Generator</h3>
+          <p class="tool-card-desc">Create high-resolution downloadable QR codes for websites, WiFi networks, WhatsApp, and text.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+
+        <!-- 5. Merge PDFs -->
+        <a href="merge-pdfs.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📑</span>
+            <span class="tool-badge badge-pdf">PDF</span>
+          </div>
+          <h3 class="tool-card-title">Merge PDFs</h3>
+          <p class="tool-card-desc">Combine multiple PDF files into one complete document right in your browser. 100% private.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+
+        <!-- 6. Zakat Calculator -->
+        <a href="zakat-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🪙</span>
+            <span class="tool-badge badge-calc">Calculator</span>
+          </div>
+          <h3 class="tool-card-title">Zakat Calculator</h3>
+          <p class="tool-card-desc">Calculate your 2.5% Zakat obligation on Gold, Silver, cash, investments and business inventory.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+
+        <!-- 7. Word Counter -->
+        <a href="word-counter.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📝</span>
+            <span class="tool-badge badge-text">Text</span>
+          </div>
+          <h3 class="tool-card-title">Word & Character Counter</h3>
+          <p class="tool-card-desc">Live word count, character tally, sentence length, and estimated reading and speaking duration.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+
+        <!-- 8. PKR Currency Converter -->
+        <a href="currency-converter.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">💱</span>
+            <span class="tool-badge badge-util">Utility</span>
+          </div>
+          <h3 class="tool-card-title">PKR Currency Converter</h3>
+          <p class="tool-card-desc">Convert USD, EUR, GBP, SAR, and AED to Pakistani Rupee with editable exchange rates.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header" style="text-align: center;">
+        <h2 class="section-title" style="justify-content: center;"><span>💡</span> How FreeOnlineTools Works</h2>
+        <p class="section-subtitle">Fast, safe and effortless in 3 simple steps.</p>
+      </div>
+
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Select Your Tool</h3>
+          <p class="step-desc">Pick any tool from our 6 categories or type in the live search bar to find what you need instantly.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Process 100% Client-Side</h3>
+          <p class="step-desc">Your files, images, and text are processed directly inside your browser memory. Nothing is uploaded to any server.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Download or Copy</h3>
+          <p class="step-desc">Grab your optimized photo, merged PDF, calculated bill, or converted text in a single click with zero watermarks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" style="background-color: #ffffff;">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title"><span>❓</span> Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know about FreeOnlineTools.</p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔒</span> Are my files and photos uploaded to your server?</h3>
+          <p class="faq-answer">No, absolutely not! FreeOnlineTools operates 100% client-side using modern HTML5, Canvas, and JavaScript APIs. Your images, PDFs, and text stay right on your phone or computer memory and never leave your device.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question"><span>💸</span> Is there any fee, subscription, or watermark?</h3>
+          <p class="faq-answer">Every single tool on FreeOnlineTools is completely free to use forever. There are no subscriptions, no premium tiers, no watermarks, and no sign-up or login required.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📱</span> Does this website work well on budget Android phones?</h3>
+          <p class="faq-answer">Yes! We built FreeOnlineTools with a mobile-first philosophy. The pages are lightweight, without heavy framework overhead, ensuring fast loading even on 3G/4G connections and low-cost smartphones.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question"><span>⚡</span> How accurate is the Pakistan Electricity Bill Calculator?</h3>
+          <p class="faq-answer">Our calculator provides an accurate estimate based on standard slab structures (protected and unprotected consumers) and includes Fuel Price Adjustment (FPA), GST, TV fee, and surcharges. Furthermore, all tariff rates are fully editable so you can customize them to match your exact DISCO bill!</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🌐</span> Can I use these tools offline?</h3>
+          <p class="faq-answer">Once the page has loaded in your browser, virtually all tools (including image compression, calculations, case conversion, and unit conversions) function even without an active internet connection!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span>⚡</span> FreeOnlineTools
+          </a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, calculations, and text.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Top Tools</h4>
+          <ul class="footer-links">
+            <li><a href="image-compressor.html">Image Compressor</a></li>
+            <li><a href="electricity-bill-calculator.html">Electricity Bill Calculator</a></li>
+            <li><a href="roman-to-urdu.html">Roman to Urdu</a></li>
+            <li><a href="merge-pdfs.html">Merge PDFs</a></li>
+            <li><a href="qr-code-generator.html">QR Code Maker</a></li>
+            <li><a href="zakat-calculator.html">Zakat Calculator</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company & Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved. 100% Client-Side.</div>
+        <div>Designed for speed, privacy, and simplicity.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
