@@ -6,7 +6,7 @@
   <title>QR Code Generator Online Free — Downloadable High-Res PNG QR Codes</title>
   <meta name="description" content="Free online QR code generator. Create custom scannable QR codes for websites, plain text, WiFi networks, WhatsApp, and contacts. Download as crisp PNG.">
   <meta name="keywords" content="qr code generator online free, make qr code, free qr code maker, wifi qr code, custom qr code png">
-  <link rel="canonical" href="https://freeonlinetools.vercel.app/qr-code-generator.html">
+  <link rel="canonical" href="https://freeonlinetools-gamma.vercel.app/qr-code-generator.html">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
@@ -122,7 +122,7 @@
           <div id="pane-url" class="qr-pane">
             <div class="form-group">
               <label class="form-label" for="input-url">Website URL</label>
-              <input type="url" id="input-url" class="form-control" value="https://freeonlinetools.vercel.app" placeholder="https://example.com">
+              <input type="url" id="input-url" class="form-control" value="https://freeonlinetools-gamma.vercel.app" placeholder="https://example.com">
             </div>
           </div>
 
@@ -387,7 +387,7 @@
 
     function getPayload() {
       if (activeType === 'url') {
-        return document.getElementById('input-url').value.trim() || 'https://freeonlinetools.vercel.app';
+        return document.getElementById('input-url').value.trim() || 'https://freeonlinetools-gamma.vercel.app';
       } else if (activeType === 'text') {
         return document.getElementById('input-text').value.trim() || 'FreeOnlineTools';
       } else if (activeType === 'wifi') {

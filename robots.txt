@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://freeonlinetools.vercel.app/sitemap.xml
+Sitemap: https://freeonlinetools-gamma.vercel.app/sitemap.xml
