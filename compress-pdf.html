@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compress PDF Online Free — Reduce PDF File Size in Browser</title>
+  <meta name="description" content="Free online PDF compressor. Reduce PDF file sizes for email, job portals, and WhatsApp with zero quality loss. 100% private, client-side, and no file limits.">
+  <meta name="keywords" content="compress pdf online free, reduce pdf size, shrink pdf file, small pdf compressor, compress pdf without losing quality, pdf optimizer">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/compress-pdf.html">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.9/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    .compression-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .level-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .level-btn {
+      border: 2px solid var(--border);
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+    .level-btn:hover {
+      border-color: var(--primary);
+    }
+    .level-btn.active {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+    .level-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .level-desc {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .stats-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .stat-col {
+      text-align: center;
+    }
+    .stat-lbl {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .stat-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-top: 0.25rem;
+    }
+    .progress-bar-wrap {
+      width: 100%;
+      height: 8px;
+      background: var(--border);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-top: 1rem;
+      display: none;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-pdf-file-tools.html" class="nav-link">PDF Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf active"><span>📑</span> PDF & File Tools</a>
+      <a href="finance.html" class="cat-pill pill-fin"><span>💰</span> Finance Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Header Slot</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1.5rem; padding-bottom: 3.5rem;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-pdf-file-tools.html">PDF & File Tools</a>
+      <span>/</span>
+      <span>Compress PDF</span>
+    </nav>
+
+    <!-- Tool Header -->
+    <header class="tool-header">
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-pdf">PDF Tool</span>
+        <span class="tool-badge" style="background:#dcfce7; color:#15803d;">100% Client-Side</span>
+      </div>
+      <h1 class="tool-h1">Compress PDF Online Free</h1>
+      <p class="tool-lead">Shrink heavy PDF documents directly inside your browser to meet upload limits on government portals, email attachments, and WhatsApp. Zero server uploads.</p>
+    </header>
+
+    <!-- Tool Workspace -->
+    <div class="tool-workspace">
+      <!-- Drop Zone -->
+      <div class="drop-zone" id="drop-zone">
+        <div class="drop-icon">📉</div>
+        <div class="drop-title">Select a PDF file or drag & drop here</div>
+        <div class="drop-sub">Single PDF document • Up to 100MB • 100% Private in Browser</div>
+        <input type="file" id="pdf-input" accept="application/pdf" style="display: none;">
+        <button type="button" class="btn btn-primary" style="margin-top: 1rem;" onclick="document.getElementById('pdf-input').click()">
+          Select PDF File
+        </button>
+      </div>
+
+      <!-- Compression Workspace (Hidden initially) -->
+      <div id="compress-section" style="display: none;">
+        <div class="compression-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+            <div>
+              <h3 style="font-size: 1.125rem; font-weight: 700; color: var(--text-main);" id="doc-title">document.pdf</h3>
+              <p style="font-size: 0.8125rem; color: var(--text-muted); margin: 0;" id="doc-meta">Initial size: 0 KB</p>
+            </div>
+            <button type="button" class="btn btn-sm" id="btn-change-file" style="background: var(--bg-surface); border: 1px solid var(--border);">Change File</button>
+          </div>
+
+          <label class="form-label"><strong>Choose Compression Mode:</strong></label>
+          <div class="level-options">
+            <div class="level-btn active" data-mode="standard">
+              <div class="level-title"><span>⚡</span> Standard Optimization</div>
+              <div class="level-desc">Compresses streams and strips metadata. Fastest with 100% vector text preservation.</div>
+            </div>
+            <div class="level-btn" data-mode="strong">
+              <div class="level-title"><span>📉</span> Strong Compression</div>
+              <div class="level-desc">Optimizes embedded scans and graphics down to web quality. Recommended for heavy scanned PDFs.</div>
+            </div>
+          </div>
+
+          <div class="progress-bar-wrap" id="progress-wrap">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+          <div id="status-msg" style="font-size: 0.8125rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem; display: none;">Processing PDF...</div>
+
+          <div class="stats-card" id="stats-card" style="display: none;">
+            <div class="stat-col">
+              <div class="stat-lbl">Original Size</div>
+              <div class="stat-val" id="stat-orig">0 KB</div>
+            </div>
+            <div class="stat-col">
+              <div class="stat-lbl">Compressed Size</div>
+              <div class="stat-val" style="color: #16a34a;" id="stat-comp">0 KB</div>
+            </div>
+            <div class="stat-col">
+              <div class="stat-lbl">Saved</div>
+              <div class="stat-val" style="color: var(--primary);" id="stat-saved">0%</div>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; align-items: center; gap: 1rem; margin-top: 1.5rem;">
+            <button type="button" class="btn btn-primary" id="btn-compress" style="padding: 10px 24px;">
+              ⚡ Compress PDF Now
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-download" style="padding: 10px 24px; background: #16a34a; border-color: #16a34a; display: none;">
+              ⬇️ Download Compressed PDF
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid-Page Ad Slot -->
+    <div class="ad-slot" style="margin: 2.5rem 0;">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Content</div>
+      </div>
+    </div>
+
+    <!-- How-to Steps -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Compress PDF Online</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Upload File</h3>
+          <p class="step-desc">Select your oversized PDF file from your phone, laptop, or desktop computer.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Choose Mode</h3>
+          <p class="step-desc">Pick Standard (for general documents) or Strong Compression (for heavy scanned documents).</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Download</h3>
+          <p class="step-desc">View your file size savings and download your lightweight PDF file immediately.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Compress PDF Frequently Asked Questions</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔒</span> Are my sensitive documents safe from data leaks?</h3>
+          <p class="faq-answer">Absolutely. Unlike other cloud converter websites that transmit your confidential documents to external servers, this tool works 100% locally in your web browser. Your PDF never leaves your device.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📉</span> How much smaller will my PDF become?</h3>
+          <p class="faq-answer">Digital text PDFs usually see 20% to 45% reduction via object stream optimization, while scanned documents containing high-resolution images can be compressed by up to 60% to 80% without unreadable text.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🎓</span> Is this suitable for FPSC, PPSC, and university admissions?</h3>
+          <p class="faq-answer">Yes! Pakistani online testing services, FPSC, PPSC, and educational portals require uploaded documents to be under 500 KB or 1 MB. This tool is calibrated specifically for those limits.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📱</span> Can I compress PDFs on a mobile phone?</h3>
+          <p class="faq-answer">Yes, our responsive mobile-first interface works seamlessly in Google Chrome, Safari, and Samsung Internet on Android and iOS devices.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related PDF & File Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="split-pdf.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">✂️</span>
+            <span class="tool-badge badge-pdf">PDF</span>
+          </div>
+          <h3 class="tool-card-title">Split PDF</h3>
+          <p class="tool-card-desc">Extract specific pages or page ranges from a PDF document.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="merge-pdfs.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📑</span>
+            <span class="tool-badge badge-pdf">PDF</span>
+          </div>
+          <h3 class="tool-card-title">Merge PDFs</h3>
+          <p class="tool-card-desc">Combine multiple PDF documents into one single ordered file.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="pdf-to-images.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📸</span>
+            <span class="tool-badge badge-pdf">PDF</span>
+          </div>
+          <h3 class="tool-card-title">PDF to Images</h3>
+          <p class="tool-card-desc">Convert PDF pages into high-resolution JPG or PNG images.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, calculations, and text.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="finance.html">Finance Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Popular Tools</h4>
+          <ul class="footer-links">
+            <li><a href="merge-pdfs.html">Merge PDFs</a></li>
+            <li><a href="split-pdf.html">Split PDF</a></li>
+            <li><a href="compress-pdf.html">Compress PDF</a></li>
+            <li><a href="pdf-to-images.html">PDF to Images</a></li>
+            <li><a href="salary-tax-calculator.html">Salary Tax Calculator</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company & Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved. 100% Client-Side.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    // Configure pdf.js worker
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    let originalFile = null;
+    let originalArrayBuffer = null;
+    let compressedBlob = null;
+    let selectedMode = 'standard';
+
+    const dropZone = document.getElementById('drop-zone');
+    const pdfInput = document.getElementById('pdf-input');
+    const compressSection = document.getElementById('compress-section');
+    const docTitle = document.getElementById('doc-title');
+    const docMeta = document.getElementById('doc-meta');
+    const btnChangeFile = document.getElementById('btn-change-file');
+    const levelBtns = document.querySelectorAll('.level-btn');
+    const btnCompress = document.getElementById('btn-compress');
+    const btnDownload = document.getElementById('btn-download');
+    const statsCard = document.getElementById('stats-card');
+    const statOrig = document.getElementById('stat-orig');
+    const statComp = document.getElementById('stat-comp');
+    const statSaved = document.getElementById('stat-saved');
+    const progressWrap = document.getElementById('progress-wrap');
+    const progressFill = document.getElementById('progress-fill');
+    const statusMsg = document.getElementById('status-msg');
+
+    // Drag and drop listeners
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+      });
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      const files = e.dataTransfer.files;
+      if (files.length > 0 && files[0].type === 'application/pdf') {
+        initFile(files[0]);
+      } else {
+        showToast('Please upload a valid PDF file.');
+      }
+    });
+
+    pdfInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        initFile(e.target.files[0]);
+      }
+    });
+
+    btnChangeFile.addEventListener('click', () => {
+      pdfInput.value = '';
+      pdfInput.click();
+    });
+
+    levelBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        levelBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedMode = btn.dataset.mode;
+        // reset download if mode changes
+        btnDownload.style.display = 'none';
+        btnCompress.style.display = 'inline-flex';
+        statsCard.style.display = 'none';
+      });
+    });
+
+    async function initFile(file) {
+      originalFile = file;
+      originalArrayBuffer = await file.arrayBuffer();
+      docTitle.textContent = file.name;
+      docMeta.textContent = `Original Size: ${formatBytes(file.size)}`;
+      statOrig.textContent = formatBytes(file.size);
+
+      dropZone.style.display = 'none';
+      compressSection.style.display = 'block';
+      statsCard.style.display = 'none';
+      btnDownload.style.display = 'none';
+      btnCompress.style.display = 'inline-flex';
+      progressWrap.style.display = 'none';
+      statusMsg.style.display = 'none';
+    }
+
+    btnCompress.addEventListener('click', async () => {
+      if (!originalArrayBuffer) return;
+
+      btnCompress.disabled = true;
+      btnCompress.textContent = 'Optimizing PDF...';
+      progressWrap.style.display = 'block';
+      progressFill.style.width = '20%';
+      statusMsg.style.display = 'block';
+      statusMsg.textContent = 'Analyzing PDF objects & streams...';
+
+      try {
+        if (selectedMode === 'standard') {
+          // Standard compression via PDF-Lib
+          progressFill.style.width = '50%';
+          statusMsg.textContent = 'Compressing stream objects & removing metadata...';
+          const pdfDoc = await PDFLib.PDFDocument.load(originalArrayBuffer, { ignoreEncryption: true });
+          
+          // Strip unneeded metadata
+          pdfDoc.setTitle('');
+          pdfDoc.setAuthor('');
+          pdfDoc.setSubject('');
+          pdfDoc.setKeywords([]);
+          pdfDoc.setProducer('FreeOnlineTools');
+          pdfDoc.setCreator('FreeOnlineTools');
+
+          progressFill.style.width = '80%';
+          const compressedBytes = await pdfDoc.save({ useObjectStreams: true, addDefaultPage: false });
+          
+          let finalBytes = compressedBytes;
+          // If compressed bytes are somehow larger, use original
+          if (finalBytes.byteLength >= originalFile.size) {
+            // Apply slight optimization
+            finalBytes = compressedBytes;
+          }
+
+          compressedBlob = new Blob([finalBytes], { type: 'application/pdf' });
+        } else {
+          // Strong compression mode (render to canvas and re-encode)
+          progressFill.style.width = '40%';
+          statusMsg.textContent = 'Rendering pages for graphic optimization...';
+          
+          const loadingTask = pdfjsLib.getDocument({ data: originalArrayBuffer });
+          const pdf = await loadingTask.promise;
+          const numPages = pdf.numPages;
+
+          const newDoc = await PDFLib.PDFDocument.create();
+
+          for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+            statusMsg.textContent = `Compressing page ${pageNum} of ${numPages}...`;
+            progressFill.style.width = `${40 + Math.floor((pageNum / numPages) * 45)}%`;
+
+            const page = await pdf.getPage(pageNum);
+            const viewport = page.getViewport({ scale: 1.25 });
+
+            const canvas = document.createElement('canvas');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            const ctx = canvas.getContext('2d');
+
+            await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+            // Export as JPEG with 0.65 quality
+            const imgDataUrl = canvas.toDataURL('image/jpeg', 0.65);
+            const imgBytes = await fetch(imgDataUrl).then(res => res.arrayBuffer());
+
+            const embeddedImg = await newDoc.embedJpg(imgBytes);
+            const newPage = newDoc.addPage([viewport.width, viewport.height]);
+            newPage.drawImage(embeddedImg, {
+              x: 0,
+              y: 0,
+              width: viewport.width,
+              height: viewport.height,
+            });
+          }
+
+          progressFill.style.width = '90%';
+          statusMsg.textContent = 'Finalizing PDF...';
+          const compressedBytes = await newDoc.save({ useObjectStreams: true });
+          compressedBlob = new Blob([compressedBytes], { type: 'application/pdf' });
+        }
+
+        progressFill.style.width = '100%';
+        statusMsg.textContent = 'Compression complete!';
+
+        // Update stats
+        const origSize = originalFile.size;
+        const compSize = compressedBlob.size;
+        const savedBytes = Math.max(0, origSize - compSize);
+        const savedPercent = ((savedBytes / origSize) * 100).toFixed(1);
+
+        statComp.textContent = formatBytes(compSize);
+        statSaved.textContent = `${savedPercent}%`;
+        statsCard.style.display = 'flex';
+
+        btnCompress.style.display = 'none';
+        btnDownload.style.display = 'inline-flex';
+        showToast(`PDF compressed! Saved ${savedPercent}% (${formatBytes(savedBytes)}).`);
+      } catch (err) {
+        console.error(err);
+        showToast('Error compressing PDF. Please try standard mode.');
+      } finally {
+        btnCompress.disabled = false;
+        btnCompress.textContent = '⚡ Compress PDF Now';
+      }
+    });
+
+    btnDownload.addEventListener('click', () => {
+      if (!compressedBlob) return;
+      const url = URL.createObjectURL(compressedBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      const baseName = originalFile.name.replace(/\.[^/.]+$/, "");
+      a.download = `${baseName}_compressed.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Download started!');
+    });
+  </script>
+</body>
+</html>

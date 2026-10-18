@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split PDF Online Free — Extract Pages from PDF Document</title>
+  <meta name="description" content="Free online PDF splitter. Extract specific pages or split PDF into a new document directly in your browser. 100% private, fast, and no file size limits.">
+  <meta name="keywords" content="split pdf online free, extract pdf pages, separate pdf, cut pdf pages, pdf divider, extract pages from pdf">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/split-pdf.html">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.9/pdf-lib.min.js"></script>
+  <style>
+    .split-config-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .page-chips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 0.5rem;
+      max-height: 240px;
+      overflow-y: auto;
+      padding: 0.75rem;
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      margin: 1rem 0;
+    }
+    .page-chip {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 4px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--text-main);
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .page-chip:hover {
+      border-color: var(--primary);
+    }
+    .page-chip.selected {
+      background: #eff6ff;
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+    .quick-select-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .quick-btn {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 5px 12px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-main);
+    }
+    .quick-btn:hover {
+      background: var(--bg-surface);
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-pdf-file-tools.html" class="nav-link">PDF Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf active"><span>📑</span> PDF & File Tools</a>
+      <a href="finance.html" class="cat-pill pill-fin"><span>💰</span> Finance Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Header Slot</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1.5rem; padding-bottom: 3.5rem;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-pdf-file-tools.html">PDF & File Tools</a>
+      <span>/</span>
+      <span>Split PDF</span>
+    </nav>
+
+    <!-- Tool Header -->
+    <header class="tool-header">
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-pdf">PDF Tool</span>
+        <span class="tool-badge" style="background:#dcfce7; color:#15803d;">100% Client-Side</span>
+      </div>
+      <h1 class="tool-h1">Split PDF Online Free</h1>
+      <p class="tool-lead">Extract selected pages or split your PDF document into a custom targeted file. Processed securely inside your browser with zero server uploads.</p>
+    </header>
+
+    <!-- Tool Workspace -->
+    <div class="tool-workspace">
+      <!-- Drop Zone -->
+      <div class="drop-zone" id="drop-zone">
+        <div class="drop-icon">✂️</div>
+        <div class="drop-title">Choose a PDF file or drag & drop here</div>
+        <div class="drop-sub">Single PDF document • Up to 100MB • 100% Private</div>
+        <input type="file" id="pdf-input" accept="application/pdf" style="display: none;">
+        <button type="button" class="btn btn-primary" style="margin-top: 1rem;" onclick="document.getElementById('pdf-input').click()">
+          Select PDF File
+        </button>
+      </div>
+
+      <!-- Config & Action Section (Hidden initially) -->
+      <div id="split-section" style="display: none;">
+        <div class="split-config-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+            <div>
+              <h3 style="font-size: 1.125rem; font-weight: 700; color: var(--text-main);" id="doc-title">document.pdf</h3>
+              <p style="font-size: 0.8125rem; color: var(--text-muted); margin: 0;" id="doc-info">Loading pages...</p>
+            </div>
+            <button type="button" class="btn btn-sm" id="btn-change-file" style="background: var(--bg-surface); border: 1px solid var(--border);">Change File</button>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="page-range-input"><strong>Page Range to Extract</strong> (e.g., <code>1, 3-5, 8</code>):</label>
+            <input type="text" id="page-range-input" class="form-control" placeholder="e.g. 1, 3-5, 8">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Type page numbers separated by commas or dashes, or click the chips below.</span>
+          </div>
+
+          <div style="margin-top: 1.25rem;">
+            <div class="quick-select-btns">
+              <span style="font-size: 0.8125rem; font-weight: 600; color: var(--text-main); margin-right: 0.25rem; display: flex; align-items: center;">Quick Select:</span>
+              <button type="button" class="quick-btn" id="btn-sel-all">All Pages</button>
+              <button type="button" class="quick-btn" id="btn-sel-odd">Odd Pages</button>
+              <button type="button" class="quick-btn" id="btn-sel-even">Even Pages</button>
+              <button type="button" class="quick-btn" id="btn-sel-none">Clear</button>
+            </div>
+
+            <div class="page-chips-grid" id="chips-container"></div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 1px solid var(--border); padding-top: 1.25rem; margin-top: 1.25rem;">
+            <div>
+              <span style="font-weight: 700; color: var(--text-main);" id="selected-summary">0 pages selected</span>
+            </div>
+            <button type="button" class="btn btn-primary" id="btn-extract" style="padding: 10px 24px;">
+              ✂️ Extract & Download PDF
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid-Page Ad Slot -->
+    <div class="ad-slot" style="margin: 2.5rem 0;">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Content</div>
+      </div>
+    </div>
+
+    <!-- How-to Steps -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Split PDF Pages Online</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Upload PDF</h3>
+          <p class="step-desc">Drag and drop your document into the box or tap to choose a PDF from your computer or phone.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Select Pages</h3>
+          <p class="step-desc">Enter page numbers (like 1-3, 5) or click on the interactive page tiles to highlight the pages you need.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Download</h3>
+          <p class="step-desc">Click "Extract & Download PDF" to immediately generate and save your new extracted PDF document.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Split PDF Frequently Asked Questions</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔒</span> Are my confidential PDF documents safe?</h3>
+          <p class="faq-answer">Yes, 100%. The entire splitting process happens client-side inside your browser using the pdf-lib WebAssembly library. Your files are never uploaded to any remote server or stored anywhere.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>✂️</span> Can I extract non-consecutive pages like 1, 4, and 7?</h3>
+          <p class="faq-answer">Yes! You can either type "1, 4, 7" in the page range box or tap chips 1, 4, and 7 directly. Your new PDF will only include those specific pages in the exact order selected.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📱</span> Can I split PDFs on Android or iPhone?</h3>
+          <p class="faq-answer">Yes. This web app works seamlessly in Chrome, Safari, Samsung Internet, and mobile browsers on both smartphones and tablets without installing any app.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📄</span> Does splitting reduce the quality of text or images?</h3>
+          <p class="faq-answer">Not at all. The original vector fonts, high-definition images, and layout streams are copied losslessly into the new document with zero quality degradation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related PDF & File Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="merge-pdfs.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📑</span>
+            <span class="tool-badge badge-pdf">PDF</span>
+          </div>
+          <h3 class="tool-card-title">Merge PDFs</h3>
+          <p class="tool-card-desc">Combine multiple PDF documents into one single ordered file.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="compress-pdf.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📉</span>
+            <span class="tool-badge badge-pdf">PDF</span>
+          </div>
+          <h3 class="tool-card-title">Compress PDF</h3>
+          <p class="tool-card-desc">Reduce PDF file size in your browser without quality loss.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="pdf-to-images.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📸</span>
+            <span class="tool-badge badge-pdf">PDF</span>
+          </div>
+          <h3 class="tool-card-title">PDF to Images</h3>
+          <p class="tool-card-desc">Convert PDF pages into high-resolution JPG or PNG images.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, calculations, and text.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="finance.html">Finance Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Popular Tools</h4>
+          <ul class="footer-links">
+            <li><a href="merge-pdfs.html">Merge PDFs</a></li>
+            <li><a href="split-pdf.html">Split PDF</a></li>
+            <li><a href="compress-pdf.html">Compress PDF</a></li>
+            <li><a href="pdf-to-images.html">PDF to Images</a></li>
+            <li><a href="salary-tax-calculator.html">Salary Tax Calculator</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company & Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved. 100% Client-Side.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    let currentPdfDoc = null;
+    let currentPdfBytes = null;
+    let currentFilename = 'document.pdf';
+    let totalPages = 0;
+    let selectedPages = new Set(); // 1-indexed
+
+    const dropZone = document.getElementById('drop-zone');
+    const pdfInput = document.getElementById('pdf-input');
+    const splitSection = document.getElementById('split-section');
+    const docTitle = document.getElementById('doc-title');
+    const docInfo = document.getElementById('doc-info');
+    const pageRangeInput = document.getElementById('page-range-input');
+    const chipsContainer = document.getElementById('chips-container');
+    const selectedSummary = document.getElementById('selected-summary');
+    const btnExtract = document.getElementById('btn-extract');
+    const btnChangeFile = document.getElementById('btn-change-file');
+
+    // Drag and drop listeners
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+      });
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      const files = e.dataTransfer.files;
+      if (files.length > 0 && files[0].type === 'application/pdf') {
+        loadPdfFile(files[0]);
+      } else {
+        showToast('Please drop a valid PDF file.');
+      }
+    });
+
+    pdfInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        loadPdfFile(e.target.files[0]);
+      }
+    });
+
+    btnChangeFile.addEventListener('click', () => {
+      pdfInput.value = '';
+      pdfInput.click();
+    });
+
+    async function loadPdfFile(file) {
+      currentFilename = file.name;
+      showToast('Reading PDF document...');
+      try {
+        currentPdfBytes = await file.arrayBuffer();
+        currentPdfDoc = await PDFLib.PDFDocument.load(currentPdfBytes, { ignoreEncryption: true });
+        totalPages = currentPdfDoc.getPageCount();
+
+        if (totalPages === 0) {
+          showToast('This PDF contains no pages.');
+          return;
+        }
+
+        docTitle.textContent = currentFilename;
+        docInfo.textContent = `${totalPages} page${totalPages > 1 ? 's' : ''} • ${formatBytes(file.size)}`;
+
+        // Render chips
+        chipsContainer.innerHTML = '';
+        selectedPages.clear();
+
+        for (let i = 1; i <= totalPages; i++) {
+          const chip = document.createElement('div');
+          chip.className = 'page-chip';
+          chip.textContent = i;
+          chip.dataset.page = i;
+          chip.addEventListener('click', () => togglePage(i));
+          chipsContainer.appendChild(chip);
+        }
+
+        // By default select all pages
+        selectAllPages();
+        dropZone.style.display = 'none';
+        splitSection.style.display = 'block';
+        showToast(`Loaded ${totalPages} pages successfully.`);
+      } catch (err) {
+        console.error(err);
+        showToast('Failed to load PDF. The document might be password-protected or corrupt.');
+      }
+    }
+
+    function togglePage(pageNum) {
+      if (selectedPages.has(pageNum)) {
+        selectedPages.delete(pageNum);
+      } else {
+        selectedPages.add(pageNum);
+      }
+      syncChipsAndInput();
+    }
+
+    function selectAllPages() {
+      selectedPages.clear();
+      for (let i = 1; i <= totalPages; i++) selectedPages.add(i);
+      syncChipsAndInput();
+    }
+
+    function selectOddPages() {
+      selectedPages.clear();
+      for (let i = 1; i <= totalPages; i += 2) selectedPages.add(i);
+      syncChipsAndInput();
+    }
+
+    function selectEvenPages() {
+      selectedPages.clear();
+      for (let i = 2; i <= totalPages; i += 2) selectedPages.add(i);
+      syncChipsAndInput();
+    }
+
+    function clearPages() {
+      selectedPages.clear();
+      syncChipsAndInput();
+    }
+
+    document.getElementById('btn-sel-all').addEventListener('click', selectAllPages);
+    document.getElementById('btn-sel-odd').addEventListener('click', selectOddPages);
+    document.getElementById('btn-sel-even').addEventListener('click', selectEvenPages);
+    document.getElementById('btn-sel-none').addEventListener('click', clearPages);
+
+    function syncChipsAndInput() {
+      // Update chips UI
+      const chips = chipsContainer.querySelectorAll('.page-chip');
+      chips.forEach(chip => {
+        const p = parseInt(chip.dataset.page, 10);
+        if (selectedPages.has(p)) {
+          chip.classList.add('selected');
+        } else {
+          chip.classList.remove('selected');
+        }
+      });
+
+      // Update range text input
+      const sorted = Array.from(selectedPages).sort((a, b) => a - b);
+      pageRangeInput.value = formatPageRanges(sorted);
+
+      // Update summary
+      selectedSummary.textContent = `${sorted.length} of ${totalPages} pages selected`;
+    }
+
+    function formatPageRanges(arr) {
+      if (arr.length === 0) return '';
+      const ranges = [];
+      let start = arr[0], end = arr[0];
+      for (let i = 1; i < arr.length; i++) {
+        if (arr[i] === end + 1) {
+          end = arr[i];
+        } else {
+          ranges.push(start === end ? `${start}` : `${start}-${end}`);
+          start = arr[i];
+          end = arr[i];
+        }
+      }
+      ranges.push(start === end ? `${start}` : `${start}-${end}`);
+      return ranges.join(', ');
+    }
+
+    pageRangeInput.addEventListener('input', (e) => {
+      parseRangeString(e.target.value);
+    });
+
+    function parseRangeString(str) {
+      selectedPages.clear();
+      const parts = str.split(',');
+      parts.forEach(part => {
+        const trimmed = part.trim();
+        if (trimmed.includes('-')) {
+          const [s, e] = trimmed.split('-').map(n => parseInt(n.trim(), 10));
+          if (!isNaN(s) && !isNaN(e)) {
+            const min = Math.max(1, Math.min(s, e));
+            const max = Math.min(totalPages, Math.max(s, e));
+            for (let i = min; i <= max; i++) selectedPages.add(i);
+          }
+        } else {
+          const num = parseInt(trimmed, 10);
+          if (!isNaN(num) && num >= 1 && num <= totalPages) {
+            selectedPages.add(num);
+          }
+        }
+      });
+
+      // Update chips and summary without rewriting the input
+      const chips = chipsContainer.querySelectorAll('.page-chip');
+      chips.forEach(chip => {
+        const p = parseInt(chip.dataset.page, 10);
+        if (selectedPages.has(p)) {
+          chip.classList.add('selected');
+        } else {
+          chip.classList.remove('selected');
+        }
+      });
+      selectedSummary.textContent = `${selectedPages.size} of ${totalPages} pages selected`;
+    }
+
+    btnExtract.addEventListener('click', async () => {
+      if (selectedPages.size === 0) {
+        showToast('Please select at least one page to extract.');
+        return;
+      }
+
+      btnExtract.disabled = true;
+      btnExtract.textContent = 'Extracting PDF...';
+
+      try {
+        const newPdfDoc = await PDFLib.PDFDocument.create();
+        const sortedPages = Array.from(selectedPages).sort((a, b) => a - b);
+        const indicesToCopy = sortedPages.map(p => p - 1); // 0-indexed
+
+        const copiedPages = await newPdfDoc.copyPages(currentPdfDoc, indicesToCopy);
+        copiedPages.forEach(p => newPdfDoc.addPage(p));
+
+        const extractedBytes = await newPdfDoc.save();
+        const blob = new Blob([extractedBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        const baseName = currentFilename.replace(/\.[^/.]+$/, "");
+        a.download = `${baseName}_extracted.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showToast(`Successfully extracted ${sortedPages.length} pages!`);
+      } catch (err) {
+        console.error(err);
+        showToast('An error occurred while extracting PDF pages.');
+      } finally {
+        btnExtract.disabled = false;
+        btnExtract.textContent = '✂️ Extract & Download PDF';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -167,6 +167,36 @@ const TOOLS = [
     desc: 'Convert JPG, PNG, and WebP pictures into a clean multi-page PDF document.',
     keywords: ['images to pdf', 'jpg to pdf', 'photos to pdf', 'png to pdf', 'make pdf']
   },
+  {
+    id: 'split-pdf',
+    name: 'Split PDF',
+    cat: 'pdf',
+    catName: 'PDF & File Tools',
+    icon: '✂️',
+    url: 'split-pdf.html',
+    desc: 'Extract specific pages or page ranges from a PDF document into a new PDF.',
+    keywords: ['split pdf', 'extract pdf pages', 'separate pdf', 'cut pdf', 'pdf divider']
+  },
+  {
+    id: 'compress-pdf',
+    name: 'Compress PDF',
+    cat: 'pdf',
+    catName: 'PDF & File Tools',
+    icon: '📉',
+    url: 'compress-pdf.html',
+    desc: 'Reduce PDF file size in your browser without quality loss. 100% private.',
+    keywords: ['compress pdf', 'reduce pdf size', 'shrink pdf', 'pdf optimizer', 'small pdf']
+  },
+  {
+    id: 'pdf-to-images',
+    name: 'PDF to Images Converter',
+    cat: 'pdf',
+    catName: 'PDF & File Tools',
+    icon: '📸',
+    url: 'pdf-to-images.html',
+    desc: 'Convert all pages of a PDF document into high-resolution JPG or PNG images.',
+    keywords: ['pdf to images', 'pdf to jpg', 'pdf to png', 'extract images from pdf', 'pdf photo']
+  },
 
   // 5. Generators
   {
@@ -250,6 +280,48 @@ const TOOLS = [
     url: 'currency-converter.html',
     desc: 'Convert USD, EUR, GBP, SAR, AED, and foreign currencies to PKR with editable rates.',
     keywords: ['currency converter', 'pkr', 'usd to pkr', 'sar to pkr', 'aed to pkr', 'exchange rate']
+  },
+
+  // 7. Finance Tools
+  {
+    id: 'salary-tax-calculator',
+    name: 'Pakistan Salary Tax Calculator 2026-27',
+    cat: 'fin',
+    catName: 'Finance Tools',
+    icon: '🇵🇰',
+    url: 'salary-tax-calculator.html',
+    desc: 'Calculate monthly and yearly income tax under latest FBR slabs for 2026-27 with take-home pay.',
+    keywords: ['salary tax', 'pakistan income tax', 'fbr tax slabs', 'salary tax calculator', 'take home pay', '2026 tax', 'fbr']
+  },
+  {
+    id: 'loan-calculator',
+    name: 'EMI & Loan Calculator',
+    cat: 'fin',
+    catName: 'Finance Tools',
+    icon: '🏦',
+    url: 'loan-calculator.html',
+    desc: 'Calculate monthly loan EMI, total interest, and total payment with editable rate and years.',
+    keywords: ['emi calculator', 'loan calculator', 'car loan', 'home mortgage', 'monthly installment', 'interest rate']
+  },
+  {
+    id: 'compound-interest-calculator',
+    name: 'Compound Interest Calculator',
+    cat: 'fin',
+    catName: 'Finance Tools',
+    icon: '📈',
+    url: 'compound-interest-calculator.html',
+    desc: 'Forecast investment growth with initial deposit, monthly addition, interest rate, and year-by-year table.',
+    keywords: ['compound interest', 'investment growth', 'future value', 'savings calculator', 'interest table']
+  },
+  {
+    id: 'savings-goal-planner',
+    name: 'Savings Goal Planner',
+    cat: 'fin',
+    catName: 'Finance Tools',
+    icon: '🎯',
+    url: 'savings-goal-planner.html',
+    desc: 'Calculate how much you need to save each month to hit your target financial goals.',
+    keywords: ['savings goal', 'goal planner', 'monthly savings', 'financial goal', 'target savings', 'budget goal']
   }
 ];
 

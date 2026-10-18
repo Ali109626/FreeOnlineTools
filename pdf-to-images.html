@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF to Images Online Free — Convert PDF Pages to JPG & PNG</title>
+  <meta name="description" content="Free online PDF to Image converter. Convert PDF pages to high-resolution JPG or PNG pictures directly in your browser. 100% private with instant batch download.">
+  <meta name="keywords" content="pdf to images online free, pdf to jpg, pdf to png, extract pictures from pdf, convert pdf to photos, pdf to photo">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/pdf-to-images.html">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    .convert-config-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .options-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      margin: 1rem 0;
+      padding: 1rem;
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+    }
+    .page-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .page-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .page-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .page-card-canvas {
+      width: 100%;
+      height: auto;
+      max-height: 260px;
+      object-fit: contain;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #fff;
+    }
+    .page-card-title {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--text-main);
+      margin: 0.5rem 0;
+    }
+    .progress-bar-wrap {
+      width: 100%;
+      height: 8px;
+      background: var(--border);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin: 1rem 0;
+      display: none;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="category-pdf-file-tools.html" class="nav-link">PDF Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf active"><span>📑</span> PDF & File Tools</a>
+      <a href="finance.html" class="cat-pill pill-fin"><span>💰</span> Finance Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Header Slot</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1.5rem; padding-bottom: 3.5rem;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="category-pdf-file-tools.html">PDF & File Tools</a>
+      <span>/</span>
+      <span>PDF to Images</span>
+    </nav>
+
+    <!-- Tool Header -->
+    <header class="tool-header">
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-pdf">PDF Tool</span>
+        <span class="tool-badge" style="background:#dcfce7; color:#15803d;">100% Client-Side</span>
+      </div>
+      <h1 class="tool-h1">PDF to Images Online Free</h1>
+      <p class="tool-lead">Convert every page of your PDF file into high-definition JPG or PNG pictures. High-speed rendering executed directly inside your web browser.</p>
+    </header>
+
+    <!-- Tool Workspace -->
+    <div class="tool-workspace">
+      <!-- Drop Zone -->
+      <div class="drop-zone" id="drop-zone">
+        <div class="drop-icon">📸</div>
+        <div class="drop-title">Select a PDF file or drag & drop here</div>
+        <div class="drop-sub">Single PDF document • Up to 100MB • 100% Private in Browser</div>
+        <input type="file" id="pdf-input" accept="application/pdf" style="display: none;">
+        <button type="button" class="btn btn-primary" style="margin-top: 1rem;" onclick="document.getElementById('pdf-input').click()">
+          Select PDF File
+        </button>
+      </div>
+
+      <!-- Action & Preview Section (Hidden initially) -->
+      <div id="render-section" style="display: none;">
+        <div class="convert-config-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              <h3 style="font-size: 1.125rem; font-weight: 700; color: var(--text-main);" id="doc-title">document.pdf</h3>
+              <p style="font-size: 0.8125rem; color: var(--text-muted); margin: 0;" id="doc-info">0 Pages</p>
+            </div>
+            <button type="button" class="btn btn-sm" id="btn-change-file" style="background: var(--bg-surface); border: 1px solid var(--border);">Change File</button>
+          </div>
+
+          <div class="options-row">
+            <div>
+              <label class="form-label" style="margin-bottom: 0.25rem;"><strong>Output Format:</strong></label>
+              <select id="format-select" class="form-control" style="width: auto; min-width: 140px;">
+                <option value="image/jpeg" selected>JPG (.jpg)</option>
+                <option value="image/png">PNG (.png)</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="margin-bottom: 0.25rem;"><strong>Resolution Quality:</strong></label>
+              <select id="scale-select" class="form-control" style="width: auto; min-width: 140px;">
+                <option value="1.5" selected>Standard (1.5x HD)</option>
+                <option value="2.0">Crisp Print (2.0x Ultra HD)</option>
+                <option value="1.0">Compact (1.0x Web)</option>
+              </select>
+            </div>
+            <div style="margin-left: auto;">
+              <button type="button" class="btn btn-primary" id="btn-download-all" style="padding: 10px 20px;">
+                ⬇️ Download All Pages
+              </button>
+            </div>
+          </div>
+
+          <div class="progress-bar-wrap" id="progress-wrap">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+          <div id="status-text" style="text-align: center; font-size: 0.8125rem; color: var(--text-muted); display: none;">Rendering pages...</div>
+
+          <div class="page-preview-grid" id="pages-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid-Page Ad Slot -->
+    <div class="ad-slot" style="margin: 2.5rem 0;">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Content</div>
+      </div>
+    </div>
+
+    <!-- How-to Steps -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Convert PDF to Images</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Upload PDF</h3>
+          <p class="step-desc">Drag and drop your PDF into the upload area or select it from your device storage.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Select Format</h3>
+          <p class="step-desc">Pick JPG for photographs and smaller file sizes, or PNG for razor-sharp text and graphics.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Download</h3>
+          <p class="step-desc">Download single pages individually or click "Download All Pages" to save all images.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> PDF to Images Frequently Asked Questions</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🖼️</span> Which format should I choose, JPG or PNG?</h3>
+          <p class="faq-answer">Choose JPG if your PDF contains photos, scanned books, or magazines, as JPG files are much smaller. Choose PNG if your PDF contains fine technical diagrams, invoices, logos, or tiny text that needs crisp sharpness.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🔒</span> Are my files uploaded to an external server?</h3>
+          <p class="faq-answer">No. Conversion runs 100% inside your web browser using Mozilla's pdf.js library. Your PDF never leaves your device, keeping your financial, legal, and personal files completely confidential.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📱</span> Can I convert PDF to JPG on Android or iPhone?</h3>
+          <p class="faq-answer">Yes! You can convert any PDF on modern mobile phones and tablets, preview every single page thumbnail, and save them straight to your phone's photo gallery.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📦</span> Can I download all pages at once?</h3>
+          <p class="faq-answer">Yes, tapping "Download All Pages" will automatically prompt your browser to save each converted page image sequentially into your downloads folder.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related PDF & File Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="images-to-pdf.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🖼️</span>
+            <span class="tool-badge badge-pdf">PDF</span>
+          </div>
+          <h3 class="tool-card-title">Images to PDF</h3>
+          <p class="tool-card-desc">Convert JPG, PNG, and WebP pictures into a clean multi-page PDF.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="compress-pdf.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📉</span>
+            <span class="tool-badge badge-pdf">PDF</span>
+          </div>
+          <h3 class="tool-card-title">Compress PDF</h3>
+          <p class="tool-card-desc">Reduce PDF file size in your browser without quality loss.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="split-pdf.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">✂️</span>
+            <span class="tool-badge badge-pdf">PDF</span>
+          </div>
+          <h3 class="tool-card-title">Split PDF</h3>
+          <p class="tool-card-desc">Extract specific pages or page ranges from a PDF document.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, calculations, and text.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="finance.html">Finance Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Popular Tools</h4>
+          <ul class="footer-links">
+            <li><a href="merge-pdfs.html">Merge PDFs</a></li>
+            <li><a href="split-pdf.html">Split PDF</a></li>
+            <li><a href="compress-pdf.html">Compress PDF</a></li>
+            <li><a href="pdf-to-images.html">PDF to Images</a></li>
+            <li><a href="salary-tax-calculator.html">Salary Tax Calculator</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company & Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved. 100% Client-Side.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    let pdfDoc = null;
+    let currentFileName = 'document';
+    let renderedCanvases = []; // array of { pageNum, canvas }
+
+    const dropZone = document.getElementById('drop-zone');
+    const pdfInput = document.getElementById('pdf-input');
+    const renderSection = document.getElementById('render-section');
+    const docTitle = document.getElementById('doc-title');
+    const docInfo = document.getElementById('doc-info');
+    const btnChangeFile = document.getElementById('btn-change-file');
+    const formatSelect = document.getElementById('format-select');
+    const scaleSelect = document.getElementById('scale-select');
+    const pagesContainer = document.getElementById('pages-container');
+    const btnDownloadAll = document.getElementById('btn-download-all');
+    const progressWrap = document.getElementById('progress-wrap');
+    const progressFill = document.getElementById('progress-fill');
+    const statusText = document.getElementById('status-text');
+
+    // Drag and drop listeners
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+      });
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      const files = e.dataTransfer.files;
+      if (files.length > 0 && files[0].type === 'application/pdf') {
+        loadPdf(files[0]);
+      } else {
+        showToast('Please upload a valid PDF file.');
+      }
+    });
+
+    pdfInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        loadPdf(e.target.files[0]);
+      }
+    });
+
+    btnChangeFile.addEventListener('click', () => {
+      pdfInput.value = '';
+      pdfInput.click();
+    });
+
+    scaleSelect.addEventListener('change', () => {
+      if (pdfDoc) renderAllPages();
+    });
+
+    async function loadPdf(file) {
+      currentFileName = file.name.replace(/\.[^/.]+$/, "");
+      docTitle.textContent = file.name;
+      showToast('Loading PDF document...');
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        pdfDoc = await loadingTask.promise;
+
+        docInfo.textContent = `${pdfDoc.numPages} Page${pdfDoc.numPages > 1 ? 's' : ''} • ${formatBytes(file.size)}`;
+        dropZone.style.display = 'none';
+        renderSection.style.display = 'block';
+
+        await renderAllPages();
+      } catch (err) {
+        console.error(err);
+        showToast('Failed to load PDF. File might be encrypted or corrupted.');
+      }
+    }
+
+    async function renderAllPages() {
+      if (!pdfDoc) return;
+
+      pagesContainer.innerHTML = '';
+      renderedCanvases = [];
+      progressWrap.style.display = 'block';
+      statusText.style.display = 'block';
+      btnDownloadAll.disabled = true;
+
+      const numPages = pdfDoc.numPages;
+      const scale = parseFloat(scaleSelect.value) || 1.5;
+
+      for (let i = 1; i <= numPages; i++) {
+        statusText.textContent = `Rendering page ${i} of ${numPages}...`;
+        progressFill.style.width = `${Math.floor((i / numPages) * 100)}%`;
+
+        const page = await pdfDoc.getPage(i);
+        const viewport = page.getViewport({ scale: scale });
+
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const ctx = canvas.getContext('2d');
+
+        await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+        renderedCanvases.push({ pageNum: i, canvas: canvas });
+
+        // Create card in grid
+        const card = document.createElement('div');
+        card.className = 'page-card';
+
+        const thumb = document.createElement('img');
+        thumb.className = 'page-card-canvas';
+        thumb.src = canvas.toDataURL('image/jpeg', 0.8);
+        thumb.alt = `Page ${i}`;
+
+        const title = document.createElement('div');
+        title.className = 'page-card-title';
+        title.textContent = `Page ${i}`;
+
+        const dlBtn = document.createElement('button');
+        dlBtn.className = 'btn btn-sm btn-primary';
+        dlBtn.style.width = '100%';
+        dlBtn.style.padding = '6px 12px';
+        dlBtn.style.fontSize = '0.75rem';
+        dlBtn.textContent = '⬇️ Save Page';
+        dlBtn.addEventListener('click', () => downloadSinglePage(i, canvas));
+
+        card.appendChild(thumb);
+        card.appendChild(title);
+        card.appendChild(dlBtn);
+        pagesContainer.appendChild(card);
+      }
+
+      progressWrap.style.display = 'none';
+      statusText.style.display = 'none';
+      btnDownloadAll.disabled = false;
+      showToast(`Rendered all ${numPages} pages ready for download!`);
+    }
+
+    function downloadSinglePage(pageNum, canvas) {
+      const mime = formatSelect.value;
+      const ext = mime === 'image/png' ? 'png' : 'jpg';
+      const dataUrl = canvas.toDataURL(mime, 0.92);
+
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `${currentFileName}_page_${pageNum}.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast(`Downloaded Page ${pageNum}`);
+    }
+
+    btnDownloadAll.addEventListener('click', async () => {
+      if (renderedCanvases.length === 0) return;
+
+      btnDownloadAll.disabled = true;
+      btnDownloadAll.textContent = 'Saving images...';
+
+      const mime = formatSelect.value;
+      const ext = mime === 'image/png' ? 'png' : 'jpg';
+
+      for (let i = 0; i < renderedCanvases.length; i++) {
+        const item = renderedCanvases[i];
+        const dataUrl = item.canvas.toDataURL(mime, 0.92);
+
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = `${currentFileName}_page_${item.pageNum}.${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // slight delay so browser handles multiple downloads smoothly
+        await new Promise(r => setTimeout(r, 200));
+      }
+
+      btnDownloadAll.disabled = false;
+      btnDownloadAll.textContent = '⬇️ Download All Pages';
+      showToast('All page images downloaded!');
+    });
+  </script>
+</body>
+</html>

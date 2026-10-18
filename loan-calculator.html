@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMI Loan Calculator — Monthly Installment & Interest Calculator</title>
+  <meta name="description" content="Calculate monthly loan EMI, total interest, and payment for home and car loans. Interactive amortization schedule and yearly breakdown.">
+  <meta name="keywords" content="emi loan calculator, monthly installment calculator, car loan emi, home mortgage calculator, interest rate calculator, loan repayment schedule">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/loan-calculator.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .loan-calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 820px) {
+      .loan-calc-grid { grid-template-columns: 1fr; }
+    }
+    .loan-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .ratio-bar {
+      height: 14px;
+      border-radius: var(--radius-full);
+      display: flex;
+      overflow: hidden;
+      margin: 1rem 0 0.5rem;
+      background: var(--border);
+    }
+    .ratio-principal { background: var(--cat-fin); }
+    .ratio-interest { background: #e11d48; }
+    .ratio-legend {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .amortization-table-wrap {
+      max-height: 280px;
+      overflow-y: auto;
+      margin-top: 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    .amort-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+    }
+    .amort-table th, .amort-table td {
+      padding: 8px 12px;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+    }
+    .amort-table th:first-child, .amort-table td:first-child {
+      text-align: left;
+    }
+    .amort-table th {
+      background: var(--bg-surface);
+      font-weight: 700;
+      color: var(--text-main);
+      position: sticky;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="finance.html" class="nav-link">Finance Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="finance.html" class="cat-pill pill-fin active"><span>💰</span> Finance Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Header Slot</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1.5rem; padding-bottom: 3.5rem;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="finance.html">Finance Tools</a>
+      <span>/</span>
+      <span>EMI & Loan Calculator</span>
+    </nav>
+
+    <!-- Tool Header -->
+    <header class="tool-header">
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-fin">Finance Tool</span>
+        <span class="tool-badge" style="background:#dcfce7; color:#15803d;">Instant Amortization</span>
+      </div>
+      <h1 class="tool-h1">EMI & Loan Calculator</h1>
+      <p class="tool-lead">Calculate your exact Equated Monthly Installment (EMI), total interest payable, and full payment breakdown for personal, car, and home loans.</p>
+    </header>
+
+    <!-- Interactive Loan Grid -->
+    <div class="loan-calc-grid">
+      <!-- Inputs -->
+      <div class="loan-card">
+        <h2 style="font-size: 1.125rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem;">Loan Parameters</h2>
+
+        <div class="form-group">
+          <label class="form-label" for="loan-amount"><strong>Loan Amount:</strong></label>
+          <input type="number" id="loan-amount" class="form-control" value="1000000" min="1000" step="10000" style="font-weight: 700; font-size: 1.125rem;">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Principal amount borrowed (e.g. 1,000,000)</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="interest-rate"><strong>Annual Interest Rate (%):</strong></label>
+          <input type="number" id="interest-rate" class="form-control" value="14.5" min="0.1" max="100" step="0.1" style="font-weight: 700;">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Bank KIBOR or fixed annual percentage rate</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loan-tenure"><strong>Loan Tenure (Years):</strong></label>
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="number" id="loan-tenure" class="form-control" value="5" min="1" max="30" step="1" style="font-weight: 700;">
+            <select id="tenure-type" class="form-control" style="width: 120px;">
+              <option value="years" selected>Years</option>
+              <option value="months">Months</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Quick Loan Presets:</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.35rem;">
+            <button type="button" class="btn btn-sm" id="preset-car" style="background: var(--bg-surface); border: 1px solid var(--border); font-size: 0.75rem;">🚗 Car Loan (3M, 18%, 5 Yrs)</button>
+            <button type="button" class="btn btn-sm" id="preset-home" style="background: var(--bg-surface); border: 1px solid var(--border); font-size: 0.75rem;">🏠 Home Loan (8M, 14%, 15 Yrs)</button>
+            <button type="button" class="btn btn-sm" id="preset-personal" style="background: var(--bg-surface); border: 1px solid var(--border); font-size: 0.75rem;">💼 Personal (500k, 22%, 2 Yrs)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="loan-card">
+        <h2 style="font-size: 1.125rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem;">Repayment Breakdown</h2>
+
+        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid var(--cat-fin-border); border-radius: var(--radius-md); padding: 1.25rem; text-align: center;">
+          <div style="font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; color: #166534;">Monthly EMI Installment</div>
+          <div style="font-size: clamp(1.75rem, 4vw, 2.3rem); font-weight: 800; color: #14532d; margin: 0.25rem 0;" id="res-emi">0</div>
+          <div style="font-size: 0.8125rem; color: #166534;" id="res-tenure-months">Total 60 Monthly Payments</div>
+        </div>
+
+        <div class="ratio-bar">
+          <div class="ratio-principal" id="bar-principal" style="width: 60%;"></div>
+          <div class="ratio-interest" id="bar-interest" style="width: 40%;"></div>
+        </div>
+        <div class="ratio-legend">
+          <span><strong style="color: var(--cat-fin);">●</strong> Principal (<span id="pct-principal">60%</span>)</span>
+          <span><strong style="color: #e11d48;">●</strong> Interest (<span id="pct-interest">40%</span>)</span>
+        </div>
+
+        <div style="margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; padding: 6px 0;">
+            <span style="color: var(--text-muted);">Principal Amount:</span>
+            <strong id="res-principal">0</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 6px 0;">
+            <span style="color: var(--text-muted);">Total Interest Payable:</span>
+            <strong style="color: #e11d48;" id="res-interest">0</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 6px 0;">
+            <span style="color: var(--text-muted);">Total Payment (P + I):</span>
+            <strong style="color: var(--text-main); font-size: 1.0625rem;" id="res-total">0</strong>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem;">
+          <button type="button" class="btn btn-primary" id="btn-copy-loan" style="flex: 1; padding: 10px;">
+            📋 Copy Loan Summary
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Amortization Schedule Table -->
+    <div class="loan-card" style="margin-top: 1.5rem;">
+      <h2 style="font-size: 1.125rem; font-weight: 700; color: var(--text-main);">Year-by-Year Amortization Schedule</h2>
+      <p style="font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 0.75rem;">Track how your principal reduces and interest decreases each year.</p>
+
+      <div class="amortization-table-wrap">
+        <table class="amort-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Starting Balance</th>
+              <th>Principal Paid</th>
+              <th>Interest Paid</th>
+              <th>Ending Balance</th>
+            </tr>
+          </thead>
+          <tbody id="amort-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Mid-Page Ad Slot -->
+    <div class="ad-slot" style="margin: 2.5rem 0;">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Content</div>
+      </div>
+    </div>
+
+    <!-- How-to Steps -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Calculate Loan EMI Online</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Enter Principal</h3>
+          <p class="step-desc">Enter the total amount you wish to borrow from the bank or financial institution.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Set Rate & Tenure</h3>
+          <p class="step-desc">Input the annual interest rate (APR/KIBOR) and the duration in years or months.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Analyze Schedule</h3>
+          <p class="step-desc">View your monthly payment, interest vs principal ratio, and annual balance table.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Loan EMI Calculator Frequently Asked Questions</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>💡</span> What does EMI stand for?</h3>
+          <p class="faq-answer">EMI stands for Equated Monthly Installment. It is a fixed payment amount made by a borrower to a lender at a specified date each calendar month until the principal and interest are paid in full.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📉</span> How does early repayment affect my loan?</h3>
+          <p class="faq-answer">Making early principal prepayments reduces the outstanding balance faster, which shortens your overall loan tenure and dramatically decreases total interest paid.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🏠</span> Can I use this for home mortgages and auto finance in Pakistan?</h3>
+          <p class="faq-answer">Yes, this calculator works with all Pakistani commercial bank financing products (HBL, Meezan, Bank Alfalah, MCB, UBL) for auto leasing, home loans, and solar financing.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📊</span> Why is interest higher in the initial years?</h3>
+          <p class="faq-answer">Under the standard reducing-balance method, interest is calculated on the remaining loan principal. Because the principal is highest in the initial years, interest constitutes a larger portion of early EMI payments.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Finance Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="salary-tax-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🇵🇰</span>
+            <span class="tool-badge badge-fin">Tax</span>
+          </div>
+          <h3 class="tool-card-title">Salary Tax Calculator</h3>
+          <p class="tool-card-desc">Calculate FBR salary income tax slabs and net monthly take-home pay.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="compound-interest-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">📈</span>
+            <span class="tool-badge badge-fin">Investment</span>
+          </div>
+          <h3 class="tool-card-title">Compound Interest Calculator</h3>
+          <p class="tool-card-desc">Calculate future returns with initial deposits and monthly additions.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="savings-goal-planner.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🎯</span>
+            <span class="tool-badge badge-fin">Savings</span>
+          </div>
+          <h3 class="tool-card-title">Savings Goal Planner</h3>
+          <p class="tool-card-desc">Determine monthly savings required to achieve your financial targets.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, calculations, and text.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="finance.html">Finance Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Popular Tools</h4>
+          <ul class="footer-links">
+            <li><a href="salary-tax-calculator.html">Salary Tax Calculator</a></li>
+            <li><a href="loan-calculator.html">Loan EMI Calculator</a></li>
+            <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
+            <li><a href="savings-goal-planner.html">Savings Goal Planner</a></li>
+            <li><a href="zakat-calculator.html">Zakat Calculator</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company & Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved. 100% Client-Side.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const loanAmountInput = document.getElementById('loan-amount');
+    const interestRateInput = document.getElementById('interest-rate');
+    const loanTenureInput = document.getElementById('loan-tenure');
+    const tenureTypeSelect = document.getElementById('tenure-type');
+
+    const resEmi = document.getElementById('res-emi');
+    const resTenureMonths = document.getElementById('res-tenure-months');
+    const resPrincipal = document.getElementById('res-principal');
+    const resInterest = document.getElementById('res-interest');
+    const resTotal = document.getElementById('res-total');
+
+    const barPrincipal = document.getElementById('bar-principal');
+    const barInterest = document.getElementById('bar-interest');
+    const pctPrincipal = document.getElementById('pct-principal');
+    const pctInterest = document.getElementById('pct-interest');
+    const amortTbody = document.getElementById('amort-tbody');
+    const btnCopyLoan = document.getElementById('btn-copy-loan');
+
+    function formatNumber(val) {
+      return Math.round(val).toLocaleString('en-US');
+    }
+
+    function calculateLoan() {
+      const P = parseFloat(loanAmountInput.value) || 0;
+      const annualRate = parseFloat(interestRateInput.value) || 0;
+      const tenureVal = parseFloat(loanTenureInput.value) || 0;
+
+      const totalMonths = tenureTypeSelect.value === 'years' ? tenureVal * 12 : tenureVal;
+      const monthlyRate = annualRate / 12 / 100;
+
+      if (P <= 0 || annualRate <= 0 || totalMonths <= 0) {
+        resEmi.textContent = '0';
+        resPrincipal.textContent = formatNumber(P);
+        resInterest.textContent = '0';
+        resTotal.textContent = formatNumber(P);
+        amortTbody.innerHTML = '';
+        return;
+      }
+
+      // Standard EMI Formula: [P * r * (1+r)^n] / [(1+r)^n - 1]
+      const emi = (P * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+      const totalPayment = emi * totalMonths;
+      const totalInterest = totalPayment - P;
+
+      resEmi.textContent = formatNumber(emi);
+      resTenureMonths.textContent = `Total ${Math.round(totalMonths)} Monthly Payments`;
+      resPrincipal.textContent = formatNumber(P);
+      resInterest.textContent = formatNumber(totalInterest);
+      resTotal.textContent = formatNumber(totalPayment);
+
+      const pPct = ((P / totalPayment) * 100).toFixed(1);
+      const iPct = ((totalInterest / totalPayment) * 100).toFixed(1);
+
+      barPrincipal.style.width = `${pPct}%`;
+      barInterest.style.width = `${iPct}%`;
+      pctPrincipal.textContent = `${pPct}%`;
+      pctInterest.textContent = `${iPct}%`;
+
+      // Build Year-by-Year Amortization Schedule
+      amortTbody.innerHTML = '';
+      let balance = P;
+      const totalYears = Math.ceil(totalMonths / 12);
+
+      for (let y = 1; y <= totalYears; y++) {
+        let yearPrincipal = 0;
+        let yearInterest = 0;
+        const startBalance = balance;
+
+        for (let m = 1; m <= 12; m++) {
+          const monthIdx = (y - 1) * 12 + m;
+          if (monthIdx > totalMonths || balance <= 0) break;
+
+          const intForMonth = balance * monthlyRate;
+          const prinForMonth = emi - intForMonth;
+
+          yearInterest += intForMonth;
+          yearPrincipal += prinForMonth;
+          balance -= prinForMonth;
+        }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>Year ${y}</td>
+          <td>${formatNumber(startBalance)}</td>
+          <td style="color: var(--cat-fin); font-weight: 600;">${formatNumber(yearPrincipal)}</td>
+          <td style="color: #e11d48;">${formatNumber(yearInterest)}</td>
+          <td style="font-weight: 700;">${formatNumber(Math.max(0, balance))}</td>
+        `;
+        amortTbody.appendChild(tr);
+      }
+    }
+
+    [loanAmountInput, interestRateInput, loanTenureInput, tenureTypeSelect].forEach(el => {
+      el.addEventListener('input', calculateLoan);
+    });
+
+    document.getElementById('preset-car').addEventListener('click', () => {
+      loanAmountInput.value = 3000000;
+      interestRateInput.value = 18;
+      loanTenureInput.value = 5;
+      tenureTypeSelect.value = 'years';
+      calculateLoan();
+    });
+
+    document.getElementById('preset-home').addEventListener('click', () => {
+      loanAmountInput.value = 8000000;
+      interestRateInput.value = 14;
+      loanTenureInput.value = 15;
+      tenureTypeSelect.value = 'years';
+      calculateLoan();
+    });
+
+    document.getElementById('preset-personal').addEventListener('click', () => {
+      loanAmountInput.value = 500000;
+      interestRateInput.value = 22;
+      loanTenureInput.value = 2;
+      tenureTypeSelect.value = 'years';
+      calculateLoan();
+    });
+
+    btnCopyLoan.addEventListener('click', () => {
+      const summary = `EMI Loan Calculation Summary:
+Principal Amount: ${resPrincipal.textContent}
+Annual Interest Rate: ${interestRateInput.value}%
+Tenure: ${loanTenureInput.value} ${tenureTypeSelect.value}
+Monthly EMI: ${resEmi.textContent}
+Total Interest Payable: ${resInterest.textContent}
+Total Repayment: ${resTotal.textContent}
+Calculated on FreeOnlineTools.`;
+
+      copyToClipboard(summary, 'Loan summary copied to clipboard!');
+    });
+
+    calculateLoan();
+  </script>
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compound Interest Calculator — Investment Growth with Monthly Additions</title>
+  <meta name="description" content="Calculate compound interest with initial deposit and monthly contributions. View future balance, total interest earned, and year-by-year investment schedule.">
+  <meta name="keywords" content="compound interest calculator, investment growth calculator, interest with monthly deposit, future value calculator, mutual fund return calculator">
+  <link rel="canonical" href="https://freeonlinetools.vercel.app/compound-interest-calculator.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .compound-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 820px) {
+      .compound-grid { grid-template-columns: 1fr; }
+    }
+    .calc-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .ratio-bar {
+      height: 14px;
+      border-radius: var(--radius-full);
+      display: flex;
+      overflow: hidden;
+      margin: 1rem 0 0.5rem;
+      background: var(--border);
+    }
+    .ratio-principal { background: #3b82f6; }
+    .ratio-interest { background: var(--cat-fin); }
+    .ratio-legend {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .growth-table-wrap {
+      max-height: 280px;
+      overflow-y: auto;
+      margin-top: 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    .growth-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+    }
+    .growth-table th, .growth-table td {
+      padding: 8px 12px;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+    }
+    .growth-table th:first-child, .growth-table td:first-child {
+      text-align: left;
+    }
+    .growth-table th {
+      background: var(--bg-surface);
+      font-weight: 700;
+      color: var(--text-main);
+      position: sticky;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search tools..." data-dropdown-target="tool-search-results" aria-label="Search tools">
+          <div id="tool-search-results" class="search-results-dropdown"></div>
+        </div>
+      </div>
+      <nav class="header-nav" id="header-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="finance.html" class="nav-link">Finance Tools</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <nav class="category-bar" aria-label="Tool Categories">
+    <div class="container category-bar-inner">
+      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
+      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
+      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
+      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
+      <a href="finance.html" class="cat-pill pill-fin active"><span>💰</span> Finance Tools</a>
+      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
+      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
+    </div>
+  </nav>
+
+  <!-- Top Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Header Slot</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-top: 1.5rem; padding-bottom: 3.5rem;">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="finance.html">Finance Tools</a>
+      <span>/</span>
+      <span>Compound Interest Calculator</span>
+    </nav>
+
+    <!-- Tool Header -->
+    <header class="tool-header">
+      <div class="tool-badge-row">
+        <span class="tool-badge badge-fin">Finance Tool</span>
+        <span class="tool-badge" style="background:#dcfce7; color:#15803d;">Wealth Growth Planner</span>
+      </div>
+      <h1 class="tool-h1">Compound Interest Calculator</h1>
+      <p class="tool-lead">Forecast how initial savings and recurring monthly additions multiply over time with the power of compounding interest and reinvested returns.</p>
+    </header>
+
+    <!-- Interactive Grid -->
+    <div class="compound-grid">
+      <!-- Inputs -->
+      <div class="calc-card">
+        <h2 style="font-size: 1.125rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem;">Investment Plan</h2>
+
+        <div class="form-group">
+          <label class="form-label" for="init-deposit"><strong>Initial Deposit:</strong></label>
+          <input type="number" id="init-deposit" class="form-control" value="100000" min="0" step="5000" style="font-weight: 700; font-size: 1.125rem;">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Starting balance or principal investment</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="monthly-deposit"><strong>Monthly Contribution:</strong></label>
+          <input type="number" id="monthly-deposit" class="form-control" value="15000" min="0" step="1000" style="font-weight: 700;">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Amount added to your portfolio every month</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="annual-rate"><strong>Estimated Annual Return (%):</strong></label>
+          <input type="number" id="annual-rate" class="form-control" value="12" min="0.1" max="100" step="0.5" style="font-weight: 700;">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Mutual funds, stocks, or bank profit rate</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="invest-years"><strong>Investment Horizon (Years):</strong></label>
+          <input type="number" id="invest-years" class="form-control" value="10" min="1" max="50" step="1" style="font-weight: 700;">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="compound-freq"><strong>Compounding Frequency:</strong></label>
+          <select id="compound-freq" class="form-control">
+            <option value="12" selected>Monthly (12/yr)</option>
+            <option value="4">Quarterly (4/yr)</option>
+            <option value="2">Semi-Annually (2/yr)</option>
+            <option value="1">Annually (1/yr)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="calc-card">
+        <h2 style="font-size: 1.125rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem;">Future Portfolio Value</h2>
+
+        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid var(--cat-fin-border); border-radius: var(--radius-md); padding: 1.25rem; text-align: center;">
+          <div style="font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; color: #166534;">Total Future Balance</div>
+          <div style="font-size: clamp(1.75rem, 4vw, 2.3rem); font-weight: 800; color: #14532d; margin: 0.25rem 0;" id="res-future-val">0</div>
+          <div style="font-size: 0.8125rem; color: #166534;" id="res-years-summary">After 10 Years of Compounding</div>
+        </div>
+
+        <div class="ratio-bar">
+          <div class="ratio-principal" id="bar-principal" style="width: 50%;"></div>
+          <div class="ratio-interest" id="bar-interest" style="width: 50%;"></div>
+        </div>
+        <div class="ratio-legend">
+          <span><strong style="color: #3b82f6;">●</strong> Principal (<span id="pct-principal">50%</span>)</span>
+          <span><strong style="color: var(--cat-fin);">●</strong> Compound Profit (<span id="pct-interest">50%</span>)</span>
+        </div>
+
+        <div style="margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; padding: 6px 0;">
+            <span style="color: var(--text-muted);">Total Principal Invested:</span>
+            <strong id="res-total-principal">0</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 6px 0;">
+            <span style="color: var(--text-muted);">Total Compound Interest Earned:</span>
+            <strong style="color: var(--cat-fin); font-size: 1.0625rem;" id="res-total-interest">0</strong>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem;">
+          <button type="button" class="btn btn-primary" id="btn-copy-compound" style="flex: 1; padding: 10px;">
+            📋 Copy Investment Summary
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Growth Table -->
+    <div class="calc-card" style="margin-top: 1.5rem;">
+      <h2 style="font-size: 1.125rem; font-weight: 700; color: var(--text-main);">Year-by-Year Wealth Growth Table</h2>
+      <p style="font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 0.75rem;">See how reinvested profit overtakes your personal monthly contributions over time.</p>
+
+      <div class="growth-table-wrap">
+        <table class="growth-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Starting Balance</th>
+              <th>Annual Deposit</th>
+              <th>Interest Earned</th>
+              <th>Ending Balance</th>
+            </tr>
+          </thead>
+          <tbody id="growth-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Mid-Page Ad Slot -->
+    <div class="ad-slot" style="margin: 2.5rem 0;">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Mid Content</div>
+      </div>
+    </div>
+
+    <!-- How-to Steps -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>📋</span> How to Calculate Compound Interest</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Initial & Monthly</h3>
+          <p class="step-desc">Enter your initial lump sum investment and what you plan to deposit each month.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Set Annual Rate</h3>
+          <p class="step-desc">Input your expected rate of return (e.g., 10-15% for mutual funds or stock index).</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">View Future Value</h3>
+          <p class="step-desc">Discover your future net worth, total earned profit, and annual growth schedule.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="margin: 2.5rem 0;">
+      <h2 class="section-title"><span>❓</span> Compound Interest Frequently Asked Questions</h2>
+      <div class="faq-grid" style="margin-top: 1rem;">
+        <div class="faq-item">
+          <h3 class="faq-question"><span>📈</span> What is compound interest?</h3>
+          <p class="faq-answer">Compound interest is the interest on your original deposit plus the interest that has accumulated from previous periods. In simple terms, it is "interest earning interest", creating an exponential snowball effect.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>⏳</span> What is the Rule of 72?</h3>
+          <p class="faq-answer">The Rule of 72 is a quick shortcut to estimate how many years it takes to double your investment. Divide 72 by your annual interest rate. For example, at a 12% return, your money doubles in approximately 6 years (72 ÷ 12 = 6).</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🏦</span> Does compounding frequency make a big difference?</h3>
+          <p class="faq-answer">More frequent compounding (such as monthly vs annually) yields slightly higher returns because profits are credited and begin earning interest earlier in the cycle.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question"><span>🎯</span> Why are monthly contributions so powerful?</h3>
+          <p class="faq-answer">Consistent monthly contributions smooth out market volatility through dollar-cost averaging and continually expand the base of capital working for you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section style="margin-top: 3rem;">
+      <h2 class="section-title"><span>🔗</span> Related Finance Tools</h2>
+      <div class="tools-grid" style="margin-top: 1rem;">
+        <a href="savings-goal-planner.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🎯</span>
+            <span class="tool-badge badge-fin">Savings</span>
+          </div>
+          <h3 class="tool-card-title">Savings Goal Planner</h3>
+          <p class="tool-card-desc">Calculate monthly savings required to hit target financial goals.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="salary-tax-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🇵🇰</span>
+            <span class="tool-badge badge-fin">Tax</span>
+          </div>
+          <h3 class="tool-card-title">Salary Tax Calculator</h3>
+          <p class="tool-card-desc">Calculate FBR salary income tax slabs and net monthly take-home pay.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+        <a href="loan-calculator.html" class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-icon">🏦</span>
+            <span class="tool-badge badge-fin">Loan</span>
+          </div>
+          <h3 class="tool-card-title">EMI & Loan Calculator</h3>
+          <p class="tool-card-desc">Calculate monthly installments and total loan interest breakdown.</p>
+          <span class="tool-card-btn">Open Tool →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Ad Slot -->
+  <div class="container">
+    <div class="ad-slot">
+      <!-- AdSense ad slot -->
+      <div class="ad-placeholder">
+        <span class="ad-tag">Advertisement</span>
+        <div>Google AdSense Responsive Unit — Above Footer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><span>⚡</span> FreeOnlineTools</a>
+          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, calculations, and text.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category-image-tools.html">Image Tools</a></li>
+            <li><a href="category-text-tools.html">Text Tools</a></li>
+            <li><a href="category-calculators.html">Calculators</a></li>
+            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
+            <li><a href="finance.html">Finance Tools</a></li>
+            <li><a href="category-generators.html">Generators</a></li>
+            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Popular Tools</h4>
+          <ul class="footer-links">
+            <li><a href="salary-tax-calculator.html">Salary Tax Calculator</a></li>
+            <li><a href="loan-calculator.html">Loan EMI Calculator</a></li>
+            <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
+            <li><a href="savings-goal-planner.html">Savings Goal Planner</a></li>
+            <li><a href="zakat-calculator.html">Zakat Calculator</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company & Legal</h4>
+          <ul class="footer-links">
+            <li><a href="blog.html">Blog & Guides</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 FreeOnlineTools. All rights reserved. 100% Client-Side.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const initDepositInput = document.getElementById('init-deposit');
+    const monthlyDepositInput = document.getElementById('monthly-deposit');
+    const annualRateInput = document.getElementById('annual-rate');
+    const investYearsInput = document.getElementById('invest-years');
+    const compoundFreqSelect = document.getElementById('compound-freq');
+
+    const resFutureVal = document.getElementById('res-future-val');
+    const resYearsSummary = document.getElementById('res-years-summary');
+    const resTotalPrincipal = document.getElementById('res-total-principal');
+    const resTotalInterest = document.getElementById('res-total-interest');
+
+    const barPrincipal = document.getElementById('bar-principal');
+    const barInterest = document.getElementById('bar-interest');
+    const pctPrincipal = document.getElementById('pct-principal');
+    const pctInterest = document.getElementById('pct-interest');
+    const growthTbody = document.getElementById('growth-tbody');
+    const btnCopyCompound = document.getElementById('btn-copy-compound');
+
+    function formatNumber(val) {
+      return Math.round(val).toLocaleString('en-US');
+    }
+
+    function calculateCompound() {
+      const P = parseFloat(initDepositInput.value) || 0;
+      const PMT = parseFloat(monthlyDepositInput.value) || 0;
+      const annualRate = (parseFloat(annualRateInput.value) || 0) / 100;
+      const years = parseFloat(investYearsInput.value) || 1;
+      const mRate = annualRate / 12;
+
+      let balance = P;
+      let totalDeposited = P;
+      growthTbody.innerHTML = '';
+
+      for (let y = 1; y <= years; y++) {
+        const startBalance = balance;
+        let yearDeposit = 0;
+        let yearInterest = 0;
+
+        for (let m = 1; m <= 12; m++) {
+          balance += PMT;
+          yearDeposit += PMT;
+          totalDeposited += PMT;
+
+          const intEarned = balance * mRate;
+          balance += intEarned;
+          yearInterest += intEarned;
+        }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>Year ${y}</td>
+          <td>${formatNumber(startBalance)}</td>
+          <td>${formatNumber(yearDeposit)}</td>
+          <td style="color: var(--cat-fin); font-weight: 600;">+${formatNumber(yearInterest)}</td>
+          <td style="font-weight: 700;">${formatNumber(balance)}</td>
+        `;
+        growthTbody.appendChild(tr);
+      }
+
+      const totalInterest = Math.max(0, balance - totalDeposited);
+
+      resFutureVal.textContent = formatNumber(balance);
+      resYearsSummary.textContent = `After ${years} Year${years > 1 ? 's' : ''} of Compounding`;
+      resTotalPrincipal.textContent = formatNumber(totalDeposited);
+      resTotalInterest.textContent = formatNumber(totalInterest);
+
+      const pPct = balance > 0 ? ((totalDeposited / balance) * 100).toFixed(1) : '100';
+      const iPct = balance > 0 ? ((totalInterest / balance) * 100).toFixed(1) : '0';
+
+      barPrincipal.style.width = `${pPct}%`;
+      barInterest.style.width = `${iPct}%`;
+      pctPrincipal.textContent = `${pPct}%`;
+      pctInterest.textContent = `${iPct}%`;
+    }
+
+    [initDepositInput, monthlyDepositInput, annualRateInput, investYearsInput, compoundFreqSelect].forEach(el => {
+      el.addEventListener('input', calculateCompound);
+    });
+
+    btnCopyCompound.addEventListener('click', () => {
+      const summary = `Compound Interest Investment Summary:
+Initial Deposit: ${formatNumber(parseFloat(initDepositInput.value) || 0)}
+Monthly Contribution: ${formatNumber(parseFloat(monthlyDepositInput.value) || 0)}
+Annual Return Rate: ${annualRateInput.value}%
+Investment Period: ${investYearsInput.value} Years
+Total Principal Invested: ${resTotalPrincipal.textContent}
+Total Interest Earned: ${resTotalInterest.textContent}
+Future Total Value: ${resFutureVal.textContent}
+Calculated on FreeOnlineTools.`;
+
+      copyToClipboard(summary, 'Investment summary copied to clipboard!');
+    });
+
+    calculateCompound();
+  </script>
+</body>
+</html>

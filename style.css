@@ -30,6 +30,11 @@
   --cat-util-light: #f0fdfa;
   --cat-util-border: #99f6e4;
 
+  /* Finance Category (Green Accent) */
+  --cat-fin: #16a34a;
+  --cat-fin-light: #f0fdf4;
+  --cat-fin-border: #bbf7d0;
+
   /* Neutrals */
   --bg-page: #f8fafc;
   --bg-card: #ffffff;
@@ -260,6 +265,7 @@ button, input, select, textarea {
 .cat-pill.pill-pdf { color: var(--cat-pdf); background: var(--cat-pdf-light); }
 .cat-pill.pill-gen { color: var(--cat-gen); background: var(--cat-gen-light); }
 .cat-pill.pill-util { color: var(--cat-util); background: var(--cat-util-light); }
+.cat-pill.pill-fin { color: var(--cat-fin); background: var(--cat-fin-light); }
 
 .cat-pill.active {
   box-shadow: 0 0 0 2px currentColor;
@@ -548,6 +554,7 @@ button, input, select, textarea {
 .cat-card.cat-card-pdf::before { background: var(--cat-pdf); }
 .cat-card.cat-card-gen::before { background: var(--cat-gen); }
 .cat-card.cat-card-util::before { background: var(--cat-util); }
+.cat-card.cat-card-fin::before { background: var(--cat-fin); }
 
 .cat-card-header {
   display: flex;
@@ -572,6 +579,7 @@ button, input, select, textarea {
 .cat-card-pdf .cat-card-icon { background: var(--cat-pdf-light); }
 .cat-card-gen .cat-card-icon { background: var(--cat-gen-light); }
 .cat-card-util .cat-card-icon { background: var(--cat-util-light); }
+.cat-card-fin .cat-card-icon { background: var(--cat-fin-light); }
 
 .cat-card-title {
   font-size: 1.125rem;
@@ -685,6 +693,7 @@ button, input, select, textarea {
 .badge-pdf { background: var(--cat-pdf-light); color: var(--cat-pdf); }
 .badge-gen { background: var(--cat-gen-light); color: var(--cat-gen); }
 .badge-util { background: var(--cat-util-light); color: var(--cat-util); }
+.badge-fin { background: var(--cat-fin-light); color: var(--cat-fin); }
 
 /* How It Works & Info Sections */
 .features-grid {
