@@ -20,42 +20,32 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo">
-        <span>⚡</span> FreeOnlineTools
-        <span class="logo-badge">100% Free</span>
+        <svg class="brand-logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <rect x="3" y="3" width="8" height="8" rx="2"></rect>
+          <rect x="13" y="3" width="8" height="8" rx="2"></rect>
+          <rect x="3" y="13" width="8" height="8" rx="2"></rect>
+          <rect x="13" y="13" width="8" height="8" rx="2"></rect>
+        </svg>
+        <span>FreeOnlineTools</span>
       </a>
 
       <div class="header-search">
         <div class="search-input-wrap">
           <span class="search-icon">🔍</span>
-          <input type="text" class="live-search-input" placeholder="Search 31+ free tools (e.g. compress, pdf, urdu)..." data-dropdown-target="header-search-results" aria-label="Search tools">
+          <input type="text" class="live-search-input" placeholder="Search 200+ tools..." data-dropdown-target="header-search-results" aria-label="Search tools">
           <div id="header-search-results" class="search-results-dropdown"></div>
         </div>
       </div>
 
       <nav class="header-nav" id="header-nav">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="#categories" class="nav-link">Categories</a>
-        <a href="#popular" class="nav-link">Popular Tools</a>
+        <a href="#popular" class="nav-link">Tools</a>
+        <a href="#how-it-works" class="nav-link">Features</a>
         <a href="blog.html" class="nav-link">Blog</a>
-        <a href="about.html" class="nav-link">About</a>
       </nav>
 
       <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
     </div>
   </header>
-
-  <!-- Category Quick Bar -->
-  <nav class="category-bar" aria-label="Tool Categories">
-    <div class="container category-bar-inner">
-      <a href="category-image-tools.html" class="cat-pill pill-image"><span>🖼️</span> Image Tools</a>
-      <a href="category-text-tools.html" class="cat-pill pill-text"><span>📝</span> Text Tools</a>
-      <a href="category-calculators.html" class="cat-pill pill-calc"><span>⚡</span> Calculators</a>
-      <a href="category-pdf-file-tools.html" class="cat-pill pill-pdf"><span>📑</span> PDF & File Tools</a>
-      <a href="finance.html" class="cat-pill pill-fin"><span>💰</span> Finance Tools</a>
-      <a href="category-generators.html" class="cat-pill pill-gen"><span>📱</span> Generators</a>
-      <a href="category-utility-tools.html" class="cat-pill pill-util"><span>🛠️</span> Fun & Utility</a>
-    </div>
-  </nav>
 
   <!-- Top Ad Slot -->
   <div class="container">
@@ -71,161 +61,152 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="container">
-      <h1 class="hero-title">Free Online Tools — <span class="highlight">No Signup, No Watermark</span></h1>
-      <p class="hero-subtitle">Fast, mobile-friendly toolkit running 100% inside your browser. No files are ever sent to a server. Instant results on any device.</p>
+      <h1 class="hero-title">Free Online Tools</h1>
+      <p class="hero-subtitle hero-subtitle-desktop">No Signup, No Watermark • 100% Free • Instant Use</p>
+      <p class="hero-subtitle hero-subtitle-mobile">200+ free tools • No signup required • Fast &amp; easy</p>
 
-      <div class="hero-search-wrapper">
-        <div class="hero-search-box">
-          <span style="font-size: 1.25rem; margin-right: 8px;">🔍</span>
-          <input type="text" class="live-search-input" placeholder="Type a tool name (e.g. Image Compressor, Zakat, Merge PDF)..." data-dropdown-target="hero-search-results" aria-label="Find any tool">
-          <button class="hero-search-btn" type="button">Find Tool</button>
-        </div>
-        <div id="hero-search-results" class="search-results-dropdown"></div>
+      <!-- Desktop Hero CTA Buttons -->
+      <div class="hero-cta-group">
+        <a href="#categories" class="btn-primary-pill">Explore Tools →</a>
+        <a href="#how-it-works" class="btn-secondary-pill">How It Works</a>
       </div>
 
-      <div class="hero-features">
-        <span class="hero-badge">🔒 100% Private (Client-Side)</span>
-        <span class="hero-badge">⚡ Instant Processing</span>
-        <span class="hero-badge">📱 Mobile Optimized</span>
-        <span class="hero-badge">🚫 Zero Registration</span>
+      <!-- Mobile Search Bar (Directly below subtitle on mobile screen) -->
+      <div class="hero-search-wrapper mobile-only-search">
+        <div class="hero-search-box">
+          <span class="hero-search-icon">🔍</span>
+          <input type="text" class="live-search-input" placeholder="Search 200+ free tools..." data-dropdown-target="hero-search-results" aria-label="Search free tools">
+        </div>
+        <div id="hero-search-results" class="search-results-dropdown"></div>
       </div>
     </div>
   </section>
 
-  <!-- 7 Categories Grid -->
-  <section class="section" id="categories">
+  <!-- Browse by Category Section -->
+  <section class="section categories-section" id="categories">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title"><span>📂</span> Explore Tool Categories</h2>
-        <p class="section-subtitle">Choose a category below to access specialized browser-based utilities.</p>
+      <div class="section-header categories-header">
+        <h2 class="section-title">
+          <span class="desktop-title">Browse by Category</span>
+          <span class="mobile-title">Browse Categories</span>
+        </h2>
       </div>
 
-      <div class="category-grid">
-        <!-- Category 1: Image Tools -->
-        <a href="category-image-tools.html" class="cat-card cat-card-image">
-          <div class="cat-card-header">
-            <div class="cat-card-icon">🖼️</div>
-            <div>
-              <h3 class="cat-card-title">Image Tools</h3>
-              <span class="cat-tool-pill">4 Tools</span>
-            </div>
+      <div class="categories-grid-container">
+        <!-- 1. Image Tools -->
+        <a href="category-image-tools.html" class="category-card cat-card-image">
+          <div class="cat-icon-wrapper">
+            <svg class="cat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3" ry="3"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+              <path d="M14 6l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="currentColor" stroke="none"></path>
+            </svg>
           </div>
-          <p class="cat-card-desc">Compress photos, resize pixel dimensions, convert formats (JPG/PNG/WebP), and crop photos with precision.</p>
-          <div class="cat-card-tools">
-            <span class="cat-tool-pill">Compressor</span>
-            <span class="cat-tool-pill">Resizer</span>
-            <span class="cat-tool-pill">Converter</span>
-            <span class="cat-tool-pill">Cropper</span>
-          </div>
-        </a>
-
-        <!-- Category 2: Text Tools -->
-        <a href="category-text-tools.html" class="cat-card cat-card-text">
-          <div class="cat-card-header">
-            <div class="cat-card-icon">📝</div>
-            <div>
-              <h3 class="cat-card-title">Text Tools</h3>
-              <span class="cat-tool-pill">5 Tools</span>
-            </div>
-          </div>
-          <p class="cat-card-desc">Count words & characters, convert Roman English to Urdu script, natural Text to Speech, switch cases & remove duplicates.</p>
-          <div class="cat-card-tools">
-            <span class="cat-tool-pill">Word Counter</span>
-            <span class="cat-tool-pill">Roman Urdu</span>
-            <span class="cat-tool-pill">TTS Voice</span>
-            <span class="cat-tool-pill">Case Converter</span>
+          <div class="cat-content">
+            <h3 class="cat-name">Image Tools</h3>
+            <p class="cat-sub desktop-sub">Resize, Compress, Convert</p>
+            <p class="cat-sub mobile-sub">Compress • Resize • Convert</p>
           </div>
         </a>
 
-        <!-- Category 3: Calculators -->
-        <a href="category-calculators.html" class="cat-card cat-card-calc">
-          <div class="cat-card-header">
-            <div class="cat-card-icon">⚡</div>
-            <div>
-              <h3 class="cat-card-title">Calculators</h3>
-              <span class="cat-tool-pill">5 Tools</span>
-            </div>
+        <!-- 2. Text Tools -->
+        <a href="category-text-tools.html" class="category-card cat-card-text">
+          <div class="cat-icon-wrapper">
+            <svg class="cat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <line x1="10" y1="9" x2="8" y2="9"></line>
+            </svg>
           </div>
-          <p class="cat-card-desc">Calculate Islamic Zakat, estimate Pakistani electricity bills with custom slab rates, age, discount & BMI metrics.</p>
-          <div class="cat-card-tools">
-            <span class="cat-tool-pill">Zakat</span>
-            <span class="cat-tool-pill">Electricity Bill</span>
-            <span class="cat-tool-pill">Age Calculator</span>
-            <span class="cat-tool-pill">BMI Score</span>
-          </div>
-        </a>
-
-        <!-- Category 4: PDF & File Tools -->
-        <a href="category-pdf-file-tools.html" class="cat-card cat-card-pdf">
-          <div class="cat-card-header">
-            <div class="cat-card-icon">📑</div>
-            <div>
-              <h3 class="cat-card-title">PDF & File Tools</h3>
-              <span class="cat-tool-pill">5 Tools</span>
-            </div>
-          </div>
-          <p class="cat-card-desc">Merge, split, compress, and convert PDF documents and images directly in your browser. 100% private.</p>
-          <div class="cat-card-tools">
-            <span class="cat-tool-pill">Merge</span>
-            <span class="cat-tool-pill">Split</span>
-            <span class="cat-tool-pill">Compress</span>
-            <span class="cat-tool-pill">To Images</span>
+          <div class="cat-content">
+            <h3 class="cat-name">Text Tools</h3>
+            <p class="cat-sub desktop-sub">Counter, Case, Encoder</p>
+            <p class="cat-sub mobile-sub">Case • Count • Clean</p>
           </div>
         </a>
 
-        <!-- Category 5: Finance Tools -->
-        <a href="finance.html" class="cat-card cat-card-fin">
-          <div class="cat-card-header">
-            <div class="cat-card-icon">💰</div>
-            <div>
-              <h3 class="cat-card-title">Finance Tools</h3>
-              <span class="cat-tool-pill">4 Tools</span>
-            </div>
+        <!-- 3. Calculators -->
+        <a href="category-calculators.html" class="category-card cat-card-calc">
+          <div class="cat-icon-wrapper">
+            <svg class="cat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="3"></rect>
+              <line x1="8" y1="6" x2="16" y2="6"></line>
+              <circle cx="8.5" cy="11.5" r="1" fill="currentColor"></circle>
+              <circle cx="15.5" cy="11.5" r="1" fill="currentColor"></circle>
+              <circle cx="8.5" cy="15.5" r="1" fill="currentColor"></circle>
+              <circle cx="15.5" cy="15.5" r="1" fill="currentColor"></circle>
+              <circle cx="8.5" cy="18.5" r="1" fill="currentColor"></circle>
+              <circle cx="15.5" cy="18.5" r="1" fill="currentColor"></circle>
+            </svg>
           </div>
-          <p class="cat-card-desc">Calculate Pakistan salary income tax (2026-27), loan EMI monthly installments, compound interest, and savings goals.</p>
-          <div class="cat-card-tools">
-            <span class="cat-tool-pill">Salary Tax</span>
-            <span class="cat-tool-pill">Loan EMI</span>
-            <span class="cat-tool-pill">Compound Interest</span>
-            <span class="cat-tool-pill">Savings Goal</span>
-          </div>
-        </a>
-
-        <!-- Category 6: Generators -->
-        <a href="category-generators.html" class="cat-card cat-card-gen">
-          <div class="cat-card-header">
-            <div class="cat-card-icon">📱</div>
-            <div>
-              <h3 class="cat-card-title">Generators</h3>
-              <span class="cat-tool-pill">4 Tools</span>
-            </div>
-          </div>
-          <p class="cat-card-desc">Create custom downloadable QR codes, generate secure passwords, explore color palettes, and pick random winners.</p>
-          <div class="cat-card-tools">
-            <span class="cat-tool-pill">QR Codes</span>
-            <span class="cat-tool-pill">Password</span>
-            <span class="cat-tool-pill">Color Palettes</span>
-            <span class="cat-tool-pill">Team Picker</span>
+          <div class="cat-content">
+            <h3 class="cat-name">Calculators</h3>
+            <p class="cat-sub desktop-sub">Math, Finance, Health</p>
+            <p class="cat-sub mobile-sub">Math • Finance • Date</p>
           </div>
         </a>
 
-        <!-- Category 7: Fun & Utility -->
-        <a href="category-utility-tools.html" class="cat-card cat-card-util">
-          <div class="cat-card-header">
-            <div class="cat-card-icon">🛠️</div>
-            <div>
-              <h3 class="cat-card-title">Fun & Utility</h3>
-              <span class="cat-tool-pill">4 Tools</span>
-            </div>
+        <!-- 4. PDF Tools -->
+        <a href="category-pdf-file-tools.html" class="category-card cat-card-pdf">
+          <div class="cat-icon-wrapper">
+            <svg class="cat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <path d="M9 13v4"></path>
+              <path d="M9 13h2a1.5 1.5 0 0 1 0 3H9"></path>
+              <path d="M13 13v4h1.5a1.5 1.5 0 0 0 1.5-1.5v-1a1.5 1.5 0 0 0-1.5-1.5H13z"></path>
+            </svg>
           </div>
-          <p class="cat-card-desc">Organize daily to-dos in localStorage, precise stopwatch and chime timer, unit converter, and PKR currency calculator.</p>
-          <div class="cat-card-tools">
-            <span class="cat-tool-pill">To-Do List</span>
-            <span class="cat-tool-pill">Stopwatch</span>
-            <span class="cat-tool-pill">Unit Converter</span>
-            <span class="cat-tool-pill">PKR Currency</span>
+          <div class="cat-content">
+            <h3 class="cat-name">PDF Tools</h3>
+            <p class="cat-sub desktop-sub">Merge, Split, Compress</p>
+            <p class="cat-sub mobile-sub">Merge • Split • Convert</p>
           </div>
         </a>
+
+        <!-- 5. Generators -->
+        <a href="category-generators.html" class="category-card cat-card-gen">
+          <div class="cat-icon-wrapper">
+            <svg class="cat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </div>
+          <div class="cat-content">
+            <h3 class="cat-name">Generators</h3>
+            <p class="cat-sub desktop-sub">QR, Password, Lorem Ipsum</p>
+            <p class="cat-sub mobile-sub">Password • QR • Name</p>
+          </div>
+        </a>
+
+        <!-- 6. Fun & Utility -->
+        <a href="category-utility-tools.html" class="category-card cat-card-util">
+          <div class="cat-icon-wrapper">
+            <svg class="cat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="6" y1="12" x2="10" y2="12"></line>
+              <line x1="8" y1="10" x2="8" y2="14"></line>
+              <circle cx="15" cy="11" r="1" fill="currentColor"></circle>
+              <circle cx="17" cy="13" r="1" fill="currentColor"></circle>
+              <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.103-.016.155L2 15a4 4 0 0 0 4 4c1.23 0 2.34-.56 3.08-1.44L10.5 16h3l1.42 1.56A3.99 3.99 0 0 0 18 19a4 4 0 0 0 4-4l-.686-6.255c-.006-.052-.01-.103-.016-.155A4 4 0 0 0 17.32 5z"></path>
+            </svg>
+          </div>
+          <div class="cat-content">
+            <h3 class="cat-name">
+              <span class="desktop-cat-name">Fun &amp; Utility</span>
+              <span class="mobile-cat-name">Fun</span>
+            </h3>
+            <p class="cat-sub desktop-sub">Games, Color Picker, Timer</p>
+            <p class="cat-sub mobile-sub">Games • Quiz • Random</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Mobile Explore All Tools Button -->
+      <div class="mobile-explore-btn-wrap">
+        <a href="#popular" class="btn-explore-all">Explore All Tools →</a>
       </div>
     </div>
   </section>
@@ -242,107 +223,201 @@
   </div>
 
   <!-- Popular Tools Section -->
-  <section class="section" id="popular" style="background-color: #ffffff;">
+  <section class="section popular-section" id="popular">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title"><span>🔥</span> Popular Free Tools</h2>
-        <p class="section-subtitle">Our most frequently used utilities by thousands of users daily.</p>
+      <div class="popular-header-row">
+        <h2 class="popular-heading">Popular Tools</h2>
+        <a href="#categories" class="popular-view-all">View all →</a>
       </div>
 
-      <div class="tools-grid">
-        <!-- 1. Image Compressor -->
-        <a href="image-compressor.html" class="tool-card">
-          <div class="tool-card-top">
-            <span class="tool-icon">📉</span>
-            <span class="tool-badge badge-image">Image</span>
+      <div class="popular-cards-grid">
+        <!-- 1. Background Remover / Image Compressor -->
+        <a href="image-compressor.html" class="pop-tool-card">
+          <div class="pop-tool-icon icon-blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
           </div>
-          <h3 class="tool-card-title">Image Compressor</h3>
-          <p class="tool-card-desc">Compress JPG, PNG & WebP images up to 80% smaller without noticeable visual quality loss.</p>
-          <span class="tool-card-btn">Open Tool →</span>
+          <div class="pop-tool-info">
+            <div class="pop-tool-title-row">
+              <h3 class="pop-tool-title">Background Remover</h3>
+              <span class="free-badge">Free</span>
+            </div>
+            <p class="pop-tool-desc">Remove background from images instantly</p>
+          </div>
         </a>
 
-        <!-- 2. Electricity Bill Calculator -->
-        <a href="electricity-bill-calculator.html" class="tool-card">
-          <div class="tool-card-top">
-            <span class="tool-icon">⚡</span>
-            <span class="tool-badge badge-calc">Calculator</span>
+        <!-- 2. QR Code Generator -->
+        <a href="qr-code-generator.html" class="pop-tool-card">
+          <div class="pop-tool-icon icon-green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+            </svg>
           </div>
-          <h3 class="tool-card-title">Pakistan Electricity Bill</h3>
-          <p class="tool-card-desc">Accurately calculate LESCO, MEPCO & K-Electric bill amounts with custom slab rates, FPA & GST.</p>
-          <span class="tool-card-btn">Open Tool →</span>
+          <div class="pop-tool-info">
+            <div class="pop-tool-title-row">
+              <h3 class="pop-tool-title">QR Code Generator</h3>
+              <span class="free-badge">Free</span>
+            </div>
+            <p class="pop-tool-desc">Create QR codes for links &amp; text</p>
+          </div>
         </a>
 
-        <!-- 3. Roman to Urdu -->
-        <a href="roman-to-urdu.html" class="tool-card">
-          <div class="tool-card-top">
-            <span class="tool-icon">✍️</span>
-            <span class="tool-badge badge-text">Text</span>
+        <!-- 3. PDF to Word -->
+        <a href="split-pdf.html" class="pop-tool-card">
+          <div class="pop-tool-icon icon-red">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
           </div>
-          <h3 class="tool-card-title">Roman to Urdu Converter</h3>
-          <p class="tool-card-desc">Type Urdu in English alphabets and instantly get correct Urdu Nastaliq text with one-click copy.</p>
-          <span class="tool-card-btn">Open Tool →</span>
+          <div class="pop-tool-info">
+            <div class="pop-tool-title-row">
+              <h3 class="pop-tool-title">PDF to Word</h3>
+              <span class="free-badge">Free</span>
+            </div>
+            <p class="pop-tool-desc">Convert PDF to editable Word file</p>
+          </div>
         </a>
 
-        <!-- 4. QR Code Generator -->
-        <a href="qr-code-generator.html" class="tool-card">
-          <div class="tool-card-top">
-            <span class="tool-icon">📱</span>
-            <span class="tool-badge badge-gen">Generator</span>
+        <!-- 4. PDF to Word / Images to PDF -->
+        <a href="images-to-pdf.html" class="pop-tool-card">
+          <div class="pop-tool-icon icon-red">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
           </div>
-          <h3 class="tool-card-title">QR Code Generator</h3>
-          <p class="tool-card-desc">Create high-resolution downloadable QR codes for websites, WiFi networks, WhatsApp, and text.</p>
-          <span class="tool-card-btn">Open Tool →</span>
+          <div class="pop-tool-info">
+            <div class="pop-tool-title-row">
+              <h3 class="pop-tool-title">PDF to Word</h3>
+              <span class="free-badge">Free</span>
+            </div>
+            <p class="pop-tool-desc">Convert PDF to editable Word file</p>
+          </div>
         </a>
 
-        <!-- 5. Merge PDFs -->
-        <a href="merge-pdfs.html" class="tool-card">
-          <div class="tool-card-top">
-            <span class="tool-icon">📑</span>
-            <span class="tool-badge badge-pdf">PDF</span>
+        <!-- 5. Age Calculator -->
+        <a href="age-calculator.html" class="pop-tool-card">
+          <div class="pop-tool-icon icon-purple">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
           </div>
-          <h3 class="tool-card-title">Merge PDFs</h3>
-          <p class="tool-card-desc">Combine multiple PDF files into one complete document right in your browser. 100% private.</p>
-          <span class="tool-card-btn">Open Tool →</span>
+          <div class="pop-tool-info">
+            <div class="pop-tool-title-row">
+              <h3 class="pop-tool-title">Age Calculator</h3>
+              <span class="free-badge">Free</span>
+            </div>
+            <p class="pop-tool-desc">Calculate age from date of birth</p>
+          </div>
         </a>
 
-        <!-- 6. Zakat Calculator -->
-        <a href="zakat-calculator.html" class="tool-card">
-          <div class="tool-card-top">
-            <span class="tool-icon">🪙</span>
-            <span class="tool-badge badge-calc">Calculator</span>
+        <!-- 6. PDF to Word / Merge PDFs -->
+        <a href="merge-pdfs.html" class="pop-tool-card">
+          <div class="pop-tool-icon icon-red">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
           </div>
-          <h3 class="tool-card-title">Zakat Calculator</h3>
-          <p class="tool-card-desc">Calculate your 2.5% Zakat obligation on Gold, Silver, cash, investments and business inventory.</p>
-          <span class="tool-card-btn">Open Tool →</span>
+          <div class="pop-tool-info">
+            <div class="pop-tool-title-row">
+              <h3 class="pop-tool-title">PDF to Word</h3>
+              <span class="free-badge">Free</span>
+            </div>
+            <p class="pop-tool-desc">Convert PDF to editable Word file</p>
+          </div>
         </a>
 
-        <!-- 7. Word Counter -->
-        <a href="word-counter.html" class="tool-card">
-          <div class="tool-card-top">
-            <span class="tool-icon">📝</span>
-            <span class="tool-badge badge-text">Text</span>
+        <!-- 7. Age Calculator / Electricity Bill -->
+        <a href="electricity-bill-calculator.html" class="pop-tool-card">
+          <div class="pop-tool-icon icon-purple">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
           </div>
-          <h3 class="tool-card-title">Word & Character Counter</h3>
-          <p class="tool-card-desc">Live word count, character tally, sentence length, and estimated reading and speaking duration.</p>
-          <span class="tool-card-btn">Open Tool →</span>
+          <div class="pop-tool-info">
+            <div class="pop-tool-title-row">
+              <h3 class="pop-tool-title">Age Calculator</h3>
+              <span class="free-badge">Free</span>
+            </div>
+            <p class="pop-tool-desc">Calculate age from date of birth</p>
+          </div>
         </a>
 
-        <!-- 8. Pakistan Salary Tax Calculator -->
-        <a href="salary-tax-calculator.html" class="tool-card">
-          <div class="tool-card-top">
-            <span class="tool-icon">🇵🇰</span>
-            <span class="tool-badge badge-fin">Finance</span>
+        <!-- 8. Word Counter -->
+        <a href="word-counter.html" class="pop-tool-card">
+          <div class="pop-tool-icon icon-orange">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="8" y1="6" x2="21" y2="6"/>
+              <line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6"/>
+              <line x1="3" y1="12" x2="3.01" y2="12"/>
+              <line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
           </div>
-          <h3 class="tool-card-title">Salary Tax Calculator (2026-27)</h3>
-          <p class="tool-card-desc">Calculate monthly income tax deduction and take-home pay under latest FBR tax slabs.</p>
-          <span class="tool-card-btn">Open Tool →</span>
+          <div class="pop-tool-info">
+            <div class="pop-tool-title-row">
+              <h3 class="pop-tool-title">Word Counter</h3>
+              <span class="free-badge">Free</span>
+            </div>
+            <p class="pop-tool-desc">Count words, characters &amp; paragraphs</p>
+          </div>
+        </a>
+
+        <!-- 9. Word Counter / Clean Text -->
+        <a href="remove-duplicate-lines.html" class="pop-tool-card">
+          <div class="pop-tool-icon icon-orange">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="8" y1="6" x2="21" y2="6"/>
+              <line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+            </svg>
+          </div>
+          <div class="pop-tool-info">
+            <div class="pop-tool-title-row">
+              <h3 class="pop-tool-title">Word Counter</h3>
+              <span class="free-badge">Free</span>
+            </div>
+            <p class="pop-tool-desc">Count words, characters &amp; paragraphs</p>
+          </div>
+        </a>
+
+        <!-- 10. Password Generator -->
+        <a href="password-generator.html" class="pop-tool-card">
+          <div class="pop-tool-icon icon-teal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <div class="pop-tool-info">
+            <div class="pop-tool-title-row">
+              <h3 class="pop-tool-title">Password Generator</h3>
+              <span class="free-badge">Free</span>
+            </div>
+            <p class="pop-tool-desc">Generate secure random passwords</p>
+          </div>
         </a>
       </div>
     </div>
   </section>
 
   <!-- How It Works Section -->
-  <section class="section">
+  <section class="section" id="how-it-works">
     <div class="container">
       <div class="section-header" style="text-align: center;">
         <h2 class="section-title" style="justify-content: center;"><span>💡</span> How FreeOnlineTools Works</h2>
@@ -424,53 +499,43 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="logo">
-            <span>⚡</span> FreeOnlineTools
+          <a href="index.html" class="footer-logo">
+            <svg class="brand-logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="3" y="3" width="8" height="8" rx="2"></rect>
+              <rect x="13" y="3" width="8" height="8" rx="2"></rect>
+              <rect x="3" y="13" width="8" height="8" rx="2"></rect>
+              <rect x="13" y="13" width="8" height="8" rx="2"></rect>
+            </svg>
+            <span>FreeOnlineTools</span>
           </a>
-          <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, calculations, and text.</p>
+          <p class="footer-brand-desc">Free, fast, and simple tools for everyone. No signup required.</p>
         </div>
 
         <div class="footer-col">
-          <h4>Categories</h4>
-          <ul class="footer-links">
-            <li><a href="category-image-tools.html">Image Tools</a></li>
-            <li><a href="category-text-tools.html">Text Tools</a></li>
-            <li><a href="category-calculators.html">Calculators</a></li>
-            <li><a href="category-pdf-file-tools.html">PDF & File Tools</a></li>
-            <li><a href="finance.html">Finance Tools</a></li>
-            <li><a href="category-generators.html">Generators</a></li>
-            <li><a href="category-utility-tools.html">Fun & Utility</a></li>
-          </ul>
+          <h4 class="footer-col-title">Company</h4>
+          <div class="footer-inline-links">
+            <a href="about.html">About</a>
+            <span class="bullet">•</span>
+            <a href="contact.html">Contact</a>
+            <span class="bullet">•</span>
+            <a href="about.html#careers">Careers</a>
+          </div>
         </div>
 
         <div class="footer-col">
-          <h4>Top Tools</h4>
-          <ul class="footer-links">
-            <li><a href="image-compressor.html">Image Compressor</a></li>
-            <li><a href="electricity-bill-calculator.html">Electricity Bill Calculator</a></li>
-            <li><a href="roman-to-urdu.html">Roman to Urdu</a></li>
-            <li><a href="merge-pdfs.html">Merge PDFs</a></li>
-            <li><a href="qr-code-generator.html">QR Code Maker</a></li>
-            <li><a href="zakat-calculator.html">Zakat Calculator</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Company & Legal</h4>
-          <ul class="footer-links">
-            <li><a href="blog.html">Blog & Guides</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="terms.html">Terms of Service</a></li>
-            <li><a href="sitemap.xml">Sitemap (XML)</a></li>
-          </ul>
+          <h4 class="footer-col-title">Legal</h4>
+          <div class="footer-inline-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <span class="bullet">•</span>
+            <a href="terms.html">Terms of Service</a>
+            <span class="bullet">•</span>
+            <a href="privacy-policy.html#cookies">Cookie Policy</a>
+          </div>
         </div>
       </div>
 
-      <div class="footer-bottom">
-        <div>© 2026 FreeOnlineTools. All rights reserved. 100% Client-Side.</div>
-        <div>Designed for speed, privacy, and simplicity.</div>
+      <div class="footer-bottom-bar">
+        <p>© 2026 FreeOnlineTools. All rights reserved.</p>
       </div>
     </div>
   </footer>
