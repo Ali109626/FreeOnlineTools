@@ -399,13 +399,41 @@ function setupSearch() {
   });
 }
 
-// Mobile Nav Toggle
+// Mobile Nav Toggle with full UX (outside click, link click, keyboard & icon switch)
 function setupMobileNav() {
   const toggleBtn = document.getElementById('menu-toggle');
   const nav = document.getElementById('header-nav');
   if (toggleBtn && nav) {
-    toggleBtn.addEventListener('click', () => {
-      nav.classList.toggle('mobile-nav-open');
+    const closeNav = () => {
+      nav.classList.remove('mobile-nav-open');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      toggleBtn.textContent = '☰';
+    };
+
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = nav.classList.toggle('mobile-nav-open');
+      toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      toggleBtn.textContent = isOpen ? '✕' : '☰';
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target) && !toggleBtn.contains(e.target) && nav.classList.contains('mobile-nav-open')) {
+        closeNav();
+      }
+    });
+
+    // Close menu when clicking any nav link
+    nav.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', closeNav);
+    });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && nav.classList.contains('mobile-nav-open')) {
+        closeNav();
+      }
     });
   }
 }
