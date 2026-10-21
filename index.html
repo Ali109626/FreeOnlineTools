@@ -12,15 +12,15 @@
   <meta property="og:title" content="FreeOnlineTools — 100% Free Client-Side Online Tools">
   <meta property="og:description" content="Free, secure, lightning-fast client-side tools. No uploads, no watermarks, no registration required.">
   <meta property="og:url" content="https://freeonlinetools-gamma.vercel.app/">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
-  <!-- Sticky Header -->
+  <!-- Slim White Sticky Header -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo">
-        <span>⚡</span> FreeOnlineTools
+        <span style="color: var(--primary);">⚡</span> FreeOnlineTools
         <span class="logo-badge">100% Free</span>
       </a>
 
@@ -33,11 +33,10 @@
       </div>
 
       <nav class="header-nav" id="header-nav">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="#categories" class="nav-link">Categories</a>
-        <a href="#popular" class="nav-link">Popular Tools</a>
+        <a href="#categories" class="nav-link">Tools</a>
         <a href="blog.html" class="nav-link">Blog</a>
         <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
       </nav>
 
       <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
@@ -68,11 +67,11 @@
     </div>
   </div>
 
-  <!-- Hero Section -->
+  <!-- Centered Hero Section -->
   <section class="hero">
     <div class="container">
       <h1 class="hero-title">Free Online Tools — <span class="highlight">No Signup, No Watermark</span></h1>
-      <p class="hero-subtitle">Fast, mobile-friendly toolkit running 100% inside your browser. No files are ever sent to a server. Instant results on any device.</p>
+      <p class="hero-subtitle">Fast, 100% client-side browser utilities for everyday tasks. Zero file uploads, zero wait times, zero cost.</p>
 
       <div class="hero-search-wrapper">
         <div class="hero-search-box">
@@ -92,12 +91,12 @@
     </div>
   </section>
 
-  <!-- 7 Categories Grid -->
+  <!-- Browse Categories (7 Big White Cards Grid) -->
   <section class="section" id="categories">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title"><span>📂</span> Explore Tool Categories</h2>
-        <p class="section-subtitle">Choose a category below to access specialized browser-based utilities.</p>
+      <div class="section-header" style="text-align: center;">
+        <h2 class="section-title" style="justify-content: center;"><span>📂</span> Browse Categories</h2>
+        <p class="section-subtitle">Pick a category to discover 31+ fast, browser-powered tools designed to make your life easier.</p>
       </div>
 
       <div class="category-grid">
@@ -107,10 +106,10 @@
             <div class="cat-card-icon">🖼️</div>
             <div>
               <h3 class="cat-card-title">Image Tools</h3>
-              <span class="cat-tool-pill">4 Tools</span>
+              <span class="cat-count-badge">4 Tools</span>
             </div>
           </div>
-          <p class="cat-card-desc">Compress photos, resize pixel dimensions, convert formats (JPG/PNG/WebP), and crop photos with precision.</p>
+          <p class="cat-card-desc">Solve your photo resizing, compression, cropping, and format conversion needs in seconds.</p>
           <div class="cat-card-tools">
             <span class="cat-tool-pill">Compressor</span>
             <span class="cat-tool-pill">Resizer</span>
@@ -125,10 +124,10 @@
             <div class="cat-card-icon">📝</div>
             <div>
               <h3 class="cat-card-title">Text Tools</h3>
-              <span class="cat-tool-pill">5 Tools</span>
+              <span class="cat-count-badge">5 Tools</span>
             </div>
           </div>
-          <p class="cat-card-desc">Count words & characters, convert Roman English to Urdu script, natural Text to Speech, switch cases & remove duplicates.</p>
+          <p class="cat-card-desc">Solve your formatting, word counting, Roman Urdu transliteration, and voice synthesis tasks effortlessly.</p>
           <div class="cat-card-tools">
             <span class="cat-tool-pill">Word Counter</span>
             <span class="cat-tool-pill">Roman Urdu</span>
@@ -143,10 +142,10 @@
             <div class="cat-card-icon">⚡</div>
             <div>
               <h3 class="cat-card-title">Calculators</h3>
-              <span class="cat-tool-pill">5 Tools</span>
+              <span class="cat-count-badge">5 Tools</span>
             </div>
           </div>
-          <p class="cat-card-desc">Calculate Islamic Zakat, estimate Pakistani electricity bills with custom slab rates, age, discount & BMI metrics.</p>
+          <p class="cat-card-desc">Solve your daily math, Zakat obligations, electricity bills, age, and fitness calculations with ease.</p>
           <div class="cat-card-tools">
             <span class="cat-tool-pill">Zakat</span>
             <span class="cat-tool-pill">Electricity Bill</span>
@@ -161,13 +160,13 @@
             <div class="cat-card-icon">📑</div>
             <div>
               <h3 class="cat-card-title">PDF & File Tools</h3>
-              <span class="cat-tool-pill">5 Tools</span>
+              <span class="cat-count-badge">5 Tools</span>
             </div>
           </div>
-          <p class="cat-card-desc">Merge, split, compress, and convert PDF documents and images directly in your browser. 100% private.</p>
+          <p class="cat-card-desc">Solve your document challenges — merge pages, split files, and convert images to PDF privately.</p>
           <div class="cat-card-tools">
-            <span class="cat-tool-pill">Merge</span>
-            <span class="cat-tool-pill">Split</span>
+            <span class="cat-tool-pill">Merge PDF</span>
+            <span class="cat-tool-pill">Split PDF</span>
             <span class="cat-tool-pill">Compress</span>
             <span class="cat-tool-pill">To Images</span>
           </div>
@@ -179,10 +178,10 @@
             <div class="cat-card-icon">💰</div>
             <div>
               <h3 class="cat-card-title">Finance Tools</h3>
-              <span class="cat-tool-pill">4 Tools</span>
+              <span class="cat-count-badge">4 Tools</span>
             </div>
           </div>
-          <p class="cat-card-desc">Calculate Pakistan salary income tax (2026-27), loan EMI monthly installments, compound interest, and savings goals.</p>
+          <p class="cat-card-desc">Solve your money planning with Pakistan income tax, loan EMI, compound interest, and savings planners.</p>
           <div class="cat-card-tools">
             <span class="cat-tool-pill">Salary Tax</span>
             <span class="cat-tool-pill">Loan EMI</span>
@@ -197,10 +196,10 @@
             <div class="cat-card-icon">📱</div>
             <div>
               <h3 class="cat-card-title">Generators</h3>
-              <span class="cat-tool-pill">4 Tools</span>
+              <span class="cat-count-badge">4 Tools</span>
             </div>
           </div>
-          <p class="cat-card-desc">Create custom downloadable QR codes, generate secure passwords, explore color palettes, and pick random winners.</p>
+          <p class="cat-card-desc">Solve your generation needs for QR codes, strong cryptographic passwords, color schemes, and random picks.</p>
           <div class="cat-card-tools">
             <span class="cat-tool-pill">QR Codes</span>
             <span class="cat-tool-pill">Password</span>
@@ -215,10 +214,10 @@
             <div class="cat-card-icon">🛠️</div>
             <div>
               <h3 class="cat-card-title">Fun & Utility</h3>
-              <span class="cat-tool-pill">4 Tools</span>
+              <span class="cat-count-badge">4 Tools</span>
             </div>
           </div>
-          <p class="cat-card-desc">Organize daily to-dos in localStorage, precise stopwatch and chime timer, unit converter, and PKR currency calculator.</p>
+          <p class="cat-card-desc">Solve your everyday routines with task lists, precision stopwatches, unit converters, and currency tools.</p>
           <div class="cat-card-tools">
             <span class="cat-tool-pill">To-Do List</span>
             <span class="cat-tool-pill">Stopwatch</span>
@@ -241,11 +240,11 @@
     </div>
   </div>
 
-  <!-- Popular Tools Section -->
-  <section class="section" id="popular" style="background-color: #ffffff;">
+  <!-- Featured Tools Section -->
+  <section class="section" id="popular">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title"><span>🔥</span> Popular Free Tools</h2>
+      <div class="section-header" style="text-align: center;">
+        <h2 class="section-title" style="justify-content: center;"><span>🔥</span> Featured Tools</h2>
         <p class="section-subtitle">Our most frequently used utilities by thousands of users daily.</p>
       </div>
 
@@ -371,11 +370,37 @@
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section class="section" style="background-color: #ffffff;">
+  <!-- A Note from the Maker Section -->
+  <section class="section maker-section">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title"><span>❓</span> Frequently Asked Questions</h2>
+      <div class="maker-card">
+        <div class="maker-header">
+          <div class="maker-avatar">⚡</div>
+          <div>
+            <span class="maker-tag">A Note from the Maker</span>
+            <h2 class="maker-title">Why FreeOnlineTools Exists</h2>
+          </div>
+        </div>
+        <div class="maker-body">
+          <p>We built <strong>FreeOnlineTools</strong> because we believe everyday digital utilities should just work — without making you sign up for an account, wait in slow cloud upload queues, or deal with watermarked results. Uploading sensitive personal documents, financial data, or family photos to unknown servers also introduces serious privacy risks.</p>
+          <p>Every single tool on FreeOnlineTools runs <strong>100% client-side inside your browser</strong> using modern web technologies. Your files never leave your device, your privacy is completely protected, and every feature remains completely free forever.</p>
+        </div>
+        <div class="maker-footer">
+          <div class="maker-signature">
+            <span class="maker-name">Ali Raza</span>
+            <span class="maker-role">Creator & Developer of FreeOnlineTools</span>
+          </div>
+          <a href="about.html" class="btn btn-secondary maker-link">Read Our Story →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header" style="text-align: center;">
+        <h2 class="section-title" style="justify-content: center;"><span>❓</span> Frequently Asked Questions</h2>
         <p class="section-subtitle">Everything you need to know about FreeOnlineTools.</p>
       </div>
 
@@ -425,7 +450,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="index.html" class="logo">
-            <span>⚡</span> FreeOnlineTools
+            <span style="color: var(--primary);">⚡</span> FreeOnlineTools
           </a>
           <p>Your privacy-first, 100% free online toolbox. High-speed client-side processing for images, documents, calculations, and text.</p>
         </div>
